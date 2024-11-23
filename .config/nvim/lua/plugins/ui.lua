@@ -1,5 +1,5 @@
 return {
-  {
+  { -- theme manager (themes are also installed here as dependencies)
     'zaldih/themery.nvim',
     lazy = false,
     priority = 1000, -- make sure to load this before all the other start plugins
@@ -27,6 +27,10 @@ return {
         livePreview = true,
       }
     end,
+  },
+  { -- scrollbar with "minimap"
+    -- potential alternative: "dstein64/nvim-scrollview"
+    "lewis6991/satellite.nvim",
   },
   {
     -- For some more potential config options:
@@ -56,7 +60,7 @@ return {
       },
     },
   },
-  {
+  { -- notifications and popups and shit
     'folke/noice.nvim',
     event = 'VeryLazy',
     dependencies = {
