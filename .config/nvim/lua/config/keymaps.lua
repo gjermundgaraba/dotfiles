@@ -1,4 +1,4 @@
-local multi_keymaps = require 'custom.utils.multi_keymaps'
+local multi_keymaps = require 'utils.multi_keymaps'
 
 -- clear search restults
 multi_keymaps.add('n', '<Esc>', function()
