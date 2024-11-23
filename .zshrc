@@ -113,6 +113,8 @@ git config --global alias.tuah push
 alias leeeroy="git" 
 git config --global alias.jenkins push
 
+alias c="cd ~/code"
+
 export PATH=/Users/gg/go/bin:$PATH
 export GOPATH=/Users/gg/go
 
