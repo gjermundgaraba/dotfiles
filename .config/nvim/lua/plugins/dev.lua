@@ -1,5 +1,5 @@
 return {
-  { -- Diagnostics
+  {            -- Diagnostics
     'folke/trouble.nvim',
     opts = {}, -- for default options, refer to the configuration section for custom setup.
     cmd = 'Trouble',
@@ -41,10 +41,10 @@ return {
     -- stylua: ignore
     keys = {
       { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle breakpoint" },
-      { "<F7>", function() require("dap").step_into() end, desc = "Step into" },
+      { "<F7>",       function() require("dap").step_into() end,         desc = "Step into" },
       -- TODO: Add step out
-      { "<F8>", function() require("dap").step_over() end, mode = {"n"}, desc = "Step over" },
-      { "<F9>", function() require("dap").continue() end, desc = "Continue" },
+      { "<F8>",       function() require("dap").step_over() end,         mode = { "n" },            desc = "Step over" },
+      { "<F9>",       function() require("dap").continue() end,          desc = "Continue" },
     },
   },
   { -- Debugging UI
@@ -105,6 +105,7 @@ return {
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        rust = { "rustfmt", lsp_format = "fallback" },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --

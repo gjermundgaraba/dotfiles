@@ -13,13 +13,12 @@ return {
   cmd = 'Neotree',
   keys = {
     {
-      '<leader>fE',
+      '<leader>E',
       function()
         require('neo-tree.command').execute { toggle = true, dir = vim.uv.cwd() }
       end,
       desc = 'Explorer NeoTree (cwd)',
     },
-    { '<leader>E', '<leader>fE', desc = 'Explorer NeoTree (cwd)', remap = true },
     {
       '<leader>ge',
       function()
