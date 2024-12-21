@@ -1,2 +1,14 @@
+# Visuals
 theme = catppuccin-macchiato
 window-padding-y = 0,0
+# macos-option-as-alt = true
+
+# Keybindings
+keybind = cmd+right=text:\x05
+keybind = cmd+left=text:\x01
+keybind = alt+left=esc:b
+keybind = alt+right=esc:f
+keybind = cmd+shift+left=resize_split:left,20
+keybind = cmd+shift+right=resize_split:right,20
+keybind = cmd+shift+up=resize_split:up,20
+keybind = cmd+shift+down=resize_split:down,20
