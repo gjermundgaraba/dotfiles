@@ -1,0 +1,14 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+[nodejs]
+disabled = false
+
+[docker_context]
+disabled = true
+
+[buf]
+disabled = true
+
+[golang]
+format = "via [\ue627 $version](bold blue) "
