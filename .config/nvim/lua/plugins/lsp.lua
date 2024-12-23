@@ -10,7 +10,7 @@ return {
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
@@ -213,6 +213,13 @@ return {
           end,
         },
       }
+
+      require('go').setup {
+        lsp_cfg = false,
+      }
+
+      local cfg = require('go.lsp').config() -- config() return the go.nvim gopls setup
+      require('lspconfig').gopls.setup(cfg)
     end,
   },
   { -- Meta type definitions for the Lua platform Luvit.
