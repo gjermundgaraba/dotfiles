@@ -30,7 +30,7 @@ return {
   },
   { -- scrollbar with "minimap"
     -- potential alternative: "dstein64/nvim-scrollview"
-    "lewis6991/satellite.nvim",
+    'lewis6991/satellite.nvim',
   },
   {
     -- For some more potential config options:
@@ -78,32 +78,16 @@ return {
       },
       -- you can enable a preset for easier configuration
       presets = {
-        bottom_search = true,         -- use a classic bottom cmdline for search
-        command_palette = true,       -- position the cmdline and popupmenu together
+        bottom_search = true, -- use a classic bottom cmdline for search
+        command_palette = true, -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false,           -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false,       -- add a border to hover docs and signature help
+        inc_rename = false, -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = false, -- add a border to hover docs and signature help
       },
     },
   },
   {
-    'echasnovski/mini.animate',
-    opts = {
-      scroll = {
-        enable = false,
-      },
-      open = {
-        -- Whether to enable this animation
-        enable = false,
-      },
-      resize = {
-        -- Whether to enable this animation
-        enable = false,
-      },
-      close = {
-        -- Whether to enable this animation
-        enable = false,
-      },
-    },
+    'sphamba/smear-cursor.nvim',
+    opts = {},
   },
 }
