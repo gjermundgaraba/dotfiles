@@ -20,18 +20,26 @@ eval "$(starship init zsh)"
 
 ## Aliases
 ### Git aliases
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
+alias gpl="git pull"
 alias gs="git status"
 alias hawk="git"
 git config --global alias.tuah push
 alias leeeroy="git" 
 git config --global alias.jenkins push
 
-### Dotfiles
-# https://www.atlassian.com/git/tutorials/dotfiles
+### Dotfiles (https://www.atlassian.com/git/tutorials/dotfiles)
 alias dotfiles='/usr/bin/git --git-dir=/Users/gg/.cfg/ --work-tree=/Users/gg'
 
 ### Other aliases
 alias c="cd ~/code"
+alias configzsh="nvim ~/.zshrc"
+alias confignvim="cd ~/.config/nvim && nvim"
+alias configstarship="nvim ~/.config/starship.toml"
+alias configghostty="nvim ~/.config/ghostty/config"
+
 
 ## Exports
 ### Go
