@@ -25,6 +25,7 @@ alias gc="git commit"
 alias gp="git push"
 alias gpl="git pull"
 alias gs="git status"
+alias gd="git diff"
 alias hawk="git"
 git config --global alias.tuah push
 alias leeeroy="git" 
