@@ -1,7 +1,11 @@
+# Startup
+initial-command = zsh -c 'neofetch; exec zsh'
+
 # Visuals
 theme = catppuccin-macchiato
-window-padding-y = 0,0
-# macos-option-as-alt = true
+window-height = 36
+window-width = 120
+mouse-hide-while-typing = true
 
 # Keybindings
 keybind = cmd+right=text:\x05
