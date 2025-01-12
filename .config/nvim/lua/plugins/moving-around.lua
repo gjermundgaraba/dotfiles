@@ -1,4 +1,36 @@
 return {
+  -- Flash enhances the built-in search functionality by showing labels
+  -- at the end of each match, letting you quickly jump to a specific
+  -- location.
+  {
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    vscode = true,
+    opts = {},
+    -- stylua: ignore
+    keys = {
+      { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
+      { "S",     mode = { "n", "o", "x" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
+      { "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
+      { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
+    },
+  },
+  {
+    'echasnovski/mini.move',
+    opts = {
+      mappings = {
+        left = '˛',
+        right = 'ﬁ',
+        down = '√',
+        up = 'ª',
+        line_left = '˛',
+        line_right = 'ﬁ',
+        line_down = '√',
+        line_up = 'ª',
+      },
+    },
+  },
   {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
@@ -27,43 +59,43 @@ return {
       end
       vim.keymap.set('n', '<leader>ha', function()
         harpoon:list():add()
-      end)
+      end, { desc = 'Add file to harpoon' })
       vim.keymap.set('n', '<leader>hc', function()
         harpoon:list():clear()
-      end)
+      end, { desc = 'Clear harpoon' })
       vim.keymap.set('n', '<leader>hh', function()
         toggle_telescope(harpoon:list())
       end, { desc = 'Open harpoon window' })
       vim.keymap.set('n', '<C-S-1>', function()
         harpoon:list():replace_at(1)
-      end)
+      end, { desc = 'Replace file in harpoon 1' })
       vim.keymap.set('n', '<C-S-2>', function()
         harpoon:list():replace_at(2)
-      end)
+      end, { desc = 'Replace file in harpoon 2' })
       vim.keymap.set('n', '<C-S-3>', function()
         harpoon:list():replace_at(3)
-      end)
+      end, { desc = 'Replace file in harpoon 3' })
       vim.keymap.set('n', '<C-S-4>', function()
         harpoon:list():replace_at(4)
-      end)
+      end, { desc = 'Replace file in harpoon 4' })
       vim.keymap.set('n', '<C-S-5>', function()
         harpoon:list():replace_at(5)
-      end)
+      end, { desc = 'Replace file in harpoon 5' })
       vim.keymap.set('n', '<C-1>', function()
         harpoon:list():select(1)
-      end)
+      end, { desc = 'Select file in harpoon 1' })
       vim.keymap.set('n', '<C-2>', function()
         harpoon:list():select(2)
-      end)
+      end, { desc = 'Select file in harpoon 2' })
       vim.keymap.set('n', '<C-3>', function()
         harpoon:list():select(3)
-      end)
+      end, { desc = 'Select file in harpoon 3' })
       vim.keymap.set('n', '<C-4>', function()
         harpoon:list():select(4)
-      end)
+      end, { desc = 'Select file in harpoon 4' })
       vim.keymap.set('n', '<C-5>', function()
         harpoon:list():select(5)
-      end)
+      end, { desc = 'Select file in harpoon 5' })
 
       -- Toggle previous & next buffers stored within Harpoon list
       -- vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)

@@ -73,3 +73,7 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.bo.softtabstop = 4
+
+-- Spell checking
+vim.opt.spelllang = 'en_us'
+vim.opt.spell = false -- we turn this on for specific file types in autocmds.lua

@@ -1,6 +1,6 @@
 local multi_keymaps = require 'utils.multi_keymaps'
 
--- clear search restults
+-- clear search results
 multi_keymaps.add('n', '<Esc>', function()
   vim.cmd 'nohlsearch'
 end)
@@ -8,31 +8,11 @@ end)
 -- TODO: Add keymap for CTRL+J/K (maybe the rest to go back and forth in insert mode)
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>cq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
---vim.keymap.set('n', '<leader>cf', vim.
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostics message' })
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostics message' })
+vim.keymap.set('n', '<leader>cdq', vim.diagnostic.setloclist, { desc = 'Open [D]iagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>cdn', vim.diagnostic.goto_next, { desc = 'Go to [N]ext [D]iagnostics message' })
+vim.keymap.set('n', '<cleader>cdp', vim.diagnostic.goto_prev, { desc = 'Go to [P]revious [D]iagnostics message' })
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
-vim.keymap.set({ 'n', 'i', 't' }, '<D-h>', '<Home>')
-vim.keymap.set({ 'n', 'i', 't' }, '<D-l>', '<End>')
-vim.keymap.set({ 'i', 't' }, '<M-D-h>', '<C-o>b')
-vim.keymap.set('n', '<M-D-h>', 'b')
-vim.keymap.set({ 'i', 't' }, '<M-D-l>', '<C-o>w')
-vim.keymap.set('n', '<M-D-l>', 'w')
-vim.keymap.set({ 'i', 't' }, '˛', '<left>')
-vim.keymap.set({ 'i', 't' }, '√', '<down>')
-vim.keymap.set({ 'i', 't' }, 'ª', '<up>')
-vim.keymap.set({ 'i', 't' }, 'ﬁ', '<right>')
-
--- Keybinds to make split navigation easier.
+-- Keybindings to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands

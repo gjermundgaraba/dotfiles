@@ -9,6 +9,7 @@ return {
           auto_trigger = true,
           keymap = {
             accept = '<S-TAB>',
+            accept_word = '<D-L>',
             next = '<S-Right>',
             prev = '<S-Left>',
           },
