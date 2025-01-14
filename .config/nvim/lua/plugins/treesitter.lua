@@ -1,4 +1,7 @@
 return {
+  { -- show top level function signature or whatever in long blocks
+    'nvim-treesitter/nvim-treesitter-context',
+  },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
@@ -36,8 +39,8 @@ return {
         keymaps = {
           init_selection = '<D-w>',
           scope_incremental = '<D-w>',
-          node_incremental = '<TAB>',
-          node_decremental = '<S-TAB>',
+          -- node_incremental = '<TAB>',
+          -- node_decremental = '<S-TAB>',
         },
       },
     },

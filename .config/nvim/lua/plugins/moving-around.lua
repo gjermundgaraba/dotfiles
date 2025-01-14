@@ -17,21 +17,6 @@ return {
     },
   },
   {
-    'echasnovski/mini.move',
-    opts = {
-      mappings = {
-        left = '˛',
-        right = 'ﬁ',
-        down = '√',
-        up = 'ª',
-        line_left = '˛',
-        line_right = 'ﬁ',
-        line_down = '√',
-        line_up = 'ª',
-      },
-    },
-  },
-  {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
     dependencies = { 'nvim-lua/plenary.nvim' },

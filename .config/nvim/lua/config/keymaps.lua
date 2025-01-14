@@ -5,7 +5,8 @@ multi_keymaps.add('n', '<Esc>', function()
   vim.cmd 'nohlsearch'
 end)
 
--- TODO: Add keymap for CTRL+J/K (maybe the rest to go back and forth in insert mode)
+vim.keymap.set('v', '<TAB>', '>gv', { desc = 'Indent selected text' })
+vim.keymap.set('v', '<S-TAB>', '<gv', { desc = 'Indent selected text' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>cdq', vim.diagnostic.setloclist, { desc = 'Open [D]iagnostic [Q]uickfix list' })

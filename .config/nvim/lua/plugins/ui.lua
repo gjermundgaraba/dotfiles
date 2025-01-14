@@ -10,38 +10,6 @@ return {
   { -- scrollbar with "minimap"
     'lewis6991/satellite.nvim', -- potential alternative: "dstein64/nvim-scrollview"
   },
-  {
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = {
-      options = {
-        globalstatus = true,
-      },
-      sections = {
-        lualine_a = { 'branch', 'diff' },
-        lualine_b = {},
-        lualine_c = {
-          {
-            'buffers',
-            component_separators = { left = ' ' }, -- because of https://github.com/nvim-lualine/lualine.nvim/issues/1322
-            icons_enabled = false,
-          },
-        },
-        lualine_x = {},
-        lualine_y = { 'diagnostics', 'searchcount' },
-        lualine_z = { 'location' },
-      },
-      inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = { 'filename' },
-        lualine_x = { 'location' },
-        lualine_y = {},
-        lualine_z = {},
-      },
-    },
-    extensions = {},
-  },
   { -- notifications and popups and shit
     'folke/noice.nvim',
     event = 'VeryLazy',

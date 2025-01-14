@@ -15,10 +15,12 @@ TODO
   - [x] Rust
   - [ ] Go with testify renames
   - [ ] Go weird e2e tests (configs?)
-- [ ] Proper debugging
+- [ ] Open buffer in previous position
+- [x] Proper debugging
+- [x] Show function signature when in a long function (above the fold) (ala vim-context)
+- [ ] Indent multiple lines
 - [ ] Git diffing 
 - [ ] Github integration
-- [ ] Show function signature when in a long function (above the fold)
 - [ ] Clean up all plugins
   - [ ] lsp.lua
   - [ ] telescope.lua
@@ -30,6 +32,7 @@ TODO
 - [ ] Maybe the ability to move windows around
 - [ ] Fix slow shutdown
 - [ ] Function/symbol grep
+- [ ] Open Help in floating
 
 ## Maybe
 
