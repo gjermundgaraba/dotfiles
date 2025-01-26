@@ -1,18 +1,21 @@
 # Startup
-initial-command = zsh -c 'neofetch; exec zsh'
+#initial-command = zsh -c 'neofetch; zsh'
 
 # Visuals
 theme = catppuccin-macchiato
 window-height = 36
 window-width = 120
+window-padding-y = 0
 mouse-hide-while-typing = true
+unfocused-split-opacity = 1
+macos-titlebar-style = tabs
 
 # Keybindings
 keybind = cmd+right=text:\x05
 keybind = cmd+left=text:\x01
 keybind = alt+left=esc:b
 keybind = alt+right=esc:f
-keybind = cmd+shift+left=resize_split:left,20
-keybind = cmd+shift+right=resize_split:right,20
-keybind = cmd+shift+up=resize_split:up,20
-keybind = cmd+shift+down=resize_split:down,20
+keybind = cmd+shift+left=resize_split:left,75
+keybind = cmd+shift+right=resize_split:right,75
+keybind = cmd+shift+up=resize_split:up,75
+keybind = cmd+shift+down=resize_split:down,75
