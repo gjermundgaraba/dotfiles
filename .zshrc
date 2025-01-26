@@ -34,13 +34,20 @@ git config --global alias.jenkins push
 ### Dotfiles (https://www.atlassian.com/git/tutorials/dotfiles)
 alias dotfiles='/usr/bin/git --git-dir=/Users/gg/.cfg/ --work-tree=/Users/gg'
 
+### Command line tool replacements
+alias ls="lsd"
+alias cat="bat"
+
 ### Other aliases
 alias c="cd ~/code"
+alias gibc="cd ~/code/ibc-go"
+alias gsolidity="cd ~/code/solidity-ibc-eureka"
 alias configzsh="nvim ~/.zshrc"
 alias confignvim="cd ~/.config/nvim && nvim"
 alias configstarship="nvim ~/.config/starship.toml"
 alias configghostty="nvim ~/.config/ghostty/config"
-
+alias configaerospace="nvim ~/.config/aerospace/aerospace.toml"
+alias ggbrain="cd ~/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/gg-brain && nvim"
 
 ## Exports
 ### Go
@@ -58,4 +65,7 @@ export PATH=/Users/gg/Binaries:$PATH
 ### bun
 [ -s "/Users/gg/.bun/_bun" ] && source "/Users/gg/.bun/_bun"
 
-
+## Startup stuff
+if [[ "$PWD" == "$HOME" ]]; then
+    neofetch
+fi
