@@ -18,13 +18,14 @@ TODO
 - [ ] Open buffer in previous position
 - [x] Proper debugging
 - [x] Show function signature when in a long function (above the fold) (ala vim-context)
-- [ ] Indent multiple lines
+- [x] Indent multiple lines
 - [ ] Git diffing 
 - [ ] Github integration
 - [ ] Clean up all plugins
-  - [ ] lsp.lua
+  - [x] lsp.lua
   - [ ] telescope.lua
   - [ ] treesitter.lua
+  - [ ] try to decouple lsp config and mason, it is very messy
 - [ ] Task manager (for both short-term things like make/just scripts, but also things like bacon)
 - [ ] Sessions
 - [ ] Personalized dashboard
@@ -39,3 +40,4 @@ TODO
 - [ ] Temporary multi-cursor? 
 - [ ] Proper spell checker in code / comments (that doesn't give red on correctly spelled variable names)
 - [ ] Get rid of bottom bar entirely
+
