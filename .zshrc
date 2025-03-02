@@ -10,13 +10,16 @@
 
 # source $ZSH/oh-my-zsh.sh
 
-## Evals
+## Applications
 ### Homebrew
 eval "$(brew shellenv)"
 fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
 
 ### Starship
 eval "$(starship init zsh)"
+
+### fzf
+source <(fzf --zsh)
 
 ## Aliases
 ### Git aliases
@@ -26,6 +29,7 @@ alias gp="git push"
 alias gpl="git pull"
 alias gs="git status"
 alias gd="git diff"
+alias gsw="git switch"
 alias hawk="git"
 git config --global alias.tuah push
 alias leeeroy="git" 
