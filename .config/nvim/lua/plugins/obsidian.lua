@@ -16,6 +16,13 @@ return {
       -- see below for full list of optional dependencies 👇
     },
     opts = {
+      ui = {
+        enable = false,
+        checkboxes = {
+          [' '] = { char = '󰄱', hl_group = 'ObsidianTodo' },
+          ['x'] = { char = '', hl_group = 'ObsidianDone' },
+        },
+      },
       workspaces = {
         {
           name = 'gg-braind',

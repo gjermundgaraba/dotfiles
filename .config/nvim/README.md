@@ -1,8 +1,8 @@
 # gg's neovim
 
-Original starting point: https://github.com/nvim-lua/kickstart.nvim
+Original starting point: [nvim-lua/kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)
 
-Moved over to dotfiles repo on 23 Nov 2024 from https://github.com/gjermundgaraba/kickstart.nvim
+Moved over to dotfiles repo on 23 Nov 2024 from [gjermundgaraba/kickstart.nvim](https://github.com/gjermundgaraba/kickstart.nvim)
 
 ## Features
 
@@ -27,17 +27,15 @@ TODO
   - [ ] treesitter.lua
   - [ ] try to decouple lsp config and mason, it is very messy
 - [ ] Task manager (for both short-term things like make/just scripts, but also things like bacon)
-- [ ] Sessions
-- [ ] Personalized dashboard
-- [ ] Terminal with different modes
+- [x] Sessions
+- [x] Personalized dashboard
+- [ ] Snippets (dynamic ones for test values and shit?)
 - [ ] Maybe the ability to move windows around
-- [ ] Fix slow shutdown
 - [ ] Function/symbol grep
 - [ ] Open Help in floating
 
 ## Maybe
 
-- [ ] Temporary multi-cursor? 
 - [ ] Proper spell checker in code / comments (that doesn't give red on correctly spelled variable names)
-- [ ] Get rid of bottom bar entirely
+- [x] Get rid of bottom bar entirely
 

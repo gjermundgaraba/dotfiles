@@ -5,7 +5,44 @@ return {
     lazy = false,
     opts = {
       bigfile = { enabled = true },
-      dashboard = { enabled = true },
+      dashboard = {
+        enabled = true,
+        preset = {
+          header = [[
+                                            
+                                            
+        GGGGGGGGGGGGG          GGGGGGGGGGGGG
+     GGG::::::::::::G       GGG::::::::::::G
+   GG:::::::::::::::G     GG:::::::::::::::G
+  G:::::GGGGGGGG::::G    G:::::GGGGGGGG::::G
+ G:::::G       GGGGGG   G:::::G       GGGGGG
+G:::::G                G:::::G              
+G:::::G                G:::::G              
+G:::::G    GGGGGGGGGG  G:::::G    GGGGGGGGGG
+G:::::G    G::::::::G  G:::::G    G::::::::G
+G:::::G    GGGGG::::G  G:::::G    GGGGG::::G
+G:::::G        G::::G  G:::::G        G::::G
+ G:::::G       G::::G   G:::::G       G::::G
+  G:::::GGGGGGGG::::G    G:::::GGGGGGGG::::G
+   GG:::::::::::::::G     GG:::::::::::::::G
+     GGG::::::GGG:::G       GGG::::::GGG:::G
+        GGGGGG   GGGG          GGGGGG   GGGG
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            ]],
+          keys = {
+            { icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
+            { icon = ' ', key = 'o', desc = 'Old (Recent) Files', action = ":lua Snacks.dashboard.pick('oldfiles')" },
+            { icon = ' ', key = 'r', desc = 'Restore Session', action = ':SessionRestore' },
+            { icon = ' ', key = 's', desc = 'Session Search', action = ':SessionSearch' },
+            { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
+          },
+        },
+      },
       quickfile = { enabled = true },
       indent = { enabled = true },
       terminal = { enabled = true },

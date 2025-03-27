@@ -38,9 +38,9 @@ return {
         enable = true,
         keymaps = {
           init_selection = '<D-w>',
-          scope_incremental = '<D-w>',
-          -- node_incremental = '<TAB>',
-          -- node_decremental = '<S-TAB>',
+          -- scope_incremental = '<D-w>',
+          node_incremental = '<D-w>',
+          node_decremental = '<S-D-W>',
         },
       },
     },

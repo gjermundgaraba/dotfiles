@@ -1,6 +1,7 @@
-require 'config.options'
-require 'config.keymaps'
-require 'config.autocmds'
+-- require 'config.options'
+-- require 'config.keymaps'
+-- require 'config.autocmds'
+require 'config'
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -15,12 +16,11 @@ end ---@diagnostic disable-next-line: undefined-field
 
 vim.opt.rtp:prepend(lazypath)
 
-local lazyConfig = require 'config.lazy'
 require('lazy').setup({
   {
     import = 'plugins',
   },
-}, lazyConfig)
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

@@ -77,3 +77,8 @@ vim.bo.softtabstop = 4
 -- Spell checking
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = false -- we turn this on for specific file types in autocmds.lua
+
+vim.diagnostic.config {
+  -- Use the default configuration
+  virtual_lines = true,
+}
