@@ -48,6 +48,53 @@ G:::::G        G::::G  G:::::G        G::::G
       terminal = { enabled = true },
       notifier = { enabled = true },
       input = { enabled = true },
+      explorer = {
+        enabled = true,
+      },
+      picker = {
+        sources = {
+          explorer = {
+            ignored = true,
+            hidden = true,
+            exclude = { 'node_modules', '.git', '.cache' },
+            win = {
+              list = {
+                keys = {
+                  ['<BS>'] = 'explorer_up',
+                  ['l'] = 'confirm',
+                  ['h'] = 'explorer_close', -- close directory
+                  ['a'] = 'explorer_add',
+                  ['d'] = 'explorer_del',
+                  ['r'] = 'explorer_rename',
+                  ['c'] = 'explorer_copy',
+                  ['m'] = 'explorer_move',
+                  ['o'] = 'explorer_open', -- open with system application
+                  ['P'] = 'toggle_preview',
+                  ['y'] = { 'explorer_yank', mode = { 'n', 'x' } },
+                  ['p'] = 'explorer_paste',
+                  ['u'] = 'explorer_update',
+                  ['<c-c>'] = 'tcd',
+                  ['<leader>s'] = 'picker_grep',
+                  ['<c-t>'] = 'terminal',
+                  ['.'] = 'explorer_focus',
+                  ['I'] = 'toggle_ignored',
+                  ['H'] = 'toggle_hidden',
+                  ['Z'] = 'explorer_close_all',
+                  [']g'] = 'explorer_git_next',
+                  ['[g'] = 'explorer_git_prev',
+                  [']d'] = 'explorer_diagnostic_next',
+                  ['[d'] = 'explorer_diagnostic_prev',
+                  [']w'] = 'explorer_warn_next',
+                  ['[w'] = 'explorer_warn_prev',
+                  [']e'] = 'explorer_error_next',
+                  ['[e'] = 'explorer_error_prev',
+                },
+              },
+            },
+          },
+        },
+      },
+
       styles = {
         terminal = {
           keys = {
@@ -78,14 +125,14 @@ G:::::G        G::::G  G:::::G        G::::G
           },
         },
       },
-      --input = { enabled = true },
-      -- notifier = {
-      --   enabled = true,
-      --   timeout = 3000,
-      -- },
-      --scroll = { enabled = true },
-      --statuscolumn = { enabled = true },
-      --words = { enabled = true },
+      scroll = {
+        enabled = true,
+        animate = {
+          duration = { step = 5, total = 50 },
+          easing = 'linear',
+        },
+      },
+      -- words = { enabled = true },
       -- styles = {
       --   notification = {
       --     -- wo = { wrap = true } -- Wrap notifications
@@ -93,6 +140,21 @@ G:::::G        G::::G  G:::::G        G::::G
       -- },
     },
     keys = {
+      -- Pickers
+      {
+        '<leader><space>',
+        function()
+          Snacks.picker.smart()
+        end,
+        desc = 'Smart Find Files',
+      },
+      {
+        '<leader>/',
+        function()
+          Snacks.picker.grep()
+        end,
+        desc = 'Grep',
+      },
       {
         '<D-T>',
         function()
@@ -110,6 +172,12 @@ G:::::G        G::::G  G:::::G        G::::G
         '<leader>nc',
         function()
           Snacks.notifier.hide()
+        end,
+      },
+      {
+        '<leader>E',
+        function()
+          Snacks.explorer.open()
         end,
       },
     },

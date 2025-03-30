@@ -35,6 +35,37 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
     map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
 
+    map('<leader>lr', function()
+      local attached_clients = vim.lsp.get_clients()
+      if vim.tbl_isempty(attached_clients) then
+        vim.notify('No active LSP clients found for the current buffer.', vim.log.levels.INFO)
+        return
+      end
+
+      for _, client in pairs(attached_clients) do
+        local config = client.config
+
+        local attached_buffers = {}
+        for bufnr, attached in pairs(client.attached_buffers) do
+          if attached then
+            attached_buffers[bufnr] = true
+          end
+        end
+
+        vim.notify('Stopping LSP client: ' .. client.id, vim.log.levels.INFO)
+        vim.lsp.stop_client(client.id)
+
+        vim.defer_fn(function()
+          vim.notify('Restarting LSP client: ' .. config.name, vim.log.levels.INFO)
+          local client_id = assert(vim.lsp.start(config, { attach = false }), 'Failed to start LSP client')
+
+          for bufnr, _ in pairs(attached_buffers) do
+            vim.lsp.buf_attach_client(bufnr, client_id)
+          end
+        end, 1000)
+      end
+    end, 'LSP [R]estart')
+
     -- The following two autocommands are used to highlight references of the
     -- word under your cursor when your cursor rests there for a little while.
     --    See `:help CursorHold` for information about when this is executed
