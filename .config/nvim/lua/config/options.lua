@@ -1,13 +1,11 @@
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+-- NOTE: We load this before plugins, so this should only contain basic vim options.
+
+-- Set <space> as the leader key  WARN: Must happen before plugins are loaded
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- [[ Setting options ]]
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
+-- See `:help vim.opt` and `:help option-list`
 
 -- Make line numbers default
 vim.opt.number = true
@@ -16,17 +14,17 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
+vim.opt.mouse = "a"
 
--- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false
+-- Show the mode, since we currently have no status bar plugin
+vim.opt.showmode = true
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
+  vim.opt.clipboard = "unnamedplus"
 end)
 
 -- Enable break indent
@@ -40,7 +38,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Keep signcolumn on by default
-vim.opt.signcolumn = 'yes'
+vim.opt.signcolumn = "yes"
 
 -- Decrease update time
 vim.opt.updatetime = 250
@@ -57,10 +55,10 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
+vim.opt.inccommand = "split"
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
@@ -75,10 +73,31 @@ vim.opt.expandtab = true
 vim.bo.softtabstop = 4
 
 -- Spell checking
-vim.opt.spelllang = 'en_us'
+vim.opt.spelllang = "en_us"
 vim.opt.spell = false -- we turn this on for specific file types in autocmds.lua
 
 vim.diagnostic.config {
   -- Use the default configuration
   virtual_lines = true,
 }
+
+-- Folding.
+vim.o.foldcolumn = "1"
+vim.o.foldlevelstart = 99
+vim.wo.foldtext = ""
+
+-- UI characters.
+vim.opt.fillchars = {
+  eob = " ",
+  fold = " ",
+  foldclose = "→",
+  foldopen = "↓",
+  foldsep = " ",
+  msgsep = "─",
+}
+
+-- LSP Options
+vim.cmd [[set completeopt+=menuone,noselect,popup]]
+
+-- Optimizations
+vim.opt.maxmempattern = 102400
