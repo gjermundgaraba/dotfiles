@@ -163,6 +163,7 @@ vim.api.nvim_create_autocmd("User", {
 
     -- Keymaps that make sense everywhere
     vim.keymap.set("n", "<leader>bb", ggbrain.open_index, { desc = "Go to brain index" })
+    vim.keymap.set("n", "<leader>bn", ggbrain.new_note, { desc = "Create new note" })
 
     -- Keymaps that only make sense inside the notes
     vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {

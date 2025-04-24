@@ -22,8 +22,10 @@ vim.lsp.config("lua_ls", {
     end
 
     local lazy_path = vim.fn.expand "$HOME/.local/share/nvim/lazy"
+    local local_plugin_folder = vim.fn.expand "$HOME/code/neovim-plugins"
     local library = {
       vim.env.VIMRUNTIME,
+      local_plugin_folder .. "/obsidian.nvim",
       "${3rd}/luv/library", -- Adds stuff like `vim.uv.fs_stat`
     }
     local handle = vim.loop.fs_scandir(lazy_path)

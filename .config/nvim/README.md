@@ -23,14 +23,16 @@ Moved over to dotfiles repo on 23 Nov 2024 from [gjermundgaraba/kickstart.nvim](
 - Simple fold visuals in the `statuscolumn`
 
 ## Roadmap
+### Now
 
-- [ ] Initial note setup
+- [x] Capture notes from anywhere
+- [ ] Captured notes are indexed
 - [ ] Set up treesitter-textobjects and surround keymaps
 - [ ] Recent picker doesn't show recently closed. Try to make it show recently edited buffers?
 - [ ] Make sure neotest works
 - [ ] Delete buffers from my picker list
 
-## Later
+### Later
 
 - [ ] Make paste a separate undo action
 - [ ] Reconsider fzf as my picker
@@ -39,13 +41,29 @@ Moved over to dotfiles repo on 23 Nov 2024 from [gjermundgaraba/kickstart.nvim](
 - [ ] Show lsp in status bar
 - [ ] Move buffers in `bufferline`
 - [ ] Figure out `:messages` (might have gotten borked after removing noice)
-- [ ] More plugins that could be replaced with native solutions?
-- [ ] Make some Neovim UI stuff [potential starting point](https://github.com/OXY2DEV/ui.nvim)
+- [ ] More plugins that could be replaced with native solutions? 
+    - Inspo: [blog post about neovim without plugins 2025](https://boltless.me/posts/neovim-config-without-plugins-2025/)
+- [ ] Make some Neovim UI stuff 
+    - [OXY2DEV/ui.nvim](https://github.com/OXY2DEV/ui.nvim)
+    - [grapp-dev/nui-components.nvim](https://github.com/grapp-dev/nui-components.nvim)
+    - [MunifTanjim/nui.nvim](https://github.com/MunifTanjim/nui.nvim)
 - [ ] Toggles
     - [ ] Toggle Harper
 - [ ] Keymap discoverability with menu system
 - [ ] Make sure debugging works
 - [ ] Make git stuff work in my neovim config folder
+- [ ] See if there is stuff from [ray-x/go.nvim](https://github.com/ray-x/go.nvim) that I should adopt
+
+### Plugins to test/consider
+
+- [ ] Sidebar with outline of LSP symbols [hedyhli/outline.nvim](https://github.com/hedyhli/outline.nvim)
+    - [ ] Another option: [aeriel.nvim](https://github.com/stevearc/aerial.nvim)
+- [ ] Treesitter split/join: [treesj](https://github.com/Wansmer/treesj)
+- [ ] Useful keymaps? [unimpaired.nvim](https://github.com/tummetott/unimpaired.nvim)
+- [ ] Substitution/exchange operators: [substitute.nvim](https://github.com/gbprod/substitute.nvim)
+- [ ] Find and replace: [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim)
+- [ ] Undo branches and visualization: [undotree](https://github.com/mbbill/undotree)
+- [ ] Visualize LSP definitions/impls/etc in float: [goto-preview](https://github.com/rmagatti/goto-preview)
 
 ## Maybe
 
