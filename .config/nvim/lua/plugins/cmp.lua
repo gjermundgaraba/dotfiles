@@ -1,7 +1,7 @@
 return {
   {
     "saghen/blink.cmp",
-    version = "1.*",
+    version = "*",
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
@@ -12,7 +12,7 @@ return {
       completion = { documentation = { auto_show = false } },
       signature = { enabled = true },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
+        default = { "lsp", "path" }, -- removed "snippets", "buffer"
       },
       fuzzy = { implementation = "prefer_rust_with_warning" },
     },

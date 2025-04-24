@@ -18,17 +18,6 @@ return {
           preset = "ivy",
         },
       },
-      --       scroll = {
-      --         enabled = true,
-      --         animate = {
-      --           duration = { step = 5, total = 50 },
-      --           easing = "linear",
-      --         },
-      --       },
-      --       zen = { enabled = true },
-      --       -- toggle = { enabled = true },
-      --       -- words = { enabled = true },
-      --     },
     },
   },
 }

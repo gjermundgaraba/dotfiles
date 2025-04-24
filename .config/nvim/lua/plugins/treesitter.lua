@@ -1,54 +1,85 @@
+-- Treesitter and friends (textobjects, even though they're not all directly treesitter related)
 return {
-  { -- show top level function signature or whatever in long blocks
-    'nvim-treesitter/nvim-treesitter-context',
-  },
   { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+    "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      "nvim-treesitter/nvim-treesitter-refactor",
+    },
+    build = ":TSUpdate",
+    main = "nvim-treesitter.configs",
     opts = {
       ensure_installed = {
-        'bash',
-        'c',
-        'diff',
-        'html',
-        'lua',
-        'luadoc',
-        'markdown',
-        'markdown_inline',
-        'query',
-        'vim',
-        'vimdoc',
-        'yaml',
-        'go',
-        'rust',
+        "bash",
+        "diff",
+        "lua",
+        "luadoc",
+        "markdown",
+        "markdown_inline",
+        "query", -- treesitter query language
+        "vim",
+        "vimdoc",
+        "yaml",
+        "go",
+        "gomod",
+        "gosum",
+        "gotmpl",
+        "gowork",
+        "rust",
       },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
+      auto_install = true, -- Automatically install missing parsers when entering buffer
       highlight = {
         enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
       },
-      indent = { enable = true, disable = { 'ruby' } },
+      indent = { enable = true },
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = '<D-S-l>',
-          -- scope_incremental = '<D-w>',
-          node_incremental = '<D-S-l>',
-          node_decremental = '<D-S-h>',
+          init_selection = "<D-S-l>",
+          node_incremental = "<D-S-l>",
+          node_decremental = "<D-S-h>",
+          -- scope_incremental seems to not be useful for me
+        },
+      },
+      refactor = {
+        -- NOTE: if this turns out to be slow, look into: https://github.com/RRethy/vim-illuminate or similar
+        highlight_definitions = {
+          enable = true,
+          clear_on_cursor_move = true,
+        },
+      },
+      textobjects = {
+        select = {
+          enable = true,
+          keymaps = { -- You can use the capture groups defined in textobjects.scm
+            ["af"] = { query = "@function.outer", desc = "Select outer part of a function" },
+            ["if"] = { query = "@function.inner", desc = "Select inner part of a function" },
+          },
+          lookahead = true,
         },
       },
     },
-    -- There are additional nvim-treesitter modules that you can use to interact
-    -- with nvim-treesitter. You should go explore a few and see what interests you:
-    --
-    --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-    --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-    --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  },
+  { -- show top level function signature or whatever in long blocks
+    "nvim-treesitter/nvim-treesitter-context",
+    opts = {
+      max_lines = 5,
+      min_window_height = 100, -- disable it when the window is too small.
+    },
+  },
+  { -- Surround textobject motions
+    "kylechui/nvim-surround",
+    version = "^3.0.0",
+    event = "VeryLazy",
+    opts = {},
+  },
+  { -- More textobjects (mostly for a/i)
+    "chrisgrieser/nvim-various-textobjs",
+    event = "VeryLazy",
+    opts = {
+      keymaps = {
+        useDefaults = false,
+      },
+    },
   },
 }

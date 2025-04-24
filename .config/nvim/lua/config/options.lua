@@ -74,7 +74,7 @@ vim.bo.softtabstop = 4
 
 -- Spell checking
 vim.opt.spelllang = "en_us"
-vim.opt.spell = false -- we turn this on for specific file types in autocmds.lua
+vim.opt.spell = false -- we can turn this on for specific file types in autocmds.lua
 
 vim.diagnostic.config {
   -- Use the default configuration
@@ -84,20 +84,25 @@ vim.diagnostic.config {
 -- Folding.
 vim.o.foldcolumn = "1"
 vim.o.foldlevelstart = 99
-vim.wo.foldtext = ""
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- Default is something like: vim.o.statuscolumn = "%C%s%l "
+vim.o.statuscolumn = '%=%s%{foldlevel(v:lnum) > 0 ? (foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "↓" : "→") : " ") : " " } %l '
 
--- UI characters.
-vim.opt.fillchars = {
-  eob = " ",
-  fold = " ",
-  foldclose = "→",
-  foldopen = "↓",
-  foldsep = " ",
-  msgsep = "─",
-}
+-- NOTE: The folding characters are not used in the status column when defined like above.
+-- Folding characters.
+-- vim.opt.fillchars = {
+--   eob = " ",
+--   fold = " ",
+--   foldclose = "→",
+--   foldopen = "↓",
+--   foldsep = " ",
+--   msgsep = "─",
+-- }
 
+-- NOTE: Currently not used
 -- LSP Options
-vim.cmd [[set completeopt+=menuone,noselect,popup]]
+-- vim.cmd [[set completeopt+=menuone,noselect,popup]]
 
 -- Optimizations
 vim.opt.maxmempattern = 102400

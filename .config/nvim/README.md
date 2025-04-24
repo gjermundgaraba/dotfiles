@@ -19,35 +19,45 @@ Moved over to dotfiles repo on 23 Nov 2024 from [gjermundgaraba/kickstart.nvim](
 - Nice TODO/Notes/etc highlighting with `todo-comments`
 - Better text manipulation with `mini.ai` and `mini.surround`
 - Jumping around with `flash.nvim`
+- All keymaps in a single `keymaps.lua` file
+- Simple fold visuals in the `statuscolumn`
 
 ## Roadmap
 
-- [ ] Git diffing 
-    - [x] Basic git diff (against HEAD)
-    - [ ] Select branch/commit (for now: `:DiffviewOpen origin/main` works)
-- [ ] Clean up all plugins
-  - [x] lsp.lua
-  - [x] telescope.lua (removed, so yay!)
-  - [x] try to decouple lsp config and mason
-  - [ ] treesitter.lua
-- [ ] Open Help in floating
-- [ ] Menu system! (Maybe a common way to add keymaps that also can add it to a menu structure?)
-- [ ] Clean up keymaps
-- [ ] Figure out `:messages` (might have gotten borked after removing noice)
-- [ ] Function/symbol grep
+- [ ] Initial note setup
+- [ ] Set up treesitter-textobjects and surround keymaps
 - [ ] Recent picker doesn't show recently closed. Try to make it show recently edited buffers?
+- [ ] Make sure neotest works
+- [ ] Delete buffers from my picker list
+
+## Later
+
+- [ ] Make paste a separate undo action
+- [ ] Reconsider fzf as my picker
+- [ ] Git diffing with selecting a branch (for now: `:DiffviewOpen origin/main` works)
+- [ ] Symbol explorer (foldable things thingy to find stuff)
+- [ ] Show lsp in status bar
+- [ ] Move buffers in `bufferline`
+- [ ] Figure out `:messages` (might have gotten borked after removing noice)
+- [ ] More plugins that could be replaced with native solutions?
+- [ ] Make some Neovim UI stuff [potential starting point](https://github.com/OXY2DEV/ui.nvim)
+- [ ] Toggles
+    - [ ] Toggle Harper
+- [ ] Keymap discoverability with menu system
+- [ ] Make sure debugging works
+- [ ] Make git stuff work in my neovim config folder
+
+## Maybe
+
+- [ ] Do I want to use some builtin terminal to avoid having a fixed terminal open?
+- [ ] Abstract out pickers to make it easier to switch?
+- [ ] Github integration
+- [ ] Make my own `statusline` using native stuff?
+- [ ] Make my own status column: [guide](https://www.reddit.com/r/neovim/comments/1djjc6q/statuscolumn_a_beginers_guide/)
 - [ ] Snippets (e.g. native or something like luasnips or mini.snippets) [Native ref](https://www.reddit.com/r/neovim/comments/1cxfhom/builtin_snippets_so_good_i_removed_luasnip/)
     - If still using blink, consider: 
     ```lua
     -- optional: provides snippets for the snippet source
     dependencies = { "rafamadriz/friendly-snippets" },
-- [ ] Proper debugging
     ```
-
-## Maybe
-
-- [ ] Proper spell checker in code / comments (that doesn't give red on correctly spelled variable names)
-- [ ] Github integration ?
-- [ ] Task manager (for both short-term things like make/just scripts, but also things like bacon)
-- [ ] Maybe the ability to move windows around
-
+- [ ] Any fun plugin I could write with the [go client](https://github.com/neovim/go-client)?

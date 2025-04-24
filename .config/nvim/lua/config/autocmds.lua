@@ -45,12 +45,13 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
+-- NOTE: Currently disabled because of planned (togglable) Harper integration
 -- Create an autocommand to enable spellcheck for specified file types
-vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("gg/spellcheck", { clear = true }),
-  pattern = { "text", "markdown", "gitcommit" }, -- Only apply to these file types
-  callback = function()
-    vim.opt_local.spell = true -- Enable spellcheck for these file types
-  end,
-  desc = "Enable spellcheck for defined filetypes", -- Description for clarity
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = vim.api.nvim_create_augroup("gg/spellcheck", { clear = true }),
+--   pattern = { "text", "markdown", "gitcommit" }, -- Only apply to these file types
+--   callback = function()
+--     vim.opt_local.spell = true -- Enable spellcheck for these file types
+--   end,
+--   desc = "Enable spellcheck for defined filetypes", -- Description for clarity
+-- })

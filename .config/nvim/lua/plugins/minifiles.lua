@@ -17,6 +17,7 @@ local map_split = function(buf_id, lhs, direction)
   vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
 end
 
+-- TODO: Move these to keymaps.lua
 vim.api.nvim_create_autocmd("User", {
   pattern = "MiniFilesBufferCreate",
   callback = function(args)
