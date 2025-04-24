@@ -10,6 +10,13 @@
 
 # source $ZSH/oh-my-zsh.sh
 
+## ZSH stuff
+# setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+export HISTSIZE=25000
+export SAVEHIST=25000
+HISTFILE=~/.zsh_history
+
 ## Applications
 ### Homebrew
 eval "$(brew shellenv)"
@@ -31,21 +38,8 @@ alias gs="git status"
 alias gd="git diff"
 alias gsw="git switch"
 alias gsws="git switch-select"
-git config --global alias.list-untracked-branches '!git branch --format="%(refname:short) %(upstream)" | awk '"'"'$2 == "" {print $1}'"'"' | while read branch; do echo "$(git show -s --format="%ci %cr" $branch) $branch"; done | sort'
-git config --global alias.delete-untracked '!git branch --format="%(refname:short) %(upstream)" | awk '"'"'$2 == "" {print $1}'"'"' | xargs git branch -D'
-git config --global alias.list-gone-branches "!git fetch --prune && git branch -vv | grep '\[.*: gone\]'"
-git config --global alias.delete-gone-branches "!git fetch --prune && git branch -vv | grep ': gone]' | awk '{print \$1}' | xargs git branch -D"
-git config --global alias.delete-branches-select "!git for-each-ref --format=\"%(refname:short)  [%(upstream:short)] %(upstream:track)\" refs/heads | fzf -m | awk '{print \$1}' | xargs -r git branch -d"
-git config --global alias.switch-select "!git for-each-ref --format='%(refname:short)  [%(upstream:short)] %(upstream:track)' refs/heads \
-  | fzf \
-  | awk '{print \$1}' \
-  | xargs -r git switch"
 
-#### Just for fun git aliases
-alias hawk="git"
-git config --global alias.tuah push
-alias leeeroy="git" 
-git config --global alias.jenkins push
+# One-time setups (like git config aliases and similar) are done in .config/dotfile_setup.sh
 
 ### Dotfiles (https://www.atlassian.com/git/tutorials/dotfiles)
 alias dotfiles='/usr/bin/git --git-dir=/Users/gg/.cfg/ --work-tree=/Users/gg'
@@ -58,12 +52,18 @@ alias cat="bat"
 alias c="cd ~/code"
 alias gibc="cd ~/code/ibc-go"
 alias gsolidity="cd ~/code/solidity-ibc-eureka"
+alias gops="cd ~/code/eureka-ops"
+alias gsdk="cd ~/code/cosmos-sdk"
+alias ggaia="cd ~/code/gaia"
+alias gwasmd="cd ~/code/wasmd"
 alias configzsh="nvim ~/.zshrc"
 alias confignvim="cd ~/.config/nvim && nvim"
 alias configstarship="nvim ~/.config/starship.toml"
 alias configghostty="nvim ~/.config/ghostty/config"
 alias configaerospace="nvim ~/.config/aerospace/aerospace.toml"
 alias ggbrain="cd ~/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/gg-brain && nvim"
+
+# NOTE: Git aliases are set up as a one-time setup in the script .config/dotfile_setup.sh
 
 ## Exports
 ### Go
@@ -85,3 +85,9 @@ export PATH=/Users/gg/Binaries:$PATH
 if [[ "$PWD" == "$HOME" ]]; then
     neofetch
 fi
+export PATH=~/.npm-global/bin:$PATH
+
+. "$HOME/.local/bin/env"
+
+## Enable vi mode
+bindkey -v
