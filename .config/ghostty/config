@@ -1,5 +1,4 @@
 # Startup
-#initial-command = zsh -c 'neofetch; zsh'
 
 # Visuals
 theme = catppuccin-macchiato
@@ -7,15 +6,39 @@ window-height = 36
 window-width = 120
 window-padding-y = 0
 mouse-hide-while-typing = true
-unfocused-split-opacity = 1
+unfocused-split-opacity = 2
 macos-titlebar-style = tabs
+background-opacity = 0.95
+background-blur-radius = 20
+
+## Fonts
+font-size = 15
+font-family = JetBrainsMono Nerd Font
+
 
 # Keybindings
+keybind = global:ctrl+opt+cmd+t=toggle_quick_terminal
+
+## Fixing basic text navigation
 keybind = cmd+right=text:\x05
 keybind = cmd+left=text:\x01
 keybind = alt+left=esc:b
 keybind = alt+right=esc:f
-keybind = cmd+shift+left=resize_split:left,75
-keybind = cmd+shift+right=resize_split:right,75
-keybind = cmd+shift+up=resize_split:up,75
-keybind = cmd+shift+down=resize_split:down,75
+
+## Splits
+keybind = cmd+alt+l=goto_split:right
+keybind = cmd+alt+h=goto_split:left
+keybind = cmd+alt+k=goto_split:up
+keybind = cmd+alt+j=goto_split:down
+keybind = cmd+alt+shift+l=resize_split:right,75
+keybind = cmd+alt+shift+h=resize_split:left,75
+keybind = cmd+alt+shift+k=resize_split:up,75
+keybind = cmd+alt+shift+j=resize_split:down,75
+
+
+## Unbinds
+keybind = cmd+w=unbind
+keybind = ctrl+tab=unbind
+keybind = ctrl+shift+tab=unbind
+keybind = cmd+shift+w=unbind
+keybind = ctrl+cmd+up=unbind
