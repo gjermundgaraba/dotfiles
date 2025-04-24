@@ -63,7 +63,7 @@ alias configghostty="nvim ~/.config/ghostty/config"
 alias configaerospace="nvim ~/.config/aerospace/aerospace.toml"
 alias ggbrain="cd ~/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/gg-brain && nvim"
 
-# NOTE: Git aliases are set up as a one-time setup in the script .config/dotfile_setup.sh
+# NOTE: Git aliases are set up as a one-time setup in the script .config/dotfiles_setup.sh
 
 ## Exports
 ### Go

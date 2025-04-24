@@ -1,6 +1,10 @@
 #!/bin/bash
 
-# One-time setups for git
+# H1: Brew installs
+# TODO: Add all my packages here (at the very leasy the next time I install a new mac)
+
+# H1: One-time setups for git
+
 ## Global gitattributes file
 git config --global core.attributesfile ~/.gitattributes
 
