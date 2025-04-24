@@ -1,0 +1,3 @@
+keymap:
+  toggle-collection: ctrl+shit+h
+  help: ctrl+h
