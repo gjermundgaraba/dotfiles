@@ -47,6 +47,7 @@ Moved over to dotfiles repo on 23 Nov 2024 from [gjermundgaraba/kickstart.nvim](
     - [OXY2DEV/ui.nvim](https://github.com/OXY2DEV/ui.nvim)
     - [grapp-dev/nui-components.nvim](https://github.com/grapp-dev/nui-components.nvim)
     - [MunifTanjim/nui.nvim](https://github.com/MunifTanjim/nui.nvim)
+    - https://www.reddit.com/r/neovim/comments/1k8upba/release_uinvim/
 - [ ] Toggles
     - [ ] Toggle Harper
 - [ ] Keymap discoverability with menu system

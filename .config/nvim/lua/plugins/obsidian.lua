@@ -28,6 +28,10 @@ return {
     wiki_link_func = "use_alias_only",
     ui = {
       enable = false,
+      checkboxes = {
+        [" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
+        ["x"] = { char = "", hl_group = "ObsidianDone" },
+      },
     },
     picker = {
       name = "snacks.pick",

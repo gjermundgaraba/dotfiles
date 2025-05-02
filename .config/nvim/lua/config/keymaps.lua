@@ -144,7 +144,15 @@ vim.api.nvim_create_autocmd("User", {
     vim.keymap.set("n", "<leader>nh", Snacks.notifier.show_history, { desc = "Show notifications history" })
     vim.keymap.set("n", "<leader>nc", Snacks.notifier.hide, { desc = "Close notifications" })
 
-    vim.keymap.set({ "n", "o", "x" }, "<CR>", require("flash").jump, { desc = "Go Flash!" })
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function(ev)
+        -- Only set the keymap if the buffer is not a quickfix list
+        if ev.buf ~= 0 then
+          return
+        end
+        vim.keymap.set({ "n", "o", "x" }, "<CR>", require("flash").jump, { desc = "Go Flash!" })
+      end,
+    })
 
     which.add { "<leader>A", group = "[A]I" }
     vim.keymap.set("n", "<leader>AI", function()
@@ -172,6 +180,16 @@ vim.api.nvim_create_autocmd("User", {
         vim.keymap.set("n", "<leader>bl", ggbrain.show_backlinks, { desc = "Show backlinks", buffer = true })
         vim.keymap.set("n", "gd", ggbrain.follow_link, { desc = "Go to definition", buffer = true })
         vim.keymap.set("n", "<leader>bt", ggbrain.insert_template, { desc = "Insert template", buffer = true })
+      end,
+    })
+
+    -- H1: Other keymaps and setup
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "qf",
+      callback = function()
+        vim.keymap.set("n", "<leader>r", function()
+          require("quicker").refresh()
+        end, { buffer = 0, desc = "Refresh quickfix list" })
       end,
     })
   end,
