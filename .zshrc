@@ -46,16 +46,17 @@ alias dotfiles='/usr/bin/git --git-dir=/Users/gg/.cfg/ --work-tree=/Users/gg'
 
 ### Command line tool replacements
 alias ls="lsd"
-alias cat="bat"
+#alias cat="bat"
 
 ### Other aliases
 alias c="cd ~/code"
 alias gibc="cd ~/code/ibc-go"
 alias gsolidity="cd ~/code/solidity-ibc-eureka"
 alias gops="cd ~/code/eureka-ops"
-alias gsdk="cd ~/code/cosmos-sdk"
-alias ggaia="cd ~/code/gaia"
-alias gwasmd="cd ~/code/wasmd"
+alias gsdk="cd ~/code/contrib/cosmos-sdk"
+alias ggaia="cd ~/code/contrib/gaia"
+alias gwasmd="cd ~/code/contrib/wasmd"
+alias glibibc="cd ~/code/libibc"
 alias configzsh="nvim ~/.zshrc"
 alias confignvim="cd ~/.config/nvim && nvim"
 alias configstarship="nvim ~/.config/starship.toml"
