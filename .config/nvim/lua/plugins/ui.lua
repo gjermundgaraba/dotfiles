@@ -1,5 +1,11 @@
 return {
-  {
+  { -- Library for creating UIs
+    "grapp-dev/nui-components.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
+  },
+  { -- Theme
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
@@ -24,6 +30,22 @@ return {
       vim.cmd.colorscheme "catppuccin-macchiato"
     end,
   },
+  -- {
+  --   {
+  --     "echasnovski/mini.hipatterns",
+  --     version = "*",
+  --     opts = {
+  --       highlighters = {
+  --         -- TODO: test
+  --         -- Highlight standalone 'FIXME: test', 'HACK', 'TODO', 'NOTE'
+  --         fixme = { pattern = "FIXME:", group = "MiniHipatternsFixme" },
+  --         hack = { pattern = "HACK:", group = "MiniHipatternsHack" },
+  --         todo = { pattern = "TODO:", group = "MiniHipatternsTodo" },
+  --         note = { pattern = "NOTE:", group = "MiniHipatternsNote" },
+  --       },
+  --     },
+  --   },
+  -- },
   { -- Highlight todo, notes, etc in comments
     "folke/todo-comments.nvim",
     event = "VimEnter",

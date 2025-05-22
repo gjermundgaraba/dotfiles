@@ -78,17 +78,17 @@ vim.api.nvim_create_autocmd("User", {
     vim.keymap.set({ "n", "x" }, "<leader>crbb", refactor.extract_block, { desc = "Extract Block", expr = true })
     vim.keymap.set({ "n", "x" }, "<leader>crbf", refactor.extract_block_to_file, { desc = "Extract Block to File", expr = true })
 
-    -- H1: Find keymaps
-    which.add { "<leader>f", group = "[F]ind" }
+    -- H1: Search keymaps
+    which.add { "<leader>s", group = "[S]earch" }
 
     vim.keymap.set("n", "<leader><leader>", Snacks.picker.buffers, { desc = "Search open buffers" })
-    vim.keymap.set("n", "<leader>/", Snacks.picker.smart, { desc = "Smart Find Files" })
-    vim.keymap.set("n", "<leader>fr", Snacks.picker.resume, { desc = "Resume last search" })
-    vim.keymap.set("n", "<leader>ff", search.file_picker, { desc = "Search files" })
-    vim.keymap.set("n", "<leader>fo", Snacks.picker.recent, { desc = "Search recent files" })
-    vim.keymap.set("n", "<leader>fh", Snacks.picker.help, { desc = "Search help" })
-    vim.keymap.set("n", "<leader>fg", search.grep, { desc = "Search with grep" })
-    vim.keymap.set("n", "<leader>fp", search.grep_plugin_files, { desc = "[S]earch neovim [P]lugin code files" })
+    vim.keymap.set("n", "<leader>/", Snacks.picker.smart, { desc = "Smart Search Files" })
+    vim.keymap.set("n", "<leader>sr", Snacks.picker.resume, { desc = "Resume last search" })
+    vim.keymap.set("n", "<leader>sf", search.file_picker, { desc = "Search files" })
+    vim.keymap.set("n", "<leader>so", Snacks.picker.recent, { desc = "Search recent files" })
+    vim.keymap.set("n", "<leader>sh", Snacks.picker.help, { desc = "Search help" })
+    vim.keymap.set("n", "<leader>sg", search.grep, { desc = "Search with grep" })
+    vim.keymap.set("n", "<leader>sp", search.grep_plugin_files, { desc = "[S]earch neovim [P]lugin code files" })
 
     -- H1: LSP and Treesitter keymaps
     which.add { "<leader>l", group = "[L]SP" }
@@ -127,7 +127,7 @@ vim.api.nvim_create_autocmd("User", {
     which.add { "<leader>g", group = "[G]it" }
 
     vim.keymap.set("n", "<leader>gb", Snacks.git.blame_line, { desc = "[G]it [B]lame" })
-    vim.keymap.set("n", "<leader>go", Snacks.gitbrowse.open, { desc = "[G]it [O]pen" })
+    vim.keymap.set({ "n", "v" }, "<leader>go", Snacks.gitbrowse.open, { desc = "[G]it [O]pen" })
     vim.keymap.set("n", "<leader>gd", require("diffview").open, { desc = "Git diff view" })
 
     -- H2: Git pickers
@@ -143,16 +143,6 @@ vim.api.nvim_create_autocmd("User", {
 
     vim.keymap.set("n", "<leader>nh", Snacks.notifier.show_history, { desc = "Show notifications history" })
     vim.keymap.set("n", "<leader>nc", Snacks.notifier.hide, { desc = "Close notifications" })
-
-    vim.api.nvim_create_autocmd("FileType", {
-      callback = function(ev)
-        -- Only set the keymap if the buffer is not a quickfix list
-        if ev.buf ~= 0 then
-          return
-        end
-        vim.keymap.set({ "n", "o", "x" }, "<CR>", require("flash").jump, { desc = "Go Flash!" })
-      end,
-    })
 
     which.add { "<leader>A", group = "[A]I" }
     vim.keymap.set("n", "<leader>AI", function()
@@ -172,6 +162,9 @@ vim.api.nvim_create_autocmd("User", {
     -- Keymaps that make sense everywhere
     vim.keymap.set("n", "<leader>bb", ggbrain.open_index, { desc = "Go to brain index" })
     vim.keymap.set("n", "<leader>bn", ggbrain.new_note, { desc = "Create new note" })
+    vim.keymap.set("n", "<leader>bg", ggbrain.search, { desc = "Grep search notes" })
+    vim.keymap.set("n", "<leader>bf", ggbrain.find_note, { desc = "Find note" })
+    vim.keymap.set("n", "<leader>bd", ggbrain.todos, { desc = "Show todos" })
 
     -- Keymaps that only make sense inside the notes
     vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
@@ -192,6 +185,7 @@ vim.api.nvim_create_autocmd("User", {
         end, { buffer = 0, desc = "Refresh quickfix list" })
       end,
     })
+    vim.keymap.set({ "n", "o", "x" }, "<leader>f", require("flash").jump, { desc = "Go Flash!" })
   end,
 })
 

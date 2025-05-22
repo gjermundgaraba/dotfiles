@@ -26,6 +26,9 @@ Moved over to dotfiles repo on 23 Nov 2024 from [gjermundgaraba/kickstart.nvim](
 ### Now
 
 - [x] Capture notes from anywhere
+- [x] Flash?
+- [ ] Fix treesitter-context
+- [ ] Tree-based (using nui-components) notes from index
 - [ ] Captured notes are indexed
 - [ ] Set up treesitter-textobjects and surround keymaps
 - [ ] Recent picker doesn't show recently closed. Try to make it show recently edited buffers?
@@ -56,7 +59,8 @@ Moved over to dotfiles repo on 23 Nov 2024 from [gjermundgaraba/kickstart.nvim](
 - [ ] See if there is stuff from [ray-x/go.nvim](https://github.com/ray-x/go.nvim) that I should adopt
 
 ### Plugins to test/consider
-
+- [ ] Hover (maybe other stuff from the same dude) [lewis6991/hover](https://github.com/lewis6991/hover.nvim)
+- [ ] Subtle animations [tiny-glimmer](https://github.com/rachartier/tiny-glimmer.nvim)
 - [ ] Sidebar with outline of LSP symbols [hedyhli/outline.nvim](https://github.com/hedyhli/outline.nvim)
     - [ ] Another option: [aeriel.nvim](https://github.com/stevearc/aerial.nvim)
 - [ ] Treesitter split/join: [treesj](https://github.com/Wansmer/treesj)

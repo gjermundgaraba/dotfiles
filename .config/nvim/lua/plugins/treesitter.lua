@@ -54,6 +54,8 @@ return {
           keymaps = { -- You can use the capture groups defined in textobjects.scm
             ["af"] = { query = "@function.outer", desc = "Select outer part of a function" },
             ["if"] = { query = "@function.inner", desc = "Select inner part of a function" },
+            ["aa"] = { query = "@parameter.outer", desc = "Select outer part of a parameter" },
+            ["ia"] = { query = "@parameter.inner", desc = "Select inner part of a parameter" },
           },
           lookahead = true,
         },

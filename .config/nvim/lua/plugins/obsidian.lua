@@ -1,7 +1,7 @@
 return {
   "obsidian-nvim/obsidian.nvim",
-  dev = true,
-  -- version = "*", -- currently using latest to test new features
+  -- dev = true, -- if using local dev version
+  version = "*", -- currently using latest to test new features
   lazy = false, -- load on startup, so we can use Obsidian Client commands like search and quick switch
   dependencies = {
     "nvim-lua/plenary.nvim", -- required
