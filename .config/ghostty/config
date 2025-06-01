@@ -42,3 +42,4 @@ keybind = ctrl+tab=unbind
 keybind = ctrl+shift+tab=unbind
 keybind = cmd+shift+w=unbind
 keybind = ctrl+cmd+up=unbind
+keybind = shift+enter=text:\n
