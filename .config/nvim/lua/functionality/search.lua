@@ -24,6 +24,15 @@ function M.live_grep()
   fzf.live_grep()
 end
 
+function M.live_grep_in_directory(dir)
+  fzf.live_grep {
+    search_paths = { dir },
+    winopts = {
+      title = "Grep: " .. dir,
+    },
+  }
+end
+
 function M.grep_plugin_files()
   fzf.live_grep {
     search_paths = { vim.fn.stdpath "data" .. "/lazy" },

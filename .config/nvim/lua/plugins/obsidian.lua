@@ -34,7 +34,7 @@ return {
       },
     },
     picker = {
-      name = "snacks.pick",
+      name = "fzf-lua",
     },
     note_id_func = function(title)
       return title

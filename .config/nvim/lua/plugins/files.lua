@@ -1,3 +1,5 @@
+-- local search = require "functionality.search"
+
 return {
   { -- Pop-up file browser for quick file manipulation
     "echasnovski/mini.files",
@@ -14,6 +16,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      -- "ibhagwan/fzf-lua", -- used in custom keymaps
       "MunifTanjim/nui.nvim",
       {
         "s1n7ax/nvim-window-picker", -- for open_with_window_picker keymaps
@@ -59,6 +62,16 @@ return {
         mappings = {
           ["l"] = "open",
           ["h"] = "close_node",
+          ["<D-S-f>"] = function(state)
+            local search = require "functionality.search"
+            local node = state.tree:get_node()
+
+            if node.type == "directory" then
+              search.live_grep_in_directory(node.path)
+            else
+              search.live_grep_in_directory(node:get_parent_id())
+            end
+          end,
         },
       },
       default_component_configs = {

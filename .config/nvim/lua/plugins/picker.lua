@@ -9,6 +9,12 @@ return {
           ["ctrl-q"] = "select-all+accept",
         },
       },
+      grep = {
+        hidden = true,
+      },
+      files = {
+        hidden = true,
+      },
     },
   },
 }
