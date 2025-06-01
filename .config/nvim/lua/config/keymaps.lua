@@ -7,6 +7,7 @@ vim.api.nvim_create_autocmd("User", {
     local which = require "which-key"
 
     local editor = require "functionality.editor"
+    local tabs = require "functionality.tabs"
     local diagnostic = require("functionality.code").diagnostic
     local lsp_funcs = require("functionality.code").lsp
     local refactor = require("functionality.code").refactor
@@ -21,6 +22,9 @@ vim.api.nvim_create_autocmd("User", {
     vim.keymap.set({ "i", "n" }, "<D-s>", editor.save, { desc = "Save file" })
     vim.keymap.set("n", "<leader>q", ":qa<CR>", { desc = "Quit" })
 
+    -- File explorer
+    vim.keymap.set("n", "<leader>em", editor.open_file_system_manager, { desc = "Open File Manager" })
+    vim.keymap.set("n", "<leader>ee", editor.open_explorer, { desc = "Open File Explorer" })
     vim.keymap.set("n", "<leader>E", editor.open_explorer, { desc = "Open File Explorer" })
 
     vim.keymap.set("n", "<S-l>", ":bnext<CR>", { desc = "Next buffer" })
@@ -68,6 +72,7 @@ vim.api.nvim_create_autocmd("User", {
 
     -- refactor
     -- TODO: Maybe these don't need to be a separate group?
+    -- Or maybe just use leader r?
     which.add { "<leader>cr", group = "[R]efactor" }
     vim.keymap.set({ "n", "x" }, "<leader>crn", refactor.rename, { desc = "Rename", expr = true })
     vim.keymap.set({ "n", "x" }, "<leader>cre", refactor.extract_func, { desc = "Extract Function", expr = true })
@@ -80,27 +85,25 @@ vim.api.nvim_create_autocmd("User", {
 
     -- H1: Search keymaps
     which.add { "<leader>s", group = "[S]earch" }
-
-    vim.keymap.set("n", "<leader><leader>", Snacks.picker.buffers, { desc = "Search open buffers" })
-    vim.keymap.set("n", "<leader>/", Snacks.picker.smart, { desc = "Smart Search Files" })
-    vim.keymap.set("n", "<leader>sr", Snacks.picker.resume, { desc = "Resume last search" })
+    vim.keymap.set("n", "<leader><leader>", search.open_buffers, { desc = "Search open buffers" })
+    vim.keymap.set("n", "<leader>sc", search.recent_files, { desc = "Continue search" })
+    vim.keymap.set("n", "<leader>sr", search.recent_files, { desc = "Search recent files" })
     vim.keymap.set("n", "<leader>sf", search.file_picker, { desc = "Search files" })
-    vim.keymap.set("n", "<leader>so", Snacks.picker.recent, { desc = "Search recent files" })
-    vim.keymap.set("n", "<leader>sh", Snacks.picker.help, { desc = "Search help" })
-    vim.keymap.set("n", "<leader>sg", search.grep, { desc = "Search with grep" })
+    vim.keymap.set("n", "<leader>sh", search.help, { desc = "Search help" })
+    vim.keymap.set("n", "<leader>sg", search.live_grep, { desc = "Search with grep" })
     vim.keymap.set("n", "<leader>sp", search.grep_plugin_files, { desc = "[S]earch neovim [P]lugin code files" })
 
     -- H1: LSP and Treesitter keymaps
     which.add { "<leader>l", group = "[L]SP" }
 
     -- Jumpy jumps
-    vim.keymap.set({ "i", "n" }, "<C-s>", vim.lsp.buf.signature_help, { desc = "Signature help" })
-    vim.keymap.set("n", "gd", Snacks.picker.lsp_definitions, { desc = "Go to definitions" })
-    vim.keymap.set("n", "gD", Snacks.picker.lsp_declarations, { desc = "Go to declarations" })
-    vim.keymap.set("n", "ga", vim.lsp.buf.code_action, { desc = "Code actions" })
-    vim.keymap.set("n", "gr", Snacks.picker.lsp_references, { desc = "Go to references" })
-    vim.keymap.set("n", "gi", Snacks.picker.lsp_implementations, { desc = "Go to implementations" })
-    vim.keymap.set("n", "gt", Snacks.picker.lsp_type_definitions, { desc = "Go to type definitions" })
+    vim.keymap.set({ "i", "n" }, "<C-s>", lsp_funcs.show_signature, { desc = "Signature help" })
+    vim.keymap.set("n", "gd", lsp_funcs.defintions, { desc = "Go to definitions" })
+    vim.keymap.set("n", "gD", lsp_funcs.declarations, { desc = "Go to declarations" })
+    vim.keymap.set("n", "ga", lsp_funcs.code_action, { desc = "Code actions" })
+    vim.keymap.set("n", "gr", lsp_funcs.references, { desc = "Go to references" })
+    vim.keymap.set("n", "gi", lsp_funcs.implementations, { desc = "Go to implementations" })
+    vim.keymap.set("n", "gt", lsp_funcs.type_definitions, { desc = "Go to type definitions" })
     vim.keymap.set("n", "gc", function()
       require("treesitter-context").go_to_context(vim.v.count1)
     end, { desc = "Go to context" })
@@ -111,11 +114,12 @@ vim.api.nvim_create_autocmd("User", {
 
     -- Misc
     vim.keymap.set("n", "<leader>lr", lsp_funcs.restart_lsp, { desc = "LSP Restart" })
-    vim.keymap.set("n", "<leader>ls", Snacks.picker.lsp_symbols, { desc = "Find LSP symbols" })
-    vim.keymap.set("n", "<leader>lS", Snacks.picker.lsp_workspace_symbols, { desc = "Find LSP workspace symbols" })
+    vim.keymap.set("n", "<leader>ls", lsp_funcs.document_symbols, { desc = "Find LSP symbols" })
+    vim.keymap.set("n", "<leader>lS", lsp_funcs.live_workspace_symbols, { desc = "Find LSP workspace symbols" })
 
-    vim.keymap.set("n", "<D-w>", Snacks.bufdelete.delete, { desc = "Close buffer" })
-    vim.keymap.set("n", "<D-S-w>", Snacks.bufdelete.other, { desc = "Close all other buffers" })
+    vim.keymap.set("n", "<D-w>", tabs.close, { desc = "Close buffer" })
+    vim.keymap.set("n", "<D-S-t>", tabs.undo_close, { desc = "Undo close buffer" })
+    vim.keymap.set("n", "<D-S-w>", tabs.close_others, { desc = "Close all other buffers" })
 
     -- H1: Tests keymaps
     which.add { "<leader>t", group = "[T]ests" }
@@ -131,23 +135,10 @@ vim.api.nvim_create_autocmd("User", {
     vim.keymap.set("n", "<leader>gd", require("diffview").open, { desc = "Git diff view" })
 
     -- H2: Git pickers
-    vim.keymap.set("n", "<leader>gfb", Snacks.picker.git_branches, { desc = "Find Git branches" })
-    vim.keymap.set("n", "<leader>gfl", Snacks.picker.git_log, { desc = "Find Git log" })
-    vim.keymap.set("n", "<leader>gfs", Snacks.picker.git_status, { desc = "Find Git status" })
-    vim.keymap.set("n", "<leader>gft", Snacks.picker.git_stash, { desc = "Find Git stash" })
-    vim.keymap.set("n", "<leader>gfh", Snacks.picker.git_diff, { desc = "Find Git diff (hunks)" })
-    vim.keymap.set("n", "<leader>gfl", Snacks.picker.git_log_file, { desc = "Find Git log file" })
-
-    -- H1: Notifications keymaps
-    which.add { "<leader>n", group = "[N]otifications" }
-
-    vim.keymap.set("n", "<leader>nh", Snacks.notifier.show_history, { desc = "Show notifications history" })
-    vim.keymap.set("n", "<leader>nc", Snacks.notifier.hide, { desc = "Close notifications" })
-
-    which.add { "<leader>A", group = "[A]I" }
-    vim.keymap.set("n", "<leader>AI", function()
-      require("CopilotChat").open()
-    end, { desc = "AI" })
+    vim.keymap.set("n", "<leader>gsb", search.git_branches, { desc = "Search Git branches" })
+    vim.keymap.set("n", "<leader>gsb", search.git_blame, { desc = "Search Git blame" })
+    vim.keymap.set("n", "<leader>gsl", search.git_log, { desc = "Search Git log" })
+    vim.keymap.set("n", "<leader>gsh", search.git_diff, { desc = "Search Git diff (hunks)" })
 
     -- H1: Keymap keymaps
     which.add { "<leader>k", group = "[K]eymaps" }
@@ -175,6 +166,12 @@ vim.api.nvim_create_autocmd("User", {
         vim.keymap.set("n", "<leader>bt", ggbrain.insert_template, { desc = "Insert template", buffer = true })
       end,
     })
+
+    -- H1: AI keymaps
+    which.add { "<leader>A", group = "[A]I" }
+    vim.keymap.set("n", "<leader>AI", function()
+      require("CopilotChat").open()
+    end, { desc = "AI" })
 
     -- H1: Other keymaps and setup
     vim.api.nvim_create_autocmd("FileType", {

@@ -27,7 +27,12 @@ Moved over to dotfiles repo on 23 Nov 2024 from [gjermundgaraba/kickstart.nvim](
 
 - [x] Capture notes from anywhere
 - [x] Flash?
-- [ ] Fix treesitter-context
+- [x] Replace snacks picker
+- [x] Fix treesitter-context
+- [ ] Undo close tab (buffer)
+- [ ] Move buffer
+- [ ] fzf ivy layout
+- [ ] <leader><leader> to get open _and_ recent files
 - [ ] Tree-based (using nui-components) notes from index
 - [ ] Captured notes are indexed
 - [ ] Set up treesitter-textobjects and surround keymaps

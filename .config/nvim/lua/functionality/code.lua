@@ -1,5 +1,8 @@
 local M = {}
 
+local fzf = require "fzf-lua"
+fzf.register_ui_select()
+
 -- H1: Diagnostics
 M.diagnostic = {}
 function M.diagnostic.open_all_in_qf()
@@ -29,6 +32,43 @@ end
 
 -- H1: LSP
 M.lsp = {}
+
+function M.lsp.show_signature()
+  vim.lsp.buf.signature_help()
+end
+
+function M.lsp.defintions()
+  fzf.lsp_definitions()
+end
+
+function M.lsp.declarations()
+  fzf.lsp_declarations()
+end
+
+function M.lsp.code_action()
+  fzf.lsp_code_actions()
+end
+
+function M.lsp.references()
+  fzf.lsp_references()
+end
+
+function M.lsp.implementations()
+  fzf.lsp_implementations()
+end
+
+function M.lsp.type_definitions()
+  fzf.lsp_type_definitions()
+end
+
+function M.lsp.document_symbols()
+  fzf.lsp_document_symbols()
+end
+
+function M.lsp.live_workspace_symbols()
+  fzf.lsp_live_workspace_symbols()
+end
+
 function M.lsp.restart_lsp()
   local attached_clients = vim.lsp.get_clients()
   if vim.tbl_isempty(attached_clients) then

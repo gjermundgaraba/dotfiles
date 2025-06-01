@@ -4,9 +4,13 @@ function M.save()
   vim.cmd "write"
 end
 
-function M.open_explorer()
+function M.open_file_system_manager()
   MiniFiles.open(vim.api.nvim_buf_get_name(0)) -- Focus on current file
   MiniFiles.reveal_cwd() -- Opens the full path down to project root
+end
+
+function M.open_explorer()
+  vim.cmd "Neotree toggle"
 end
 
 function M.clear()

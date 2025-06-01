@@ -8,6 +8,7 @@ return {
     },
     build = ":TSUpdate",
     main = "nvim-treesitter.configs",
+    lazy = false, -- does not support lazy loading
     opts = {
       ensure_installed = {
         "bash",
@@ -27,6 +28,7 @@ return {
         "gowork",
         "rust",
       },
+      sync_install = false,
       auto_install = true, -- Automatically install missing parsers when entering buffer
       highlight = {
         enable = true,
@@ -66,7 +68,6 @@ return {
     "nvim-treesitter/nvim-treesitter-context",
     opts = {
       max_lines = 5,
-      min_window_height = 100, -- disable it when the window is too small.
     },
   },
   { -- Surround textobject motions

@@ -8,16 +8,7 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
-      notifier = { enabled = true },
-      gitbrowse = { enabled = true },
-      bigfile = { enabled = true },
-      picker = {
-        -- sources = {},
-        ---@class snacks.picker.layout.Config
-        layout = {
-          preset = "ivy",
-        },
-      },
+      gitbrowse = { enabled = true }, -- TODO: Remove this and make this yourself
     },
   },
 }
