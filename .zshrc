@@ -1,17 +1,5 @@
-## Oh My Zsh (Currentluy disabled)
-# Path to your Oh My Zsh installation.
-#export ZSH="$HOME/.oh-my-zsh"
-
-### Theme
-#ZSH_THEME="robbyrussell"
-
-### Plugins
-#plugins=(git)
-
-# source $ZSH/oh-my-zsh.sh
-
 ## ZSH stuff
-# setopt INC_APPEND_HISTORY
+### History sharing across sessions work
 setopt SHARE_HISTORY
 export HISTSIZE=25000
 export SAVEHIST=25000
