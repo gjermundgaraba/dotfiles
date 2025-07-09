@@ -1,8 +1,5 @@
--- hs.loadSpoon("Vifari")
--- spoon.Vifari:start() -- this will add hooks. `:stop()` to remove hooks
-
 hs.hotkey.bind({}, "F1", function()
-	hs.application.launchOrFocus("Ghostty")
+	hs.application.launchOrFocus("Cursor")
 end)
 
 hs.hotkey.bind({}, "F2", function()
@@ -25,10 +22,14 @@ hs.hotkey.bind({}, "F6", function()
 	hs.application.launchOrFocus("ChatGPT")
 end)
 
-hs.hotkey.bind({}, "F9", function()
-	hs.application.launchOrFocus("Messages")
+hs.hotkey.bind({}, "F7", function()
+	hs.application.launchOrFocus("Notion Calendar")
 end)
 
-hs.hotkey.bind({}, "F10", function()
-	hs.application.launchOrFocus("Spotify")
+hs.hotkey.bind({}, "F8", function()
+	hs.application.launchOrFocus("Shortwave")
+end)
+
+hs.hotkey.bind({}, "F12", function()
+	hs.application.launchOrFocus("Warp")
 end)
