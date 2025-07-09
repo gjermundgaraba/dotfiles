@@ -6,7 +6,6 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim", -- required
     "saghen/blink.cmp",
-    "folke/snacks.nvim",
   },
   opts = {
     workspaces = {

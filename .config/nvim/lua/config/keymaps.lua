@@ -14,12 +14,16 @@ vim.api.nvim_create_autocmd("User", {
     local search = require "functionality.search"
     local tests = require "functionality.tests"
     local textobjs = require "functionality.textobjects"
+    local terminal = require "functionality.terminal"
+    local ai = require "functionality.ai"
     local ggbrain = require "functionality.ggbrain"
 
     unmap_lsp_keymaps()
 
     -- H1: General keymaps
+
     vim.keymap.set({ "i", "n" }, "<D-s>", editor.save, { desc = "Save file" })
+
     vim.keymap.set("n", "<leader>q", ":qa<CR>", { desc = "Quit" })
 
     -- File explorer
@@ -86,12 +90,14 @@ vim.api.nvim_create_autocmd("User", {
     -- H1: Search keymaps
     which.add { "<leader>s", group = "[S]earch" }
     vim.keymap.set("n", "<leader><leader>", search.open_buffers, { desc = "Search open buffers" })
-    vim.keymap.set("n", "<leader>sc", search.recent_files, { desc = "Continue search" })
-    vim.keymap.set("n", "<leader>sr", search.recent_files, { desc = "Search recent files" })
+    vim.keymap.set("n", "<leader>ss", search.resume, { desc = "Continue search" })
+    vim.keymap.set("n", "<leader>so", search.recent_files, { desc = "Search recent files" })
     vim.keymap.set("n", "<leader>sf", search.file_picker, { desc = "Search files" })
     vim.keymap.set("n", "<leader>sh", search.help, { desc = "Search help" })
     vim.keymap.set("n", "<leader>sg", search.live_grep, { desc = "Search with grep" })
     vim.keymap.set("n", "<leader>sp", search.grep_plugin_files, { desc = "[S]earch neovim [P]lugin code files" })
+    vim.keymap.set("n", "<leader>sd", search.workspace_diagnostics, { desc = "Search workspace diagnostics" })
+    vim.keymap.set("n", "<leader>sb", ggbrain.find_note, { desc = "Search brain" })
 
     -- H1: LSP and Treesitter keymaps
     which.add { "<leader>l", group = "[L]SP" }
@@ -147,6 +153,14 @@ vim.api.nvim_create_autocmd("User", {
       require("which-key").show { loop = true }
     end, { desc = "Show keymaps in loop mode (ESC to exit)" })
 
+    -- H1: Terminal keymaps
+    vim.keymap.set({ "n", "t" }, "<M-D-t>", terminal.toggle_default_terminal, { desc = "Toggle default terminal" })
+    which.add { "<leader><M-D-t>", group = "Terminal" }
+    vim.keymap.set("n", "<leader><M-D-t>g", terminal.toggle_git_terminal, { desc = "Toggle git terminal" })
+
+    -- H2: In-terminal keymaps
+    vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], { desc = "Normal mode in terminal" })
+
     -- H1: ggbrain keymaps
     which.add { "<leader>b", group = "ggbrain" }
 
@@ -154,7 +168,7 @@ vim.api.nvim_create_autocmd("User", {
     vim.keymap.set("n", "<leader>bb", ggbrain.open_index, { desc = "Go to brain index" })
     vim.keymap.set("n", "<leader>bn", ggbrain.new_note, { desc = "Create new note" })
     vim.keymap.set("n", "<leader>bg", ggbrain.search, { desc = "Grep search notes" })
-    vim.keymap.set("n", "<leader>bf", ggbrain.find_note, { desc = "Find note" })
+    vim.keymap.set("n", "<leader>bs", ggbrain.find_note, { desc = "Search notes" })
     vim.keymap.set("n", "<leader>bd", ggbrain.todos, { desc = "Show todos" })
 
     -- Keymaps that only make sense inside the notes
@@ -172,6 +186,8 @@ vim.api.nvim_create_autocmd("User", {
     vim.keymap.set("n", "<leader>AI", function()
       require("CopilotChat").open()
     end, { desc = "AI" })
+    vim.keymap.set({ "i", "n" }, "<S-TAB>", ai.accept, { desc = "Accept AI suggestion" })
+    vim.keymap.set({ "i", "n" }, "<D-S-L>", ai.accept_word, { desc = "Accept AI suggestion next word" })
 
     -- H1: Other keymaps and setup
     vim.api.nvim_create_autocmd("FileType", {
@@ -183,6 +199,14 @@ vim.api.nvim_create_autocmd("User", {
       end,
     })
     vim.keymap.set({ "n", "o", "x" }, "<leader>f", require("flash").jump, { desc = "Go Flash!" })
+
+    -- H1: Warp hacks (used in conjunction with Karabiner-Elements)
+    -- TODO: Create a multi-keymap function to make this cleaner
+    vim.keymap.set({ "i", "n" }, "<F13>", editor.save, { desc = "Save file" })
+    vim.keymap.set("n", "<F14>", tabs.close, { desc = "Close buffer" })
+    vim.keymap.set("n", "<F15>", tabs.undo_close, { desc = "Undo close buffer" })
+    vim.keymap.set("n", "<F16>", tabs.close_others, { desc = "Close all other buffers" })
+    vim.keymap.set({ "i", "n" }, "<F17>", ai.accept_word, { desc = "Accept AI suggestion next word" })
   end,
 })
 

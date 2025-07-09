@@ -43,6 +43,49 @@ return {
       },
     },
   },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      options = {
+        globalstatus = true,
+      },
+      sections = {
+        lualine_a = {
+          {
+            function()
+              local reg = vim.fn.reg_recording()
+              -- If a macro is being recorded, show "Recording @<register>"
+              if reg ~= "" then
+                return "🔴 => @" .. reg
+              else
+                return ""
+              end
+            end,
+          },
+          {
+            "filename",
+            path = 1,
+          },
+          "diff",
+        },
+        lualine_b = {},
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = { "diagnostics", "searchcount" },
+        lualine_z = { "location" },
+      },
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = { "filename" },
+        lualine_x = { "location" },
+        lualine_y = {},
+        lualine_z = {},
+      },
+    },
+    extensions = {},
+  },
   { -- notifications and popups and shit
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -51,6 +94,10 @@ return {
       "rcarriga/nvim-notify", -- optional, but we use it for notifications!
     },
     opts = {
+      cmdline = {
+        enabled = true,
+        view = "cmdline", -- use the cmdline view for cmdline messages
+      },
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
@@ -61,8 +108,6 @@ return {
       },
       -- you can enable a preset for easier configuration
       presets = {
-        bottom_search = true, -- use a classic bottom cmdline for search
-        command_palette = true, -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
         inc_rename = false, -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = false, -- add a border to hover docs and signature help

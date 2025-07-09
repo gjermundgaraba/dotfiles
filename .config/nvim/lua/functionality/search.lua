@@ -33,6 +33,10 @@ function M.live_grep_in_directory(dir)
   }
 end
 
+function M.workspace_diagnostics()
+  fzf.diagnostics_workspace()
+end
+
 function M.grep_plugin_files()
   fzf.live_grep {
     search_paths = { vim.fn.stdpath "data" .. "/lazy" },

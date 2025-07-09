@@ -7,12 +7,12 @@ return {
       require("copilot").setup {
         suggestion = {
           auto_trigger = true,
-          keymap = {
-            accept = "<S-TAB>",
-            accept_word = "<D-L>",
-            next = "<S-Right>",
-            prev = "<S-Left>",
-          },
+          -- keymap = {
+          --   accept = "<S-TAB>",
+          --   accept_word = "<D-L>",
+          --   next = "<S-Right>",
+          --   prev = "<S-Left>",
+          -- },
         },
       }
     end,
