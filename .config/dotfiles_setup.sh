@@ -1,12 +1,15 @@
 #!/bin/bash
 
 # H1: Brew installs
-# TODO: Add all my packages here (at the very leasy the next time I install a new mac)
+# TODO: Add all my packages here (at the very least the next time I install a new mac)
 
 # H1: One-time setups for git
 
 ## Global gitattributes file
 git config --global core.attributesfile ~/.gitattributes
+
+## Global gitignore file
+git config --global core.excludesFile ~/.gitignore_global
 
 ## Global git aliases
 git config --global alias.list-untracked-branches '!git branch --format="%(refname:short) %(upstream)" | awk '"'"'$2 == "" {print $1}'"'"' | while read branch; do echo "$(git show -s --format="%ci %cr" $branch) $branch"; done | sort'

@@ -38,6 +38,10 @@ alias gs="git status"
 alias gd="git diff"
 alias gsw="git switch"
 alias gsws="git switch-select"
+alias gmain="git switch main && git pull"
+
+### Other aliases
+alias setup_cursor_rules="$HOME/.config/ai-rules/scripts/create_cursor_symlinks.sh"
 
 # One-time setups (like git config aliases and similar) are done in .config/dotfile_setup.sh
 
@@ -90,5 +94,13 @@ export PATH=~/.npm-global/bin:$PATH
 
 . "$HOME/.local/bin/env"
 
+eval "$(direnv hook zsh)"
+
 ## Enable vi mode
 bindkey -v
+
+# Added by Windsurf
+export PATH="/Users/gg/.codeium/windsurf/bin:$PATH"
+export PATH="${PATH}:/Users/gg/bin"
+
+alias claude="/Users/gg/.claude/local/claude"
