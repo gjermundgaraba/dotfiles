@@ -1,0 +1,11 @@
+---
+alwaysApply: true
+---
+
+# Engineering practices
+
+- **Simplicity:** Prioritize simple, clear, and maintainable solutions. Avoid unnecessary complexity or over-engineering. 
+- **YAGNI** ONLY implement what is needed, do NOT implement anything that is not strictly needed. NO nice-to-haves!
+- **Iterate** Prefer iterating on existing, working code rather than building entirely new solutions from scratch, unless fundamentally necessary or explicitly requested. Preserve what works.
+- **Not tested? Not done** You are not done until the functionality is tested (ideally by unit/integration test, or if that is infeasible, manual test)
+  - And you need to make sure all relevant tests pass, as well as all unit tests.

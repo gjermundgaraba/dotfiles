@@ -1,0 +1,14 @@
+build-claude-the-engineer:
+    @echo "# Claude, the engineer!\n" > claude-the-engineer.md
+    @for file in rules/the-engineer/*; do echo "@./$file" >> claude-the-engineer.md; done
+
+generate-cursor-symlink path:
+    #!/bin/bash
+    echo "Finding git projects under {{path}}..."
+    find "{{path}}" -type d -name ".git" -exec dirname {} \; | while read gitdir; do \
+        echo "Processing git project: $gitdir"; \
+        # (cd "$gitdir" && "{{justfile_directory()}}/scripts/create_cursor_symlinks.sh" > /dev/null) || echo "  ❌ Error in $gitdir"; \
+        (cd "$gitdir" && "{{justfile_directory()}}/scripts/create_cursor_symlinks.sh") || echo "  ❌ Error in $gitdir"; \
+    done
+
+
