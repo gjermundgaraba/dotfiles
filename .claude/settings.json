@@ -1,6 +1,12 @@
 {
   "permissions": {
     "allow": [
+      "WebFetch",
+      "WebSearch",
+      "Glob",
+      "Grep",
+      "LS",
+      "Read",
       "Bash(go:*)",
       "Bash(cargo:*)",
       "Bash(pg_isready:*)",
@@ -9,7 +15,10 @@
       "Bash(grep:*)",
       "Bash(ls:*)",
       "Bash(sed:*)",
-      "WebFetch(domain:*)"
+      "Bash(gh repo view:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr diff:*)"
     ],
     "deny": [
       "Read(node_modules/**)"
@@ -38,5 +47,7 @@
         ]
       }
     ]
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": ["Context7", "perplexity-ask", "linear"]
 }
