@@ -9,7 +9,7 @@
 git config --global core.attributesfile ~/.gitattributes
 
 ## Global gitignore file
-git config --global core.excludesFile ~/.gitignore_global
+git config --global core.excludesFile ~/.config/.gitignore_global
 
 ## Global git aliases
 git config --global alias.list-untracked-branches '!git branch --format="%(refname:short) %(upstream)" | awk '"'"'$2 == "" {print $1}'"'"' | while read branch; do echo "$(git show -s --format="%ci %cr" $branch) $branch"; done | sort'
