@@ -207,6 +207,7 @@ vim.api.nvim_create_autocmd("User", {
     vim.keymap.set("n", "<F15>", tabs.undo_close, { desc = "Undo close buffer" })
     vim.keymap.set("n", "<F16>", tabs.close_others, { desc = "Close all other buffers" })
     vim.keymap.set({ "i", "n" }, "<F17>", ai.accept_word, { desc = "Accept AI suggestion next word" })
+    vim.keymap.set({ "i", "n", "t" }, "<F18>", terminal.toggle_default_terminal, { desc = "Toggle default terminal" })
   end,
 })
 
