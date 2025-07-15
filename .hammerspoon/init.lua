@@ -3,7 +3,7 @@ hs.hotkey.bind({}, "F1", function()
 end)
 
 hs.hotkey.bind({}, "F2", function()
-	hs.application.launchOrFocus("Zen Browser")
+	hs.application.launchOrFocus("Comet")
 end)
 
 hs.hotkey.bind({}, "F3", function()
