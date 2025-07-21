@@ -23,11 +23,15 @@ hs.hotkey.bind({}, "F6", function()
 end)
 
 hs.hotkey.bind({}, "F7", function()
-	hs.application.launchOrFocus("Notion Calendar")
+	hs.application.launchOrFocus("Obsidian")
 end)
 
 hs.hotkey.bind({}, "F8", function()
 	hs.application.launchOrFocus("Shortwave")
+end)
+
+hs.hotkey.bind({}, "F9", function()
+	hs.application.launchOrFocus("Notion Calendar")
 end)
 
 hs.hotkey.bind({}, "F12", function()
