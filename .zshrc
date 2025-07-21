@@ -46,6 +46,7 @@ alias ggaia="cd ~/code/contrib/gaia"
 alias gwasmd="cd ~/code/contrib/wasmd"
 alias glibibc="cd ~/code/libibc"
 alias configzsh="nvim ~/.zshrc"
+alias confighammerspoon="nvim ~/.hammerspoon/init.lua"
 alias confignvim="cd ~/.config/nvim && nvim"
 alias configstarship="nvim ~/.config/starship.toml"
 alias configghostty="nvim ~/.config/ghostty/config"
@@ -89,3 +90,15 @@ export PATH="/Users/gg/.codeium/windsurf/bin:$PATH"
 export PATH="${PATH}:/Users/gg/bin"
 
 alias claude="/Users/gg/.claude/local/claude"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/gg/.lmstudio/bin"
+# End of LM Studio CLI section
+
+export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
+export PATH="$HOME/.avm/bin:$PATH"
