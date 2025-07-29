@@ -27,6 +27,12 @@
       "Read(node_modules/**)"
     ]
   },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "Context7",
+    "perplexity-ask",
+    "linear"
+  ],
   "hooks": {
     "Notification": [
       {
@@ -51,6 +57,5 @@
       }
     ]
   },
-  "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["Context7", "perplexity-ask", "linear"]
+  "model": "sonnet"
 }
