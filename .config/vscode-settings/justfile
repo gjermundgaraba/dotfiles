@@ -1,0 +1,59 @@
+_cursor-user-profile-dir := "~/Library/Application Support/Cursor/User/"
+
+set-up-profile-symlinks-cursor:
+    #!/bin/bash
+    echo "Setting up profile symlinks for Cursor..."
+    
+    CURSOR_DIR="{{_cursor-user-profile-dir}}"
+    REPO_DIR="{{justfile_directory()}}"
+    
+    # Expand the tilde in the cursor directory path
+    CURSOR_DIR="${CURSOR_DIR/#\~/$HOME}"
+    
+    # Function to handle symlink creation
+    create_symlink() {
+        local filename="$1"
+        local source_file="$REPO_DIR/$filename"
+        local target_file="$CURSOR_DIR/$(basename "$filename")"
+        
+        if [ -e "$target_file" ] || [ -L "$target_file" ]; then
+            if [ -L "$target_file" ]; then
+                echo "Removing existing symlink: $target_file"
+                rm "$target_file"
+            else
+                echo "Backing up existing file: $target_file -> $target_file.backup"
+                mv "$target_file" "$target_file.backup"
+            fi
+        fi
+        
+        echo "Creating symlink: $target_file -> $source_file"
+        ln -s "$source_file" "$target_file"
+    }
+    
+    # Create symlinks for settings and keybindings
+    create_symlink "config/settings.json"
+    create_symlink "config/keybindings.json"
+    
+    echo "Profile symlinks setup complete!"
+
+install-extensions-cursor:
+    #!/bin/bash
+    echo "Installing extensions for Cursor..."
+    jq -r '.[]' config/extensions.json | while read -r extension; do
+        echo "Installing $extension..."
+        cursor --install-extension "$extension"
+    done
+
+format-keybindings:
+    #!/bin/bash
+    echo "Formatting keybindings.json..."
+    
+    if [ ! -d "venv" ]; then
+        echo "Creating virtual environment..."
+        python3 -m venv venv
+    fi
+    
+    ./venv/bin/pip install -r scripts/requirements.txt
+    
+    ./venv/bin/python scripts/format_keybindings.py
+    echo "Keybindings formatted successfully!"

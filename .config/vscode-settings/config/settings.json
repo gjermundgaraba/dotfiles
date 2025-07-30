@@ -1,0 +1,103 @@
+{
+    "window.commandCenter": true,
+    "go.lintFlags": [
+        "run",
+        "--issues-exit-code=0",
+        "--path-mode=abs",
+        "--output.text.colors=true",
+        "--output.text.path=stdout",
+        "--output.text.print-issued-lines=false",
+        "--show-stats=false"
+    ],
+    "go.lintTool": "golangci-lint-v2",
+    "go.testTimeout": "30m",
+    "gopls": {},
+    "vim.useSystemClipboard": true,
+    "vim.leader": "<space>",
+    "vim.highlightedyank.enable": true,
+    "vim.highlightedyank.color": "rgba(245, 40, 145, 0.8)",
+    "vim.normalModeKeyBindings": [
+        {
+            "before": ["<S-k>"],
+            "commands": ["editor.action.peekTypeDefinition"]
+        },
+        {
+            "before": ["<C-o>"],
+            "commands": ["workbench.action.navigateBack"]
+        },
+        {
+            "before": ["<C-i>"],
+            "commands": ["workbench.action.navigateForward"]
+        },
+        {
+            "before": ["u"],
+            "commands": ["undo"]
+        },
+        {
+            "before": ["<C-r>"],
+            "commands": ["redo"]
+        },
+        {
+            "before": ["<S-h>"],
+            "commands": ["workbench.action.previousEditor"]
+        },
+        {
+            "before": ["<S-l>"],
+            "commands": ["workbench.action.nextEditor"]
+        },
+        {
+            "before": ["<leader>", "c", "d", "n"],
+            "commands": ["editor.action.marker.next"]
+        },
+        {
+            "before": ["<leader>", "c", "r", "n"],
+            "commands": ["editor.action.rename"]
+        },
+        {
+            "before": ["<C-space>"],
+            "commands": ["editor.action.triggerParameterHints"]
+        },
+        {
+            "before": ["g", "a"],
+            "commands": ["editor.action.sourceAction"]
+        },
+        {
+            "before": ["g", "r"],
+            "commands": ["editor.action.goToReferences"]
+        },
+        {
+            "before": ["<leader>", "s", "f"],
+            "commands": ["workbench.action.quickOpen"]
+        },
+        {
+            "before": ["<leader>", "s", "g"],
+            "commands": ["workbench.action.quickTextSearch"]
+        },
+        {
+            "before": ["<leader>", "E"],
+            "commands": ["workbench.files.action.focusFilesExplorer"]
+        }
+    ],
+    "workbench.colorTheme": "Catppuccin Macchiato",
+    "cursor.cpp.enablePartialAccepts": true,
+    "cursor.general.enableShadowWorkspace": true,
+    "solidity.telemetry": false,
+    "cursor.composer.shouldChimeAfterChatFinishes": true,
+    "json.schemaDownload.enable": true,
+    "roo-cline.allowedCommands": [
+        "npm test",
+        "npm install",
+        "tsc",
+        "git log",
+        "git diff",
+        "git show",
+        "go"
+    ],
+    "explorer.confirmDragAndDrop": false,
+    "pieces.OS.launchOnStartup": "Yes",
+    "pieces.cloudCapabilities": "Blended",
+    "pieces.telemetry": false,
+    "workbench.tree.indent": 12,
+    "workbench.editor.enablePreview": false,
+    "go.toolsManagement.autoUpdate": true
+}

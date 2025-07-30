@@ -1,0 +1,22 @@
+[
+    "Catppuccin.catppuccin-vsc",
+    "Anthropic.claude-code",
+    "fill-labs.dependi",
+    "ms-azuretools.vscode-containers",
+    "ms-azuretools.vscode-docker",
+    "tamasfe.even-better-toml",
+    "TomRijndorp.find-it-faster",
+    "github.vscode-github-actions",
+    "GitHub.vscode-pull-request-github",
+    "golang.go",
+    "ms-vscode.makefile-tools",
+    "MeshIntelligentTechnologiesInc.pieces-vscode",
+    "peterj.proto",
+    "anysphere.cursorpyright",
+    "ms-python.python",
+    "ms-python.debugpy",
+    "rust-lang.rust-analyzer",
+    "NomicFoundation.hardhat-solidity",
+    "vscodevim.vim",
+    "nefrob.vscode-just-syntax"
+]
