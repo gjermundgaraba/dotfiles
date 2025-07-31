@@ -27,7 +27,7 @@ hs.hotkey.bind({}, "F7", function()
 end)
 
 hs.hotkey.bind({}, "F8", function()
-	hs.application.launchOrFocus("Shortwave")
+	hs.application.launchOrFocus("Superhuman")
 end)
 
 hs.hotkey.bind({}, "F9", function()
