@@ -16,7 +16,6 @@ vim.api.nvim_create_autocmd("User", {
     local textobjs = require "functionality.textobjects"
     local terminal = require "functionality.terminal"
     local ai = require "functionality.ai"
-    local ggbrain = require "functionality.ggbrain"
 
     unmap_lsp_keymaps()
 
@@ -97,7 +96,6 @@ vim.api.nvim_create_autocmd("User", {
     vim.keymap.set("n", "<leader>sg", search.live_grep, { desc = "Search with grep" })
     vim.keymap.set("n", "<leader>sp", search.grep_plugin_files, { desc = "[S]earch neovim [P]lugin code files" })
     vim.keymap.set("n", "<leader>sd", search.workspace_diagnostics, { desc = "Search workspace diagnostics" })
-    vim.keymap.set("n", "<leader>sb", ggbrain.find_note, { desc = "Search brain" })
 
     -- H1: LSP and Treesitter keymaps
     which.add { "<leader>l", group = "[L]SP" }
@@ -160,26 +158,6 @@ vim.api.nvim_create_autocmd("User", {
 
     -- H2: In-terminal keymaps
     vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], { desc = "Normal mode in terminal" })
-
-    -- H1: ggbrain keymaps
-    which.add { "<leader>b", group = "ggbrain" }
-
-    -- Keymaps that make sense everywhere
-    vim.keymap.set("n", "<leader>bb", ggbrain.open_index, { desc = "Go to brain index" })
-    vim.keymap.set("n", "<leader>bn", ggbrain.new_note, { desc = "Create new note" })
-    vim.keymap.set("n", "<leader>bg", ggbrain.search, { desc = "Grep search notes" })
-    vim.keymap.set("n", "<leader>bs", ggbrain.find_note, { desc = "Search notes" })
-    vim.keymap.set("n", "<leader>bd", ggbrain.todos, { desc = "Show todos" })
-
-    -- Keymaps that only make sense inside the notes
-    vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-      pattern = "/Users/gg/Library/Mobile Documents/iCloud~md~obsidian/Documents/gg-brain/*.md",
-      callback = function()
-        vim.keymap.set("n", "<leader>bl", ggbrain.show_backlinks, { desc = "Show backlinks", buffer = true })
-        vim.keymap.set("n", "gd", ggbrain.follow_link, { desc = "Go to definition", buffer = true })
-        vim.keymap.set("n", "<leader>bt", ggbrain.insert_template, { desc = "Insert template", buffer = true })
-      end,
-    })
 
     -- H1: AI keymaps
     which.add { "<leader>A", group = "[A]I" }
