@@ -1,7 +1,32 @@
 #!/bin/bash
 
 # H1: Brew installs
-# TODO: Add all my packages here (at the very least the next time I install a new mac)
+brew install libusb
+brew install just
+brew install protobuf
+brew install neovim
+brew install fzf
+brew install ripgrep
+brew install bat
+brew install fd
+brew install git-lfs
+git lfs install
+brew install oven-sh/bun/bun
+brew install btop
+brew install lazygit
+brew install lazydocker
+brew install k9s
+brew install kubectl
+brew install awscli
+brew install lsd
+brew install neofetch
+brew install python
+brew install json5
+
+# H1: Mac one-time setups
+
+defaults write -g ApplePressAndHoldEnabled -bool false # This will not be in effect until restarted
+
 
 # H1: One-time setups for git
 
@@ -22,3 +47,4 @@ git config --global alias.switch-select "!git for-each-ref --format='%(refname:s
   | awk '{print \$1}' \
   | xargs -r git switch"
 
+echo "Dotfiles setup complete"
