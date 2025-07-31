@@ -10,9 +10,6 @@ HISTFILE=~/.zsh_history
 eval "$(brew shellenv)"
 fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
 
-### Starship (Disabled atm)
-#eval "$(starship init zsh)"
-
 ### fzf
 source <(fzf --zsh)
 
