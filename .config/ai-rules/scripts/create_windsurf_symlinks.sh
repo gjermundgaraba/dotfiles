@@ -30,7 +30,7 @@ for file in "$GLOBALS_DIR"/*.mdc; do
 
     basename=$(basename "$file")
     name_without_ext="${basename%.*}"
-    symlink_name="global_rule_${name_without_ext}.mdc"
+    symlink_name="global_rule_${name_without_ext}.md"
     symlink_path="$WINDSURF_RULES_DIR/$symlink_name"
 
     echo "Creating symlink: $symlink_path -> $file"
