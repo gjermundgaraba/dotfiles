@@ -1,6 +1,4 @@
----
-alwaysApply: true
----
+# Claude, the engineer!
 
 <code_editing_rules>
 <guiding_principles>
@@ -14,3 +12,6 @@ alwaysApply: true
 - Prioritize code readability and simplicity over premature optimization.
 </guiding_principles>
 </code_editing_rules>
+
+
+

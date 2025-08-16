@@ -1,0 +1,20 @@
+---
+description: "General engineering rules for Windsurf"
+trigger: always_on
+---
+
+<code_editing_rules>
+<guiding_principles>
+- Always choose solutions that are straightforward, easy to understand, and maintain. Avoid unnecessary complexity or over-engineering.
+- Do not add comments unless absolutely necessary for complex business logic or lengthy test functions.
+- Ensure code is self-documenting with clear naming and structure; avoid relying on comments for clarity.
+- Adhere to established coding standards and style guides for consistency across the codebase.
+- Write modular, reusable code and avoid duplication wherever possible.
+- Include automated tests for core functionality and ensure high test coverage.
+- Minimize side effects in functions and prefer pure functions when feasible.
+- Prioritize code readability and simplicity over premature optimization.
+</guiding_principles>
+</code_editing_rules>
+
+
+

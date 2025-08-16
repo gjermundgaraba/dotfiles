@@ -1,7 +1,3 @@
-build-claude-the-engineer:
-    @echo "# Claude, the engineer!\n" > claude-the-engineer.md
-    @for file in rules/the-engineer/*; do [ -f "$file" ] || continue; if grep -Eq '^[[:space:]]*alwaysApply:[[:space:]]*true' "$file"; then echo "@./$file" >> claude-the-engineer.md; fi; done
-
 generate-cursor-symlink path:
     #!/bin/bash
     echo "Finding git projects under {{path}}..."
@@ -10,4 +6,30 @@ generate-cursor-symlink path:
         (cd "$gitdir" && "{{justfile_directory()}}/scripts/create_cursor_symlinks.sh") || echo "  ❌ Error in $gitdir"; \
     done
 
+build-rules: build-rules-cursor build-rules-windsurf build-rules-claude
+
+build-rules-cursor:
+    DESCRIPTION="General engineering rules for Cursor" ALWAYS_APPLY=true \
+      gomplate --file=/Users/gg/.config/ai-rules/rules/templates/cursor.mdc.t \
+      --out=/Users/gg/.config/ai-rules/build/cursor/engineering.mdc \
+      --template body=/Users/gg/.config/ai-rules/rules/engineering.md
+    DESCRIPTION="One-shot workflow rules for Cursor" ALWAYS_APPLY=false \
+      gomplate --file=/Users/gg/.config/ai-rules/rules/templates/cursor.mdc.t \
+      --out=/Users/gg/.config/ai-rules/build/cursor/one-shot.mdc \
+      --template body=/Users/gg/.config/ai-rules/rules/one-shot.md
+
+build-rules-windsurf:
+    DESCRIPTION="General engineering rules for Windsurf" TRIGGER="always_on" \
+      gomplate --file=/Users/gg/.config/ai-rules/rules/templates/windsurf.mdc.t \
+      --out=/Users/gg/.config/ai-rules/build/windsurf/engineering.mdc \
+      --template body=/Users/gg/.config/ai-rules/rules/engineering.md
+    DESCRIPTION="One-shot workflow rules for Windsurf" TRIGGER="manual" \
+      gomplate --file=/Users/gg/.config/ai-rules/rules/templates/windsurf.mdc.t \
+      --out=/Users/gg/.config/ai-rules/build/windsurf/one-shot.mdc \
+      --template body=/Users/gg/.config/ai-rules/rules/one-shot.md
+
+build-rules-claude:
+    gomplate --file=/Users/gg/.config/ai-rules/rules/templates/claude.md.t \
+      --out=/Users/gg/.config/ai-rules/build/claude/claude.md \
+      --template body=/Users/gg/.config/ai-rules/rules/engineering.md
 
