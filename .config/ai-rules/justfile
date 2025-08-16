@@ -7,7 +7,6 @@ generate-cursor-symlink path:
     echo "Finding git projects under {{path}}..."
     find "{{path}}" -type d -name ".git" -exec dirname {} \; | while read gitdir; do \
         echo "Processing git project: $gitdir"; \
-        # (cd "$gitdir" && "{{justfile_directory()}}/scripts/create_cursor_symlinks.sh" > /dev/null) || echo "  ❌ Error in $gitdir"; \
         (cd "$gitdir" && "{{justfile_directory()}}/scripts/create_cursor_symlinks.sh") || echo "  ❌ Error in $gitdir"; \
     done
 
