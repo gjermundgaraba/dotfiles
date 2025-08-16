@@ -34,6 +34,10 @@ hs.hotkey.bind({}, "F9", function()
 	hs.application.launchOrFocus("Notion Calendar")
 end)
 
+hs.hotkey.bind({}, "F10", function()
+	hs.application.launchOrFocus("Todoist")
+end)
+
 hs.hotkey.bind({}, "F12", function()
 	hs.application.launchOrFocus("Warp")
 end)
