@@ -1,8 +1,0 @@
----
-alwaysApply: true
----
-
-# Github rules
-
-* Never use `gh api ...` if an alternative `gh` commands exists that has the same functionality.
-* To view pull request (PR) review comments, use `gh pr view [<number> | <url> | <branch>] --comments`

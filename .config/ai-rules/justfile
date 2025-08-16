@@ -1,6 +1,6 @@
 build-claude-the-engineer:
     @echo "# Claude, the engineer!\n" > claude-the-engineer.md
-    @for file in rules/the-engineer/*; do echo "@./$file" >> claude-the-engineer.md; done
+    @for file in rules/the-engineer/*; do [ -f "$file" ] || continue; if grep -Eq '^[[:space:]]*alwaysApply:[[:space:]]*true' "$file"; then echo "@./$file" >> claude-the-engineer.md; fi; done
 
 generate-cursor-symlink path:
     #!/bin/bash
