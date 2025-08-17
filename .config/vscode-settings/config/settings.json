@@ -100,8 +100,9 @@
     "workbench.tree.indent": 12,
     "workbench.editor.enablePreview": false,
     "go.toolsManagement.autoUpdate": true,
-    "editor.fontFamily": "BerkeleyMono Nerd Font",
+    "editor.fontFamily": "BerkeleyMono Nerd Font Mono",
     "editor.fontSize": 14,
-    "terminal.integrated.fontFamily": "BerkeleyMono Nerd Font",
-    "makefile.configureOnOpen": true
+    "terminal.integrated.fontFamily": "BerkeleyMono Nerd Font Mono",
+    "makefile.configureOnOpen": true,
+    "cursor.composer.shouldAllowCustomModes": true
 }
