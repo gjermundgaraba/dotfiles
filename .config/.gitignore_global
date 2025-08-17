@@ -1,2 +1,5 @@
 .cursor/rules/global_rule_*
+.cursor/rules/devplan_*
+.windsurf/rules/global_rule_*
+.windsurf/rules/devplan_*
 .claude/settings.local.json
