@@ -50,6 +50,7 @@ alias configghostty="nvim ~/.config/ghostty/config"
 alias configclaude="nvim ~/.claude/settings.json"
 alias ggbrain="cd ~/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/gg-brain && nvim"
 alias setup_cursor_rules="$HOME/.config/ai-rules/scripts/create_cursor_symlinks.sh"
+alias setup_windsurf_rules="$HOME/.config/ai-rules/scripts/create_windsurf_symlinks.sh"
 
 # NOTE: Git aliases are set up as a one-time setup in the script .config/dotfiles_setup.sh
 
