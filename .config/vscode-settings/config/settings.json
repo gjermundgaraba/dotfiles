@@ -88,15 +88,6 @@
     "solidity.telemetry": false,
     "cursor.composer.shouldChimeAfterChatFinishes": true,
     "json.schemaDownload.enable": true,
-    "roo-cline.allowedCommands": [
-        "npm test",
-        "npm install",
-        "tsc",
-        "git log",
-        "git diff",
-        "git show",
-        "go"
-    ],
     "explorer.confirmDragAndDrop": false,
     "pieces.OS.launchOnStartup": "Yes",
     "pieces.cloudCapabilities": "Blended",
@@ -124,17 +115,5 @@
     "editor.accessibilitySupport": "on",
     "accessibility.signalOptions.volume": 0,
     "mcpServers": {},
-    "codium.codeCompletion.enable": false,
-    "codium.customInstructions.allMessages": "",
-    "codium.customInstructions.specificCommands": {},
-    "codium.editorButton": true,
-    "codium.codeCompletion.userInstructions": "",
-    "codium.rag.maxLocalSnippets": 5,
-    "codium.rag.maxRemoteSnippets": 5,
-    "codium.terminalAllowedCommands": [
-        "cd",
-        "cargo"
-    ],
-    "codium.terminalBlockedCommands": [],
     "explorer.confirmDelete": false
 }
