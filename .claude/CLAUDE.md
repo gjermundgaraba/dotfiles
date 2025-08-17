@@ -1,3 +1,3 @@
 # Global claude rules
 
-@~/.config/ai-rules/claude-the-engineer.md
+@~/.config/ai-rules/build/claude/claude.md
