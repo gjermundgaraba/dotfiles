@@ -7,8 +7,11 @@
       "Grep",
       "LS",
       "Read",
+      "Bash(just:*)",
       "Bash(go:*)",
       "Bash(cargo:*)",
+      "Bash(forge:*)",
+      "Bash(bun:*)",
       "Bash(pg_isready:*)",
       "Bash(mkdir:*)",
       "Bash(cp:*)",
@@ -21,7 +24,11 @@
       "Bash(gh repo view:*)",
       "Bash(gh issue view:*)",
       "Bash(gh pr view:*)",
-      "Bash(gh pr diff:*)"
+      "Bash(gh pr diff:*)",
+      "mcp__linear__get_issue",
+      "mcp__linear__get_project",
+      "mcp__linear__list_issues",
+      "mcp__notion__fetch"
     ],
     "deny": [
       "Read(node_modules/**)"
@@ -40,7 +47,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "say \"Claude is waiting for you...\""
+            "command": "afplay /System/Library/Sounds/Ping.aiff"
           }
         ]
       }
@@ -51,11 +58,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "say \"Claude is done...\""
+            "command": "afplay /System/Library/Sounds/Glass.aiff"
           }
         ]
       }
     ]
   },
-  "model": "sonnet"
+  "model": "opus"
 }

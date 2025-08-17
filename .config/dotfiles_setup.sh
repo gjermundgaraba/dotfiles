@@ -18,10 +18,14 @@ brew install lazydocker
 brew install k9s
 brew install kubectl
 brew install awscli
+brew install --cask aws-vault
 brew install lsd
 brew install neofetch
 brew install python
 brew install json5
+brew install slither-analyzer
+brew install golangci-lint
+brew install doctl
 
 # H1: Mac one-time setups
 

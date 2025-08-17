@@ -58,7 +58,7 @@
     {
         "key": "escape",
         "command": "workbench.action.focusActiveEditorGroup",
-        "when": "terminalFocus || filesExplorerFocus"
+        "when": "filesExplorerFocus"
     },
     {
         "key": "shift+alt+h",
@@ -289,5 +289,5 @@
     {
         "key": "shift+cmd+w",
         "command": "-workbench.action.closeWindow"
-    }
+    },
 ]

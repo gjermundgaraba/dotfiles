@@ -50,6 +50,10 @@
             "commands": ["editor.action.marker.next"]
         },
         {
+            "before": ["<leader>", "c", "c", "n"],
+            "commands": ["editor.action.inlineDiffs.nextChange"]
+        },
+        {
             "before": ["<leader>", "c", "r", "n"],
             "commands": ["editor.action.rename"]
         },
@@ -104,5 +108,33 @@
     "editor.fontSize": 14,
     "terminal.integrated.fontFamily": "BerkeleyMono Nerd Font Mono",
     "makefile.configureOnOpen": true,
-    "cursor.composer.shouldAllowCustomModes": true
+    "cursor.composer.shouldAllowCustomModes": true,
+    "terminal.integrated.fontSize": 14,
+    "window.openFoldersInNewWindow": "on",
+    "pieces.autocomplete": false,
+    "pieces.code-lens": true,
+    "pieces.useSameConversationForCodeLens": true,
+    "pieces.toShowUpdateExtensionNotification": true,
+    "pieces.OS.autoLaunchOnInteraction": false,
+    "pieces.enrichmentSettings": "High (9)",
+    "pieces.closeSnippetEditorOnSave": false,
+    "pieces.save.git.description": true,
+    "pieces.save.git.relatedPeople": true,
+    "pieces.save.git.relatedLinks": true,
+    "editor.accessibilitySupport": "on",
+    "accessibility.signalOptions.volume": 0,
+    "mcpServers": {},
+    "codium.codeCompletion.enable": false,
+    "codium.customInstructions.allMessages": "",
+    "codium.customInstructions.specificCommands": {},
+    "codium.editorButton": true,
+    "codium.codeCompletion.userInstructions": "",
+    "codium.rag.maxLocalSnippets": 5,
+    "codium.rag.maxRemoteSnippets": 5,
+    "codium.terminalAllowedCommands": [
+        "cd",
+        "cargo"
+    ],
+    "codium.terminalBlockedCommands": [],
+    "explorer.confirmDelete": false
 }
