@@ -4,6 +4,7 @@
 brew install libusb
 brew install just
 brew install protobuf
+brew install bufbuild/buf/buf
 brew install neovim
 brew install fzf
 brew install ripgrep
@@ -26,6 +27,7 @@ brew install json5
 brew install slither-analyzer
 brew install golangci-lint
 brew install doctl
+brew install grpcurl
 
 # H1: Mac one-time setups
 

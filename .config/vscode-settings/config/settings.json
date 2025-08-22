@@ -63,7 +63,8 @@
         },
         {
             "before": ["g", "a"],
-            "commands": ["editor.action.sourceAction"]
+            "commands": ["editor.action.quickFix"],
+            "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
         },
         {
             "before": ["g", "r"],

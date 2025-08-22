@@ -290,4 +290,34 @@
         "key": "shift+cmd+w",
         "command": "-workbench.action.closeWindow"
     },
+    {
+        "key": "cmd+right",
+        "command": "editor.action.inlineDiffs.nextDiffFile",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "cmd+left",
+        "command": "editor.action.inlineDiffs.previousDiffFile",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "cmd+alt+l",
+        "command": "editor.action.inlineDiffs.nextDiffFile",
+        "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
+    },
+    {
+        "key": "cmd+alt+h",
+        "command": "editor.action.inlineDiffs.previousDiffFile",
+        "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
+    },
+    {
+        "key": "alt+y",
+        "command": "editor.action.inlineDiffs.acceptPartialEdit",
+        "when": "editorTextFocus && @inlineDiffs.acceptPartialEdit.isActiveEditorWithDiffs"
+    },
+    {
+        "key": "alt+n",
+        "command": "editor.action.inlineDiffs.rejectPartialEdit",
+        "when": "editorTextFocus && @inlineDiffs.rejectPartialEdit.isActiveEditorWithDiffs"
+    },
 ]
