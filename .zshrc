@@ -77,7 +77,7 @@ fi
 export PATH=~/.npm-global/bin:$PATH
 
 ## Enable vi mode
-bindkey -v
+# bindkey -v
 
 export PATH="${PATH}:/Users/gg/bin"
 
@@ -93,3 +93,9 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
 alias claude="/Users/gg/.claude/local/claude"
 export PATH="/Users/gg/.local/bin:$PATH"
+
+# Source work-specific configuration if present
+if [ -f "$HOME/.zshrc-work" ]; then
+  source "$HOME/.zshrc-work"
+fi
+
