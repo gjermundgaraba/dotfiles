@@ -116,5 +116,6 @@
     "editor.accessibilitySupport": "on",
     "accessibility.signalOptions.volume": 0,
     "mcpServers": {},
-    "explorer.confirmDelete": false
+    "explorer.confirmDelete": false,
+    "githubPullRequests.pullBranch": "never"
 }

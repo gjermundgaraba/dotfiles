@@ -311,7 +311,7 @@
         "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
     },
     {
-        "key": "alt+y",
+        "key": "cmd+y",
         "command": "editor.action.inlineDiffs.acceptPartialEdit",
         "when": "editorTextFocus && @inlineDiffs.acceptPartialEdit.isActiveEditorWithDiffs"
     },
@@ -319,5 +319,25 @@
         "key": "alt+n",
         "command": "editor.action.inlineDiffs.rejectPartialEdit",
         "when": "editorTextFocus && @inlineDiffs.rejectPartialEdit.isActiveEditorWithDiffs"
+    },
+    {
+        "key": "cmd+down",
+        "command": "editor.action.inlineDiffs.nextChange",
+        "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
+    },
+    {
+        "key": "alt+j",
+        "command": "-editor.action.inlineDiffs.nextChange",
+        "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
+    },
+    {
+        "key": "cmd+up",
+        "command": "editor.action.inlineDiffs.previousChange",
+        "when": "editorTextFocus && @inlineDiffs.previousChange.isActiveEditorWithDiffs"
+    },
+    {
+        "key": "alt+k",
+        "command": "-editor.action.inlineDiffs.previousChange",
+        "when": "editorTextFocus && @inlineDiffs.previousChange.isActiveEditorWithDiffs"
     },
 ]
