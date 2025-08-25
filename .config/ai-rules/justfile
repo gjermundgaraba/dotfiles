@@ -9,27 +9,42 @@ generate-cursor-symlink path:
 build-rules: build-rules-cursor build-rules-windsurf build-rules-claude
 
 build-rules-cursor:
-    DESCRIPTION="General engineering rules for Cursor" ALWAYS_APPLY=true \
-      gomplate --file=/Users/gg/.config/ai-rules/rules/templates/cursor.mdc.t \
-      --out=/Users/gg/.config/ai-rules/build/cursor/engineering.mdc \
-      --template body=/Users/gg/.config/ai-rules/rules/engineering.md
-    DESCRIPTION="One-shot workflow rules for Cursor" ALWAYS_APPLY=false \
-      gomplate --file=/Users/gg/.config/ai-rules/rules/templates/cursor.mdc.t \
-      --out=/Users/gg/.config/ai-rules/build/cursor/one-shot.mdc \
-      --template body=/Users/gg/.config/ai-rules/rules/one-shot.md
+    mkdir -p build/cursor
+    for file in rules/always-on/*.md; do \
+        name="$(basename "$file" .md)"; \
+        DESCRIPTION="General engineering rules for Cursor" ALWAYS_APPLY=true \
+          gomplate --file=rules/templates/cursor.mdc.t \
+          --out=build/cursor/"${name}".mdc \
+          --template body="$file"; \
+    done
+    for file in rules/on-demand/*.md; do \
+        name="$(basename "$file" .md)"; \
+        DESCRIPTION="One-shot workflow rules for Cursor" ALWAYS_APPLY=false \
+          gomplate --file=rules/templates/cursor.mdc.t \
+          --out=build/cursor/"${name}".mdc \
+          --template body="$file"; \
+    done
 
 build-rules-windsurf:
-    DESCRIPTION="General engineering rules for Windsurf" TRIGGER="always_on" \
-      gomplate --file=/Users/gg/.config/ai-rules/rules/templates/windsurf.mdc.t \
-      --out=/Users/gg/.config/ai-rules/build/windsurf/engineering.mdc \
-      --template body=/Users/gg/.config/ai-rules/rules/engineering.md
-    DESCRIPTION="One-shot workflow rules for Windsurf" TRIGGER="manual" \
-      gomplate --file=/Users/gg/.config/ai-rules/rules/templates/windsurf.mdc.t \
-      --out=/Users/gg/.config/ai-rules/build/windsurf/one-shot.mdc \
-      --template body=/Users/gg/.config/ai-rules/rules/one-shot.md
+    mkdir -p build/windsurf
+    for file in rules/always-on/*.md; do \
+        name="$(basename "$file" .md)"; \
+        DESCRIPTION="General engineering rules for Windsurf" TRIGGER="always_on" ALWAYS_APPLY=true \
+          gomplate --file=rules/templates/windsurf.mdc.t \
+          --out=build/windsurf/"${name}".mdc \
+          --template body="$file"; \
+    done
+    for file in rules/on-demand/*.md; do \
+        name="$(basename "$file" .md)"; \
+        DESCRIPTION="One-shot workflow rules for Windsurf" TRIGGER="manual" ALWAYS_APPLY=false \
+          gomplate --file=rules/templates/windsurf.mdc.t \
+          --out=build/windsurf/"${name}".mdc \
+          --template body="$file"; \
+    done
 
 build-rules-claude:
-    gomplate --file=/Users/gg/.config/ai-rules/rules/templates/claude.md.t \
-      --out=/Users/gg/.config/ai-rules/build/claude/claude.md \
-      --template body=/Users/gg/.config/ai-rules/rules/engineering.md
+    mkdir -p build/claude
+    gomplate --file=rules/templates/claude.md.t \
+      --out=build/claude/claude.md \
+      --template body=rules/always-on/engineering.md
 

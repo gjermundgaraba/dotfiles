@@ -1,8 +1,3 @@
----
-description: "General engineering rules for Cursor"
-alwaysApply: true
----
-
 <engineering_instructions>
 - ALWAYS follow <coding_rules> when making coding changes or making coding plans
 
@@ -12,5 +7,3 @@ alwaysApply: true
 </coding_rules>
 
 </engineering_instructions>
-
-
