@@ -1,5 +1,10 @@
+# AI Coding Assistant Rules - All tools with similar directory structures
 .cursor/rules/global_rule_*
 .cursor/rules/devplan_*
 .windsurf/rules/global_rule_*
 .windsurf/rules/devplan_*
+.qoder/rules/global_rule_*
+.qoder/rules/devplan_*
+
+# Claude specific settings
 .claude/settings.local.json
