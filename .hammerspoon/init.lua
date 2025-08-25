@@ -8,25 +8,42 @@ local function launchOrFocusOrNewWindow(appName)
 
 	local currentSpace = hs.spaces.focusedSpace()
 	local appWindows = app:visibleWindows()
-	local hasWindowOnCurrentSpace = false
 
 	for _, window in ipairs(appWindows) do
 		local windowSpaces = hs.spaces.windowSpaces(window)
 		for _, spaceId in ipairs(windowSpaces) do
 			if spaceId == currentSpace then
-				hasWindowOnCurrentSpace = true
 				window:focus()
 				return
 			end
 		end
 	end
 
-	if not hasWindowOnCurrentSpace then
-		app:activate()
-		hs.timer.doAfter(0.1, function()
-			hs.eventtap.keyStroke({ "cmd" }, "n")
-		end)
-	end
+	app:activate()
+	
+	hs.timer.waitUntil(
+		function() return app:isFrontmost() end,
+		function()
+			local newWindows = app:visibleWindows()
+			local hasNewWindow = false
+			
+			for _, window in ipairs(newWindows) do
+				local windowSpaces = hs.spaces.windowSpaces(window)
+				for _, spaceId in ipairs(windowSpaces) do
+					if spaceId == currentSpace then
+						hasNewWindow = true
+						break
+					end
+				end
+				if hasNewWindow then break end
+			end
+			
+			if not hasNewWindow then
+				hs.eventtap.keyStroke({"cmd"}, "n")
+			end
+		end,
+		0.01
+	)
 end
 
 hs.hotkey.bind({}, "F1", function()
@@ -42,31 +59,31 @@ hs.hotkey.bind({}, "F3", function()
 end)
 
 hs.hotkey.bind({}, "F4", function()
-	hs.application.launchOrFocus("Linear")
+	launchOrFocusOrNewWindow("Linear")
 end)
 
 hs.hotkey.bind({}, "F5", function()
-	hs.application.launchOrFocus("Notion")
+	launchOrFocusOrNewWindow("Notion")
 end)
 
 hs.hotkey.bind({}, "F6", function()
-	hs.application.launchOrFocus("ChatGPT")
+	launchOrFocusOrNewWindow("ChatGPT")
 end)
 
 hs.hotkey.bind({}, "F7", function()
-	hs.application.launchOrFocus("Obsidian")
+	launchOrFocusOrNewWindow("Obsidian")
 end)
 
 hs.hotkey.bind({}, "F8", function()
-	hs.application.launchOrFocus("Superhuman")
+	launchOrFocusOrNewWindow("Superhuman")
 end)
 
 hs.hotkey.bind({}, "F9", function()
-	hs.application.launchOrFocus("Notion Calendar")
+	launchOrFocusOrNewWindow("Notion Calendar")
 end)
 
 hs.hotkey.bind({}, "F10", function()
-	hs.application.launchOrFocus("Todoist")
+	launchOrFocusOrNewWindow("Todoist")
 end)
 
 hs.hotkey.bind({}, "F12", function()
