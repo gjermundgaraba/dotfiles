@@ -1,5 +1,6 @@
 # Claude, the engineer!
 
+
 <engineering_instructions>
 - ALWAYS follow <coding_rules> when making coding changes or making coding plans
 
@@ -9,5 +10,6 @@
 </coding_rules>
 
 </engineering_instructions>
+
 
 

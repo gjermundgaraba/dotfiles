@@ -6,45 +6,15 @@ generate-cursor-symlink path:
         (cd "$gitdir" && "{{justfile_directory()}}/scripts/create_cursor_symlinks.sh") || echo "  ❌ Error in $gitdir"; \
     done
 
-build-rules: build-rules-cursor build-rules-windsurf build-rules-claude
+build-rules:
+    ./scripts/build-rules.sh
 
 build-rules-cursor:
-    mkdir -p build/cursor
-    for file in rules/always-on/*.md; do \
-        name="$(basename "$file" .md)"; \
-        DESCRIPTION="General engineering rules for Cursor" ALWAYS_APPLY=true \
-          gomplate --file=rules/templates/cursor.mdc.t \
-          --out=build/cursor/"${name}".mdc \
-          --template body="$file"; \
-    done
-    for file in rules/on-demand/*.md; do \
-        name="$(basename "$file" .md)"; \
-        DESCRIPTION="One-shot workflow rules for Cursor" ALWAYS_APPLY=false \
-          gomplate --file=rules/templates/cursor.mdc.t \
-          --out=build/cursor/"${name}".mdc \
-          --template body="$file"; \
-    done
+    ./scripts/build-rules.sh cursor
 
 build-rules-windsurf:
-    mkdir -p build/windsurf
-    for file in rules/always-on/*.md; do \
-        name="$(basename "$file" .md)"; \
-        DESCRIPTION="General engineering rules for Windsurf" TRIGGER="always_on" ALWAYS_APPLY=true \
-          gomplate --file=rules/templates/windsurf.mdc.t \
-          --out=build/windsurf/"${name}".mdc \
-          --template body="$file"; \
-    done
-    for file in rules/on-demand/*.md; do \
-        name="$(basename "$file" .md)"; \
-        DESCRIPTION="One-shot workflow rules for Windsurf" TRIGGER="manual" ALWAYS_APPLY=false \
-          gomplate --file=rules/templates/windsurf.mdc.t \
-          --out=build/windsurf/"${name}".mdc \
-          --template body="$file"; \
-    done
+    ./scripts/build-rules.sh windsurf
 
 build-rules-claude:
-    mkdir -p build/claude
-    gomplate --file=rules/templates/claude.md.t \
-      --out=build/claude/claude.md \
-      --template body=rules/always-on/engineering.md
+    ./scripts/build-rules.sh claude
 

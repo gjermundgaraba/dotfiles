@@ -1,7 +1,7 @@
 ---
-description: "General engineering rules for Windsurf"
 trigger: always_on
 ---
+
 
 <engineering_instructions>
 - ALWAYS follow <coding_rules> when making coding changes or making coding plans
@@ -12,5 +12,6 @@ trigger: always_on
 </coding_rules>
 
 </engineering_instructions>
+
 
 

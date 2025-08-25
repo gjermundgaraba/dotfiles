@@ -20,6 +20,7 @@ brew install k9s
 brew install kubectl
 brew install awscli
 brew install --cask aws-vault
+brew install argocd
 brew install lsd
 brew install neofetch
 brew install python
@@ -28,6 +29,8 @@ brew install slither-analyzer
 brew install golangci-lint
 brew install doctl
 brew install grpcurl
+brew install gomplate # If still using in ai-rules
+brew install yq # If still using in ai-rules
 
 # H1: Mac one-time setups
 

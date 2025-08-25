@@ -1,5 +1,8 @@
 ---
-description: {{ env.Getenv "DESCRIPTION" | strings.Quote }}
+{{- $desc := env.Getenv "DESCRIPTION" -}}
+{{- if $desc }}
+description: {{ $desc | strings.Quote }}
+{{- end }}
 trigger: {{ env.Getenv "TRIGGER" }}
 ---
 
