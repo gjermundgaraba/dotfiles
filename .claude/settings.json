@@ -19,6 +19,10 @@
       "Bash(find:*)",
       "Bash(ls:*)",
       "Bash(sed:*)",
+      "Bash(xargs:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(diff:*)",
       "Bash(git fetch:*)",
       "Bash(git checkout:*)",
       "Bash(gh repo view:*)",
@@ -34,17 +38,12 @@
       "Read(node_modules/**)"
     ]
   },
-  "model": "opus",
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "Context7",
     "perplexity-ask",
     "linear"
   ],
-  "statusLine": {
-    "type": "command",
-    "command": "input=$(cat); printf \"$(whoami)@$(hostname -s):$(basename \"$(pwd)\") [$(echo \"$input\" | jq -r '.model.display_name')] $(git branch --show-current 2>/dev/null | sed 's/^/git:/' || echo 'no-git')\""
-  },
   "hooks": {
     "Notification": [
       {
@@ -68,5 +67,10 @@
         ]
       }
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); printf \"$(whoami)@$(hostname -s):$(basename \"$(pwd)\") [$(echo \"$input\" | jq -r '.model.display_name')] $(git branch --show-current 2>/dev/null | sed 's/^/git:/' || echo 'no-git')\""
+  },
+  "model": "opusplan"
 }
