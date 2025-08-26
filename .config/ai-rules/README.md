@@ -36,10 +36,10 @@ type: always-on | on-demand
 
 The `type` field maps directly to platform-specific behaviors:
 
-| Type | Cursor | Windsurf | Claude |
-|------|---------|----------|------------|
-| always-on | alwaysApply: true | trigger: always_on | included |
-| on-demand | alwaysApply: false | trigger: manual | not built |
+| Type | Cursor | Windsurf | Claude | Qoder |
+|------|---------|----------|------------|-------|
+| always-on | alwaysApply: true | trigger: always_on | included | trigger: always_on; alwaysApply: true |
+| on-demand | alwaysApply: false | trigger: manual | not built | no description: trigger: manual; alwaysApply: false. With description: trigger: model_decision |
 
 ### Examples
 
@@ -70,6 +70,7 @@ just build-rules
 # Build specific platforms
 just build-rules-cursor
 just build-rules-windsurf
+just build-rules-qoder
 just build-rules-claude
 ```
 
@@ -79,7 +80,16 @@ Built rules are output to `build/{platform}/` directories.
 
 ### Cursor
 
-Since Cursor global rules are normally configured directly in the editor and does not have any files we can cleverly symlink over, we use a script (`scripts/create_cursor_symlinks.sh`) to generate symlinks into a repo's `.cursor/rules` folder instead. Those files will be named `global_rule_FILE_NAME`.
+Since Cursor global rules are normally configured directly in the editor and does not have any files we can cleverly symlink over, we use a script (`scripts/create-symlinks.sh`) to generate symlinks into a repo's `.cursor/rules` folder instead. Those files will be named `global_rule_FILE_NAME`.
+
+Usage (argument required; no argument will error):
+```bash
+# For the current repo
+./scripts/create-symlinks.sh cursor
+
+# Create symlinks for all supported platforms
+./scripts/create-symlinks.sh all
+```
 
 (Those files should probably be gitignored. One way is to use a global gitignore file (e.g. `../.gitignore_global`) with `./cursor/rules/global_rule_*`)
 
@@ -91,3 +101,11 @@ just generate-cursor-symlink /path/to/top/level/projects/folder
 ### Claude
 
 While you can always just reference any file in here directly from your `CLAUDE.md` files (project or global), we also provide a convenient `claude-the-engineer.md` that you can reference directly.
+
+### Qoder
+
+Qoder output encodes rule behavior as follows:
+
+- **always-on**: `trigger: always_on`, `alwaysApply: true`
+- **on-demand (no description)**: `trigger: manual`, `alwaysApply: false`
+- **on-demand (with description)**: `trigger: model_decision` (no `alwaysApply` field)

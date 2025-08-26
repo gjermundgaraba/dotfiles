@@ -77,6 +77,36 @@ build_platform_rules() {
                 rm "$temp_body"
                 ;;
                 
+            qoder)
+                local template="$TEMPLATES_DIR/qoder.mdc.t"
+                local output_file="$output_dir/${basename}.mdc"
+                local description=$(extract_yaml_value "$rule_file" "description" "")
+                local trigger="manual"
+                local always_apply=""
+
+                if [ "$rule_type" = "always-on" ]; then
+                    trigger="always_on"
+                    always_apply="true"
+                else
+                    # on-demand rules
+                    if [ -z "$description" ]; then
+                        trigger="manual"
+                        always_apply="false"
+                    else
+                        trigger="model_decision"
+                        always_apply=""
+                    fi
+                fi
+
+                # Create a temporary file with just the body content (skip YAML frontmatter)
+                local temp_body=$(mktemp)
+                awk '/^---$/{c++} c==2{if(!printed){getline; printed=1} print}' "$rule_file" > "$temp_body"
+                
+                DESCRIPTION="$description" TRIGGER="$trigger" ALWAYS_APPLY="$always_apply" \
+                    gomplate --file="$template" --out="$output_file" --template body="$temp_body"
+                rm "$temp_body"
+                ;;
+
             claude)
                 local template="$TEMPLATES_DIR/claude.md.t"
                 local output_file="$output_dir/claude.md"
@@ -103,12 +133,16 @@ case "${1:-all}" in
     windsurf)
         build_platform_rules "windsurf"
         ;;
+    qoder)
+        build_platform_rules "qoder"
+        ;;
     claude)
         build_platform_rules "claude"
         ;;
     all|*)
         build_platform_rules "cursor"
         build_platform_rules "windsurf"
+        build_platform_rules "qoder"
         build_platform_rules "claude"
         ;;
 esac

@@ -1,0 +1,16 @@
+---
+trigger: always_on
+alwaysApply: true
+---
+
+
+<engineering_instructions>
+- ALWAYS follow <coding_rules> when making coding changes or making coding plans
+
+<coding_rules>
+- Do not add comments unless absolutely necessary for complex business logic or lengthy test functions.
+- Ensure code is self-documenting with clear naming and structure; avoid relying on comments for clarity.
+</coding_rules>
+
+</engineering_instructions>
+
