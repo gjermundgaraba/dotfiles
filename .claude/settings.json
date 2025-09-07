@@ -7,6 +7,7 @@
       "Grep",
       "LS",
       "Read",
+      "Bash(make:*)",
       "Bash(just:*)",
       "Bash(go:*)",
       "Bash(cargo:*)",
@@ -38,6 +39,7 @@
       "Read(node_modules/**)"
     ]
   },
+  "model": "opusplan",
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "Context7",
@@ -71,6 +73,5 @@
   "statusLine": {
     "type": "command",
     "command": "input=$(cat); printf \"$(whoami)@$(hostname -s):$(basename \"$(pwd)\") [$(echo \"$input\" | jq -r '.model.display_name')] $(git branch --show-current 2>/dev/null | sed 's/^/git:/' || echo 'no-git')\""
-  },
-  "model": "opusplan"
+  }
 }
