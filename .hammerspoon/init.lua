@@ -8,50 +8,33 @@ local function launchOrFocusOrNewWindow(appName)
 
 	local currentSpace = hs.spaces.focusedSpace()
 	local appWindows = app:visibleWindows()
+	local hasWindowOnCurrentSpace = false
 
 	for _, window in ipairs(appWindows) do
 		local windowSpaces = hs.spaces.windowSpaces(window)
 		for _, spaceId in ipairs(windowSpaces) do
 			if spaceId == currentSpace then
+				hasWindowOnCurrentSpace = true
 				window:focus()
 				return
 			end
 		end
 	end
 
-	app:activate()
-	
-	hs.timer.waitUntil(
-		function() return app:isFrontmost() end,
-		function()
-			local newWindows = app:visibleWindows()
-			local hasNewWindow = false
-			
-			for _, window in ipairs(newWindows) do
-				local windowSpaces = hs.spaces.windowSpaces(window)
-				for _, spaceId in ipairs(windowSpaces) do
-					if spaceId == currentSpace then
-						hasNewWindow = true
-						break
-					end
-				end
-				if hasNewWindow then break end
-			end
-			
-			if not hasNewWindow then
-				hs.eventtap.keyStroke({"cmd"}, "n")
-			end
-		end,
-		0.01
-	)
+	if not hasWindowOnCurrentSpace then
+		app:activate()
+		hs.timer.doAfter(0.1, function()
+			hs.eventtap.keyStroke({ "cmd" }, "n")
+		end)
+	end
 end
 
 hs.hotkey.bind({}, "F1", function()
-	launchOrFocusOrNewWindow("Cursor")
+	hs.application.launchOrFocus("Cursor")
 end)
 
 hs.hotkey.bind({}, "F2", function()
-	launchOrFocusOrNewWindow("Comet")
+	hs.application.launchOrFocus("Comet")
 end)
 
 hs.hotkey.bind({}, "F3", function()
@@ -59,31 +42,31 @@ hs.hotkey.bind({}, "F3", function()
 end)
 
 hs.hotkey.bind({}, "F4", function()
-	launchOrFocusOrNewWindow("Linear")
+	hs.application.launchOrFocus("Linear")
 end)
 
 hs.hotkey.bind({}, "F5", function()
-	launchOrFocusOrNewWindow("Notion")
+	hs.application.launchOrFocus("Notion")
 end)
 
 hs.hotkey.bind({}, "F6", function()
-	launchOrFocusOrNewWindow("ChatGPT")
+	hs.application.launchOrFocus("ChatGPT")
 end)
 
 hs.hotkey.bind({}, "F7", function()
-	launchOrFocusOrNewWindow("Obsidian")
+	hs.application.launchOrFocus("Obsidian")
 end)
 
 hs.hotkey.bind({}, "F8", function()
-	launchOrFocusOrNewWindow("Superhuman")
+	hs.application.launchOrFocus("Superhuman")
 end)
 
 hs.hotkey.bind({}, "F9", function()
-	launchOrFocusOrNewWindow("Notion Calendar")
+	hs.application.launchOrFocus("Notion Calendar")
 end)
 
 hs.hotkey.bind({}, "F10", function()
-	launchOrFocusOrNewWindow("Todoist")
+	hs.application.launchOrFocus("Todoist")
 end)
 
 hs.hotkey.bind({}, "F12", function()
