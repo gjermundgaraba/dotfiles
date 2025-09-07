@@ -1,0 +1,12 @@
+# Configuration file for Codex
+
+## Ask for changes!
+approval_policy = "untrusted"
+
+model = "gpt-5"
+model_reasoning_effort = "high"
+
+# [mcp_servers.server-name]
+# command = "npx"
+# args = ["-y", "mcp-server"]
+# env = { "API_KEY" = "value" }
