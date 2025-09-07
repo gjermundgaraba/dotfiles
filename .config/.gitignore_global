@@ -6,5 +6,10 @@
 .qoder/rules/global_rule_*
 .qoder/rules/devplan_*
 
-# Claude specific settings
+# Claude specific ones
 .claude/settings.local.json
+CLAUDE.md
+
+# Other
+AGENTS.md
+WARP.md
