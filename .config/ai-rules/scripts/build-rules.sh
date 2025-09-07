@@ -22,7 +22,6 @@ extract_yaml_value() {
     fi
 }
 
-
 # Function to build rules for a specific platform
 build_platform_rules() {
     local platform="$1"
@@ -125,26 +124,10 @@ build_platform_rules() {
     done
 }
 
-# Main script
-case "${1:-all}" in
-    cursor)
-        build_platform_rules "cursor"
-        ;;
-    windsurf)
-        build_platform_rules "windsurf"
-        ;;
-    qoder)
-        build_platform_rules "qoder"
-        ;;
-    claude)
-        build_platform_rules "claude"
-        ;;
-    all|*)
-        build_platform_rules "cursor"
-        build_platform_rules "windsurf"
-        build_platform_rules "qoder"
-        build_platform_rules "claude"
-        ;;
-esac
+# Main script: always build all platforms
+build_platform_rules "cursor"
+build_platform_rules "windsurf"
+build_platform_rules "qoder"
+build_platform_rules "claude"
 
 echo "Build complete!"

@@ -9,15 +9,3 @@ generate-cursor-symlink path:
 build-rules:
     ./scripts/build-rules.sh
 
-build-rules-cursor:
-    ./scripts/build-rules.sh cursor
-
-build-rules-windsurf:
-    ./scripts/build-rules.sh windsurf
-
-build-rules-qoder:
-    ./scripts/build-rules.sh qoder
-
-build-rules-claude:
-    ./scripts/build-rules.sh claude
-

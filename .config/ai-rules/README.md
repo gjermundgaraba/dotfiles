@@ -61,17 +61,10 @@ type: on-demand
 
 ## Building Rules
 
-Build platform-specific rule files using:
+Build platform-specific rule files for all platforms using:
 
 ```bash
-# Build all platforms
 just build-rules
-
-# Build specific platforms
-just build-rules-cursor
-just build-rules-windsurf
-just build-rules-qoder
-just build-rules-claude
 ```
 
 Built rules are output to `build/{platform}/` directories.
