@@ -56,4 +56,21 @@ function M.get_display_id_by_uuid(uuid)
   return M.uuid_map and M.uuid_map[uuid]
 end
 
+-- Default display: smallest arrangement-id available from SketchyBar
+function M.get_default_display_id()
+  ensure_uuid_map()
+  local min_id
+  for _, id in pairs(M.uuid_map or {}) do
+    if not min_id or id < min_id then
+      min_id = id
+    end
+  end
+  return min_id or 1
+end
+
+-- Main display with fallback to default
+function M.get_main_display_id(main_uuid)
+  return M.get_display_id_by_uuid(main_uuid) or M.get_default_display_id()
+end
+
 return M

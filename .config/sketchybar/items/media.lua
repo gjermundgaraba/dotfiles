@@ -3,7 +3,7 @@ local icons = require("icons")
 local colors = require("colors").sections.media
 local settings = require("settings")
 local monitors = require("helpers.monitors")
-local MAIN_DISPLAY = monitors.get_display_id_by_uuid(settings.monitors.main_uuid)
+local MAIN_DISPLAY = monitors.get_main_display_id(settings.monitors.main_uuid)
 
 local whitelist = { ["Spotify"] = true, ["Psst"] = true }
 

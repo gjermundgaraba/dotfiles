@@ -1,7 +1,7 @@
 local sbar = require("sketchybar")
 local settings = require("settings")
 local monitors = require("helpers.monitors")
-local MAIN_DISPLAY = monitors.get_display_id_by_uuid(settings.monitors.main_uuid)
+local MAIN_DISPLAY = monitors.get_main_display_id(settings.monitors.main_uuid)
 
 --left
 require("items.apple")

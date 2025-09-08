@@ -3,7 +3,7 @@ local colors = require("colors").sections.spaces
 local app_icons = require("helpers.app_icons")
 local settings = require("settings")
 local monitors = require("helpers.monitors")
-local MAIN_DISPLAY = monitors.get_display_id_by_uuid(settings.monitors.main_uuid)
+local MAIN_DISPLAY = monitors.get_main_display_id(settings.monitors.main_uuid)
 
 -- Check if this workspace is currently focused
 local function is_focused_workspace(space_name, callback)

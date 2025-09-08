@@ -7,7 +7,7 @@ local monitors = require("helpers.monitors")
 monitors.start()
 
 sbar.begin_config()
-sbar.hotload(true)
+-- sbar.hotload(true)
 
 require("bar")
 require("default")

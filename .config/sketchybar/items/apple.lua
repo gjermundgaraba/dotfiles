@@ -3,7 +3,7 @@ local colors = require("colors").sections
 local icons = require("icons")
 local settings = require("settings")
 local monitors = require("helpers.monitors")
-local MAIN_DISPLAY = monitors.get_display_id_by_uuid(settings.monitors.main_uuid)
+local MAIN_DISPLAY = monitors.get_main_display_id(settings.monitors.main_uuid)
 
 local apple = sbar.add("item", {
   associated_display = MAIN_DISPLAY,
