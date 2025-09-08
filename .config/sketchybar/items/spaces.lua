@@ -1,6 +1,9 @@
 local sbar = require("sketchybar")
 local colors = require("colors").sections.spaces
 local app_icons = require("helpers.app_icons")
+local settings = require("settings")
+local monitors = require("helpers.monitors")
+local MAIN_DISPLAY = monitors.get_display_id_by_uuid(settings.monitors.main_uuid)
 
 -- Check if this workspace is currently focused
 local function is_focused_workspace(space_name, callback)
@@ -12,7 +15,6 @@ end
 
 -- Add app icons and hide if empty + unfocused
 local function add_windows(space, space_name)
-	print("Updating windows for space " .. space_name)
 	sbar.exec("aerospace list-windows --format %{app-name} --workspace " .. space_name, function(windows)
 		local icon_line = ""
 		for app in windows:gmatch("[^\r\n]+") do
@@ -31,13 +33,6 @@ local function add_windows(space, space_name)
 				},
 			})
 		end)
-
-		-- Auto-hide if empty and not focused
-		-- is_focused_workspace(space_name, function(is_focused)
-		-- 	local should_draw = icon_line ~= "" or is_focused
-		-- 	print("Setting drawing for space " .. space_name .. " to " .. tostring(should_draw))
-		-- 	space:set({ drawing = should_draw })
-		-- end)
 	end)
 end
 
@@ -45,7 +40,9 @@ sbar.exec("aerospace list-workspaces --all", function(output)
 	for space_name in output:gmatch("[^\r\n]+") do
 		local is_first = space_name == "1"
 
-		local space = sbar.add("item", "space." .. space_name, {
+local space = sbar.add("item", "space." .. space_name, {
+			associated_display = MAIN_DISPLAY,
+			display = MAIN_DISPLAY,
 			icon = {
 				string = space_name,
 				color = colors.icon.color,
@@ -61,14 +58,13 @@ sbar.exec("aerospace list-workspaces --all", function(output)
 			},
 			click_script = "aerospace workspace " .. space_name,
 			padding_left = is_first and 0 or 4,
-			drawing = true, -- hide by default until checked
+			drawing = true,
 		})
 
 		add_windows(space, space_name)
 
 		space:subscribe("aerospace_workspace_change", function(env)
 			local selected = env.FOCUSED_WORKSPACE == space_name
-			print("Workspace " .. space_name .. " selected: " .. tostring(selected))
 			space:set({
 				icon = { highlight = selected },
 				label = { highlight = selected },
@@ -91,9 +87,7 @@ sbar.exec("aerospace list-workspaces --all", function(output)
 				end)
 			end
 
-			-- Always make focused space visible
 			space:set({ drawing = true })
-
 			add_windows(space, space_name)
 		end)
 
@@ -119,3 +113,40 @@ sbar.exec("aerospace list-workspaces --all", function(output)
 		end)
 	end
 end)
+
+-- Side displays: add a single-workspace item per configured display (UUID only)
+local function add_single_space_item_by_uuid(display_uuid, workspace, name_suffix)
+	local display_id = monitors.get_display_id_by_uuid(display_uuid)
+	if not (display_id and workspace) then return end
+	local item_name = ("space.%s.%s"):format(workspace, name_suffix)
+local space = sbar.add("item", item_name, {
+		associated_display = display_id,
+		display = display_id,
+		icon = { string = workspace, color = colors.icon.color, highlight_color = colors.icon.highlight, padding_left = 8 },
+		label = { font = "sketchybar-app-font:Regular:14.0", string = "", color = colors.label.color, highlight_color = colors.label.highlight, y_offset = -1 },
+		click_script = "aerospace workspace " .. workspace,
+		padding_left = 4,
+		drawing = true,
+	})
+	add_windows(space, workspace)
+	space:subscribe("aerospace_workspace_change", function(env)
+		local selected = (env.FOCUSED_WORKSPACE == workspace)
+		space:set({ icon = { highlight = selected }, label = { highlight = selected } })
+		add_windows(space, workspace)
+	end)
+	space:subscribe("space_windows_change", function()
+		add_windows(space, workspace)
+	end)
+	space:subscribe("mouse.clicked", function()
+		sbar.animate("tanh", 8, function()
+			space:set({ background = { shadow = { distance = 0 } }, y_offset = -4, padding_left = 8, padding_right = 0 })
+			space:set({ background = { shadow = { distance = 4 } }, y_offset = 0, padding_left = 4, padding_right = 4 })
+		end)
+	end)
+end
+
+local uuid_map = settings.monitors.workspace_by_display_uuid or {}
+for uuid, workspace in pairs(uuid_map) do
+	local suffix = (uuid:gsub("-", "")):sub(1, 6)
+	add_single_space_item_by_uuid(uuid, workspace, suffix)
+end

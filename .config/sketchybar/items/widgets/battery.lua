@@ -1,8 +1,13 @@
 local sbar = require("sketchybar")
 local icons = require "icons"
 local colors = require("colors").sections.widgets.battery
+local settings = require("settings")
+local monitors = require("helpers.monitors")
+local MAIN_DISPLAY = monitors.get_display_id_by_uuid(settings.monitors.main_uuid)
 
 local battery = sbar.add("item", "widgets.battery", {
+  associated_display = MAIN_DISPLAY,
+  display = MAIN_DISPLAY,
   position = "right",
   icon = {},
   label = { drawing = false },

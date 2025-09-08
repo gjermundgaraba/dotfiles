@@ -1,5 +1,10 @@
 local sbar = require("sketchybar")
+local settings = require("settings")
+local monitors = require("helpers.monitors")
+local MAIN_DISPLAY = monitors.get_display_id_by_uuid(settings.monitors.main_uuid)
 local notification = sbar.add("item", "notifications", {
+  associated_display = MAIN_DISPLAY,
+  display = MAIN_DISPLAY,
   width = 0,
   position = "center",
   popup = {
