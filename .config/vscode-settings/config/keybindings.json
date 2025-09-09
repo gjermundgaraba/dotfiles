@@ -22,6 +22,21 @@
         "when": "terminal.active"
     },
     {
+        "key": "cmd+t",
+        "command": "workbench.action.terminal.new",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.terminal.focusNext",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.terminal.focusPrevious",
+        "when": "terminalFocus"
+    },
+    {
         "key": "alt+h",
         "command": "editor.action.outdentLines",
         "when": "editorTextFocus && !editorReadonly"
@@ -85,8 +100,9 @@
         "command": "workbench.action.closeOtherEditors"
     },
     {
-        "key": "shift+tab",
-        "command": "editor.action.acceptCursorTabSuggestion"
+        "key": "tab",
+        "command": "editor.action.acceptCursorTabSuggestion",
+        "when": " cpp.shouldAcceptTab && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
     },
     // Disables
     {
@@ -339,5 +355,25 @@
         "key": "alt+k",
         "command": "-editor.action.inlineDiffs.previousChange",
         "when": "editorTextFocus && @inlineDiffs.previousChange.isActiveEditorWithDiffs"
+    },
+    {
+        "key": "ctrl+s",
+        "command": "-extension.vim_ctrl+s",
+        "when": "editorTextFocus && vim.active && vim.use<C-s> && !inDebugRepl"
+    },
+    {
+        "key": "ctrl+s",
+        "command": "editor.action.triggerParameterHints",
+        "when": "editorHasSignatureHelpProvider && editorTextFocus"
+    },
+    {
+        "key": "tab",
+        "command": "-extension.vim_tab",
+        "when": "editorTextFocus && vim.active && !inDebugRepl && !inlineEditIsVisible && vim.mode != 'Insert'"
+    },
+    {
+        "key": "tab",
+        "command": "-editor.action.acceptCursorTabSuggestion",
+        "when": "cpp.shouldAcceptTab"
     },
 ]

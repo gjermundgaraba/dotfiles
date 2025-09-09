@@ -31,6 +31,13 @@ brew install doctl
 brew install grpcurl
 brew install gomplate # If still using in ai-rules
 brew install yq # If still using in ai-rules
+brew install coreutils
+# Sketchybar and Aerospace, with deps
+brew install --cask nikitabobko/tap/aerospace
+brew tap FelixKratz/formulae
+brew install sketchybar
+brew install --cask font-sketchybar-app-font
+brew install switchaudio-osx
 
 # H1: Mac one-time setups
 

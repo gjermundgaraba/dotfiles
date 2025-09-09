@@ -62,9 +62,11 @@ alias configclaude="nvim ~/.claude/settings.json"
 alias configglobalgit="nvim ~/.config/.gitignore_global"
 alias configsketchybar="cd ~/.config/sketchybar && nvim"
 alias configaerospace="nvim ~/.config/aerospace/aerospace.toml"
+alias configcodex="nvim ~/.config/codex/config.toml"
 
 #### Misc aliases
 alias setup_rules="$HOME/.config/ai-rules/scripts/create-symlinks.sh"
+alias workspace_labels="$HOME/.config/sketchybar/helpers/workspace-label-script/workspace-labels"
 alias timeout="gtimeout"
 
 #### Claude

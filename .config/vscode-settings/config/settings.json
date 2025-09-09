@@ -117,5 +117,9 @@
     "accessibility.signalOptions.volume": 0,
     "mcpServers": {},
     "explorer.confirmDelete": false,
-    "githubPullRequests.pullBranch": "never"
+    "githubPullRequests.pullBranch": "never",
+    "git.blame.editorDecoration.enabled": false,
+    "git.blame.statusBarItem.enabled": true,
+    "git.openRepositoryInParentFolders": "never",
+    "security.promptForLocalFileProtocolHandling": false
 }
