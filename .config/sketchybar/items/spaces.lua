@@ -3,6 +3,7 @@ local colors = require("colors").sections.spaces
 local app_icons = require("helpers.app_icons")
 local settings = require("settings")
 local monitors = require("helpers.monitors")
+local WL = require("helpers.workspace_labels")
 local MAIN_DISPLAY = monitors.get_main_display_id(settings.monitors.main_uuid)
 
 -- Check if this workspace is currently focused
@@ -43,8 +44,8 @@ sbar.exec("aerospace list-workspaces --all", function(output)
 local space = sbar.add("item", "space." .. space_name, {
 			associated_display = MAIN_DISPLAY,
 			display = MAIN_DISPLAY,
-			icon = {
-				string = space_name,
+icon = {
+				string = WL.format_display(space_name),
 				color = colors.icon.color,
 				highlight_color = colors.icon.highlight,
 				padding_left = 8,
@@ -61,7 +62,15 @@ local space = sbar.add("item", "space." .. space_name, {
 			drawing = true,
 		})
 
-		add_windows(space, space_name)
+add_windows(space, space_name)
+
+		-- Refresh icon text when labels change
+		space:subscribe(WL.event, function()
+			WL.reload()
+			space:set({
+				icon = { string = WL.format_display(space_name) },
+			})
+		end)
 
 		space:subscribe("aerospace_workspace_change", function(env)
 			local selected = env.FOCUSED_WORKSPACE == space_name
@@ -122,14 +131,19 @@ local function add_single_space_item_by_uuid(display_uuid, workspace, name_suffi
 local space = sbar.add("item", item_name, {
 		associated_display = display_id,
 		display = display_id,
-		icon = { string = workspace, color = colors.icon.color, highlight_color = colors.icon.highlight, padding_left = 8 },
+icon = { string = WL.format_display(workspace), color = colors.icon.color, highlight_color = colors.icon.highlight, padding_left = 8 },
 		label = { font = "sketchybar-app-font:Regular:14.0", string = "", color = colors.label.color, highlight_color = colors.label.highlight, y_offset = -1 },
 		click_script = "aerospace workspace " .. workspace,
 		padding_left = 4,
 		drawing = true,
 	})
-	add_windows(space, workspace)
-	space:subscribe("aerospace_workspace_change", function(env)
+add_windows(space, workspace)
+-- Refresh icon text when labels change (side display item)
+space:subscribe(WL.event, function()
+	WL.reload()
+	space:set({ icon = { string = WL.format_display(workspace) } })
+end)
+space:subscribe("aerospace_workspace_change", function(env)
 		local selected = (env.FOCUSED_WORKSPACE == workspace)
 		space:set({ icon = { highlight = selected }, label = { highlight = selected } })
 		add_windows(space, workspace)

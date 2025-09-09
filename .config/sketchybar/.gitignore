@@ -4,3 +4,4 @@
 /.luarocks
 
 bin/
+workspace_labels.toml
