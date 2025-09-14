@@ -3,8 +3,9 @@ local colors = require("colors").sections.spaces
 local app_icons = require("helpers.app_icons")
 local settings = require("settings")
 local monitors = require("helpers.monitors")
+local env = require("helpers.env")
 local WL = require("helpers.workspace_labels")
-local MAIN_DISPLAY = monitors.get_main_display_id(settings.monitors.main_uuid)
+local MAIN_DISPLAY = env.main_display_id()
 
 -- Check if this workspace is currently focused
 local function is_focused_workspace(space_name, callback)
@@ -161,6 +162,9 @@ end
 
 local uuid_map = settings.monitors.workspace_by_display_uuid or {}
 for uuid, workspace in pairs(uuid_map) do
-	local suffix = (uuid:gsub("-", "")):sub(1, 6)
-	add_single_space_item_by_uuid(uuid, workspace, suffix)
+	local display_id = monitors.get_display_id_by_uuid(uuid)
+	if display_id and display_id ~= MAIN_DISPLAY then
+		local suffix = (uuid:gsub("-", "")):sub(1, 6)
+		add_single_space_item_by_uuid(uuid, workspace, suffix)
+	end
 end

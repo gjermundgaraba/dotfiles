@@ -8,6 +8,7 @@ local settings = {
 settings.monitors = {
   -- Hardcoded UUIDs (no name fallbacks)
   main_uuid = "D736B4F3-6B19-4626-917F-468415D0FEE3",
+  builtin_uuid = "37D8832A-2D66-02CA-B9F7-8F30A301B230", -- Built-in display UUID
 
   -- Side displays: workspace per display UUID
   workspace_by_display_uuid = {

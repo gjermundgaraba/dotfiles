@@ -1,7 +1,9 @@
 local sbar = require("sketchybar")
 local settings = require("settings")
 local monitors = require("helpers.monitors")
+
 local MAIN_DISPLAY = monitors.get_main_display_id(settings.monitors.main_uuid)
+
 local notification = sbar.add("item", "notifications", {
   associated_display = MAIN_DISPLAY,
   display = MAIN_DISPLAY,
@@ -20,6 +22,7 @@ local notification_popup = sbar.add("item", {
   icon = { drawing = false },
   background = { drawing = false },
 })
+
 
 local function hide_notification()
   sbar.animate("sin", 30, function()

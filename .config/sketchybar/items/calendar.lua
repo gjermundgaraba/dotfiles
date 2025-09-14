@@ -3,9 +3,8 @@ local icons = require("icons")
 local colors = require("colors").sections.calendar
 local settings = require("settings")
 local monitors = require("helpers.monitors")
-local MAIN_DISPLAY = monitors.get_display_id_by_uuid(settings.monitors.main_uuid)
-  or monitors.get_display_id_by_name(settings.monitors.main_name)
-  or 1
+local MAIN_DISPLAY = monitors.get_main_display_id(settings.monitors.main_uuid)
+  or monitors.get_default_display_id()
 
 local cal = sbar.add("item", {
   associated_display = MAIN_DISPLAY,
