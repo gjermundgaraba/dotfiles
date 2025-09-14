@@ -1,0 +1,6 @@
+# Render AeroSpace configs from the single template with gomplate
+render:
+	./scripts/render_configs.sh
+
+render-and-reload: render
+	aerospace reload-config
