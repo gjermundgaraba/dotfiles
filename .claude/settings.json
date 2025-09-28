@@ -10,10 +10,6 @@
       "Bash(make:*)",
       "Bash(just:*)",
       "Bash(go:*)",
-      "Bash(cargo:*)",
-      "Bash(forge:*)",
-      "Bash(bun:*)",
-      "Bash(pg_isready:*)",
       "Bash(mkdir:*)",
       "Bash(cp:*)",
       "Bash(grep:*)",
@@ -29,23 +25,13 @@
       "Bash(gh repo view:*)",
       "Bash(gh issue view:*)",
       "Bash(gh pr view:*)",
-      "Bash(gh pr diff:*)",
-      "mcp__linear__get_issue",
-      "mcp__linear__get_project",
-      "mcp__linear__list_issues",
-      "mcp__notion__fetch"
+      "Bash(gh pr diff:*)"
     ],
     "deny": [
       "Read(node_modules/**)"
     ]
   },
-  "model": "opusplan",
-  "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "Context7",
-    "perplexity-ask",
-    "linear"
-  ],
+  "model": "opus",
   "hooks": {
     "Notification": [
       {
@@ -69,9 +55,5 @@
         ]
       }
     ]
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "input=$(cat); printf \"$(whoami)@$(hostname -s):$(basename \"$(pwd)\") [$(echo \"$input\" | jq -r '.model.display_name')] $(git branch --show-current 2>/dev/null | sed 's/^/git:/' || echo 'no-git')\""
   }
 }
