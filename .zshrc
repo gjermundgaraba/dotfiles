@@ -16,6 +16,9 @@ source <(fzf --zsh)
 ### Load Rust environment
 . "$HOME/.cargo/env"
 
+### Zoxide
+eval "$(zoxide init zsh)"
+
 ## Aliases
 ### Git aliases
 # NOTE: One-time setups (like git config aliases and similar) are done in .config/dotfile_setup.sh
@@ -41,17 +44,6 @@ alias ls="lsd"
 #alias cat="bat"
 
 ### Other aliases
-#### cd aliases
-alias c="cd ~/code"
-alias gibc="cd ~/code/ibc-go"
-alias gmanifests="cd ~/code/ibc-manifests"
-alias gsolidity="cd ~/code/solidity-ibc-eureka"
-alias gops="cd ~/code/eureka-ops"
-alias gsdk="cd ~/code/contrib/cosmos-sdk"
-alias ggaia="cd ~/code/contrib/gaia"
-alias gwasmd="cd ~/code/contrib/wasmd"
-alias glibibc="cd ~/code/libibc"
-
 #### Config aliases
 alias configzsh="nvim ~/.zshrc"
 alias configdotfilessetup="nvim ~/.config/dotfiles_setup.sh"
@@ -69,9 +61,6 @@ alias setup_rules="$HOME/.config/ai-rules/scripts/create-symlinks.sh"
 alias workspace_labels="$HOME/.config/sketchybar/helpers/workspace-label-script/workspace-labels"
 alias timeout="gtimeout"
 
-#### Claude
-alias claude="/Users/gg/.claude/local/claude"
-
 # NOTE: Git aliases are set up as a one-time setup in the script .config/dotfiles_setup.sh
 
 ### Tailscale alias
@@ -87,24 +76,14 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "/Users/gg/.bun/_bun" ] && source "/Users/gg/.bun/_bun"
 
-### npm, nvm
-export PATH=~/.npm-global/bin:$PATH
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 ### Rust stuff
 export PATH="$PATH:/Users/gg/.foundry/bin"
 export PATH="$PATH:/Users/gg/.sp1/bin"
-
-### Solana
-export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
 
 ### Codex
 export CODEX_HOME="$HOME/.config/codex"
 
 ### Custom binaries and such
-export PATH=/Users/gg/Binaries:$PATH
 export PATH="${PATH}:/Users/gg/bin"
 export PATH="/Users/gg/.local/bin:$PATH"
 
@@ -118,4 +97,5 @@ if [ -f "$HOME/.zshrc-work" ]; then
   source "$HOME/.zshrc-work"
 fi
 
-
+# Auto-Warpify
+[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh", "uname": "Darwin" }}œ' 
