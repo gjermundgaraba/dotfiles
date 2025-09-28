@@ -120,6 +120,20 @@ build_platform_rules() {
                     rm "$temp_body"
                 fi
                 ;;
+            agents)
+                local template="$TEMPLATES_DIR/agents.md.t"
+                local output_file="$output_dir/agents.md"
+                
+                # For agents, only build always-on rules
+                if [ "$rule_type" = "always-on" ]; then
+                    # Create a temporary file with just the body content (skip YAML frontmatter)
+                    local temp_body=$(mktemp)
+                    awk '/^---$/{if(++c==2){while((getline)>0)print}} END{if(c<2){print "No content found after frontmatter"}}' "$rule_file" > "$temp_body"
+                    
+                    gomplate --file="$template" --out="$output_file" --template body="$temp_body"
+                    rm "$temp_body"
+                fi
+                ;;
         esac
     done
 }
@@ -129,5 +143,6 @@ build_platform_rules "cursor"
 build_platform_rules "windsurf"
 build_platform_rules "qoder"
 build_platform_rules "claude"
+build_platform_rules "agents"
 
 echo "Build complete!"

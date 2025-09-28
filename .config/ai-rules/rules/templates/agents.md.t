@@ -1,0 +1,4 @@
+# Global rules
+
+{{ template "body" . }}
+

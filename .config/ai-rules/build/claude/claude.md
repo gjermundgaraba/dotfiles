@@ -1,15 +1,22 @@
 # Claude, the engineer!
 
 
-<engineering_instructions>
-- ALWAYS follow <coding_rules> when making coding changes or making coding plans
+## General
+- Search for files only within the current working directory and its subfolders.
 
-<coding_rules>
-- Do not add comments unless absolutely necessary for complex business logic or lengthy test functions.
-- Ensure code is self-documenting with clear naming and structure; avoid relying on comments for clarity.
-</coding_rules>
+## Code
+When editing code
+- Do not add comments unless necessary for complex business logic.
+- Whenever possible, code should be self-documenting with clear naming and structure.
+- When using external libraries:
+  - Verify external APIs by looking up the official documentation or API reference online.
+    - Ensure that it is the same version as the local dependency
+  - Avoid deprecated APIs whenever possible
+  - When adding a new dependency, find the latests by searching online
 
-</engineering_instructions>
+## Before final message
+- Ensure that the code compiles and that all tests run.
+
 
 
 
