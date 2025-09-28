@@ -47,10 +47,6 @@
         "when": "editorTextFocus && !editorReadonly"
     },
     {
-        "key": "cmd+e",
-        "command": "composerMode.background"
-    },
-    {
         "key": "cmd+k",
         "command": "workbench.action.showCommands"
     },
@@ -91,18 +87,13 @@
         "when": "cppSuggestion && !editorReadonly || inlineSuggestionVisible && !editorReadonly"
     },
     {
-        "key": "shift+cmd+l",
-        "command": "editor.action.inlineSuggest.acceptNextWord",
-        "when": "cppSuggestion && !editorReadonly || inlineSuggestionVisible && !editorReadonly"
-    },
-    {
         "key": "shift+cmd+w",
         "command": "workbench.action.closeOtherEditors"
     },
     {
         "key": "tab",
         "command": "editor.action.acceptCursorTabSuggestion",
-        "when": " cpp.shouldAcceptTab && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+        "when": "cpp.shouldAcceptTab && !editorHoverFocused && !editorTabMovesFocus"
     },
     // Disables
     {
@@ -375,5 +366,71 @@
         "key": "tab",
         "command": "-editor.action.acceptCursorTabSuggestion",
         "when": "cpp.shouldAcceptTab"
+    },
+    {
+        "key": "tab",
+        "command": "-acceptSelectedSuggestion",
+        "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "tab",
+        "command": "tab",
+        "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus && !cpp.shouldAcceptTab && !inlineSuggestionVisible"
+    },
+    {
+        "key": "tab",
+        "command": "-tab",
+        "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus"
+    },
+    {
+        "key": "cmd+e",
+        "command": "-cursor.composer.openAgentWindow",
+        "when": "cursor.appLayoutEnabled && cursor.appLayout != 'agent'"
+    },
+    {
+        "key": "cmd+e",
+        "command": "-cursor.composer.openEditorWindow",
+        "when": "cursor.appLayoutEnabled && cursor.appLayout == 'agent'"
+    },
+    {
+        "key": "cmd+e",
+        "command": "-editor.action.toggleScreenReaderAccessibilityMode",
+        "when": "accessibilityHelpIsShown"
+    },
+    {
+        "key": "cmd+e",
+        "command": "-actions.findWithSelection"
+    },
+    {
+        "key": "cmd+e",
+        "command": "workbench.action.openRecent"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-workbench.action.openRecent"
+    },
+    {
+        "key": "shift+cmd+n",
+        "command": "-workbench.action.newWindow"
+    },
+    {
+        "key": "shift+cmd+n",
+        "command": "chatgpt.newChat",
+        "when": "chatgpt.supportsNewChatKeyShortcut"
+    },
+    {
+        "key": "cmd+n",
+        "command": "-chatgpt.newChat",
+        "when": "chatgpt.supportsNewChatKeyShortcut"
+    },
+    {
+        "key": "shift+cmd+n",
+        "command": "composer.createNewWithPrevContext",
+        "when": "composerFocused || cursor.appLayout == 'agent' || focusedView =~ /^workbench.panel.aichat.view/"
+    },
+    {
+        "key": "cmd+n",
+        "command": "-composer.createNewWithPrevContext",
+        "when": "composerFocused || cursor.appLayout == 'agent' || focusedView =~ /^workbench.panel.aichat.view/"
     },
 ]

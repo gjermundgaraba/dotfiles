@@ -11,7 +11,9 @@
     ],
     "go.lintTool": "golangci-lint-v2",
     "go.testTimeout": "30m",
-    "gopls": {},
+    "gopls": {
+        "buildFlags": ["-tags=integration"]
+    },
     "vim.useSystemClipboard": true,
     "vim.leader": "<space>",
     "vim.highlightedyank.enable": true,
@@ -70,6 +72,14 @@
             "before": ["g", "r"],
             "commands": ["editor.action.goToReferences"]
         },
+        // {
+        //     "before": ["g", "d"],
+        //     "commands": ["editor.action.goToDefinition"]
+        // },
+        {
+            "before": ["g", "t"],
+            "commands": ["editor.action.goToTypeDefinition"]
+        },
         {
             "before": ["<leader>", "s", "f"],
             "commands": ["workbench.action.quickOpen"]
@@ -121,5 +131,25 @@
     "git.blame.editorDecoration.enabled": false,
     "git.blame.statusBarItem.enabled": true,
     "git.openRepositoryInParentFolders": "never",
-    "security.promptForLocalFileProtocolHandling": false
+    "security.promptForLocalFileProtocolHandling": false,
+    "[lua]": {
+        "editor.defaultFormatter": "sumneko.lua"
+    },
+    "files.associations": {
+        "*.hcl": "hcl"
+    },
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": true
+        },
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    }
 }
