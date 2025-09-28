@@ -1,0 +1,8 @@
+---
+{{- if .Description }}
+description: {{ quote .Description }}
+{{- end }}
+trigger: {{ .Trigger }}
+---
+
+{{ .Body }}

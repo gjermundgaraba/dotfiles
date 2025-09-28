@@ -10,8 +10,7 @@ To run all the just recipes, you need the following installed:
 
 - **just** - Task runner
 - **bash** - Shell interpreter
-- **gomplate** - Template engine for building rules
-- **yq** - YAML processor for extracting frontmatter
+- **Go 1.22+** - Required to run the `ai-rules` CLI
 - Standard Unix utilities (find, sed, ln, mkdir, etc.)
 
 ## Rules Format
@@ -67,21 +66,27 @@ Build platform-specific rule files for all platforms using:
 just build-rules
 ```
 
+You can also run the CLI directly:
+
+```bash
+go run . build
+```
+
 Built rules are output to `build/{platform}/` directories.
 
 ## Platform Integration
 
 ### Cursor
 
-Since Cursor global rules are normally configured directly in the editor and does not have any files we can cleverly symlink over, we use a script (`scripts/create-symlinks.sh`) to generate symlinks into a repo's `.cursor/rules` folder instead. Those files will be named `global_rule_FILE_NAME`.
+Since Cursor global rules are normally configured directly in the editor and does not have any files we can cleverly symlink over, use the CLI to generate symlinks into a repo's `.cursor/rules` folder instead. Those files will be named `global_rule_FILE_NAME`.
 
 Usage (argument required; no argument will error):
 ```bash
 # For the current repo
-./scripts/create-symlinks.sh cursor
+go run . create-symlinks cursor --repo-dir .
 
 # Create symlinks for all supported platforms
-./scripts/create-symlinks.sh all
+go run . create-symlinks all --repo-dir .
 ```
 
 (Those files should probably be gitignored. One way is to use a global gitignore file (e.g. `../.gitignore_global`) with `./cursor/rules/global_rule_*`)

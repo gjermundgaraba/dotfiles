@@ -1,0 +1,11 @@
+---
+{{- if .Description }}
+description: {{ quote .Description }}
+{{- end }}
+trigger: {{ .Trigger }}
+{{- if .AlwaysApply }}
+alwaysApply: {{ .AlwaysApply }}
+{{- end }}
+---
+
+{{ .Body }}

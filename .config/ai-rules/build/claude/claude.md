@@ -18,5 +18,3 @@ When editing code
 - Ensure that the code compiles and that all tests run.
 
 
-
-

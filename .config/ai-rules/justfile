@@ -1,11 +1,12 @@
 generate-cursor-symlink path:
     #!/bin/bash
+    set -euo pipefail
     echo "Finding git projects under {{path}}..."
-    find "{{path}}" -type d -name ".git" -exec dirname {} \; | while read gitdir; do \
+    find "{{path}}" -type d -name ".git" -exec dirname {} \; | while read -r gitdir; do \
         echo "Processing git project: $gitdir"; \
-        (cd "$gitdir" && "{{justfile_directory()}}/scripts/create-symlinks.sh" cursor) || echo "  ❌ Error in $gitdir"; \
+        (cd "{{justfile_directory()}}" && go run . create-symlinks cursor --repo-dir "$gitdir") || echo "  ❌ Error in $gitdir"; \
     done
 
 build-rules:
-    ./scripts/build-rules.sh
+    go run . build
 
