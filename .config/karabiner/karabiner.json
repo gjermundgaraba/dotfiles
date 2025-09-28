@@ -1,10 +1,12 @@
 {
+    "global": { "show_in_menu_bar": false },
     "profiles": [
         {
             "complex_modifications": {
                 "rules": [
                     {
                         "description": "Warp hacks",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -147,11 +149,7 @@
             "simple_modifications": [
                 {
                     "from": { "key_code": "caps_lock" },
-                    "to": [{ "key_code": "escape" }]
-                },
-                {
-                    "from": { "key_code": "insert" },
-                    "to": [{ "key_code": "f20" }]
+                    "to": [{ "key_code": "f16" }]
                 }
             ],
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
