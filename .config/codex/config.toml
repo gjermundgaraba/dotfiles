@@ -1,10 +1,10 @@
 # Configuration file for Codex
 
-## Ask for changes!
-approval_policy = "untrusted"
+approval_policy = "on-request"
 
-model = "gpt-5"
-model_reasoning_effort = "high"
+tools.web_search = true
+
+model = "gpt-5-codex"
 
 # [mcp_servers.server-name]
 # command = "npx"
