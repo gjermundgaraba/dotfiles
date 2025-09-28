@@ -1,20 +1,21 @@
 # Startup
+command = bash -l -c nu
+env=XDG_CONFIG_HOME=/Users/gg/.config
 
 # Visuals
-theme = catppuccin-macchiato
+theme = catppuccin-macchiato.conf
 window-height = 36
 window-width = 120
 window-padding-y = 0
 mouse-hide-while-typing = true
 unfocused-split-opacity = 2
 macos-titlebar-style = tabs
-background-opacity = 0.95
+background-opacity = 0.85
 background-blur-radius = 20
 
 ## Fonts
 font-size = 15
-font-family = JetBrainsMono Nerd Font
-
+font-family = BerkelyMono Nerd Font Mono
 
 # Keybindings
 keybind = global:ctrl+opt+cmd+t=toggle_quick_terminal
@@ -34,7 +35,7 @@ keybind = cmd+alt+shift+l=resize_split:right,75
 keybind = cmd+alt+shift+h=resize_split:left,75
 keybind = cmd+alt+shift+k=resize_split:up,75
 keybind = cmd+alt+shift+j=resize_split:down,75
-
+keybind = cmd+alt+shift+0=equalize_splits
 
 ## Unbinds
 keybind = cmd+w=unbind
