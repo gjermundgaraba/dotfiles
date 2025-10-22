@@ -12,7 +12,7 @@
     "go.lintTool": "golangci-lint-v2",
     "go.testTimeout": "30m",
     "gopls": {
-        "buildFlags": ["-tags=integration"]
+        "buildFlags": ["-tags=integration,e2e"]
     },
     "vim.useSystemClipboard": true,
     "vim.leader": "<space>",
@@ -100,9 +100,6 @@
     "cursor.composer.shouldChimeAfterChatFinishes": true,
     "json.schemaDownload.enable": true,
     "explorer.confirmDragAndDrop": false,
-    "pieces.OS.launchOnStartup": "Yes",
-    "pieces.cloudCapabilities": "Blended",
-    "pieces.telemetry": false,
     "workbench.tree.indent": 12,
     "workbench.editor.enablePreview": false,
     "go.toolsManagement.autoUpdate": true,
@@ -113,16 +110,6 @@
     "cursor.composer.shouldAllowCustomModes": true,
     "terminal.integrated.fontSize": 14,
     "window.openFoldersInNewWindow": "on",
-    "pieces.autocomplete": false,
-    "pieces.code-lens": true,
-    "pieces.useSameConversationForCodeLens": true,
-    "pieces.toShowUpdateExtensionNotification": true,
-    "pieces.OS.autoLaunchOnInteraction": false,
-    "pieces.enrichmentSettings": "High (9)",
-    "pieces.closeSnippetEditorOnSave": false,
-    "pieces.save.git.description": true,
-    "pieces.save.git.relatedPeople": true,
-    "pieces.save.git.relatedLinks": true,
     "editor.accessibilitySupport": "on",
     "accessibility.signalOptions.volume": 0,
     "mcpServers": {},
@@ -151,5 +138,8 @@
     },
     "[github-actions-workflow]": {
         "editor.defaultFormatter": "redhat.vscode-yaml"
-    }
+    },
+    "amp.guardedFiles.allowlist": [
+        "/Users/gg/.config/vscode-settings/justfile"
+    ]
 }

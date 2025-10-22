@@ -1,20 +1,45 @@
 _cursor-user-profile-dir := "~/Library/Application Support/Cursor/User/"
+_vscode-user-profile-dir := "~/Library/Application Support/Code/User/"
 
-set-up-profile-symlinks-cursor:
+set-up-profile-symlinks-cursor: (_set-up-profile-symlinks _cursor-user-profile-dir)
+set-up-profile-symlinks-vscode: (_set-up-profile-symlinks _vscode-user-profile-dir)
+
+update-extensions-from-cursor: (_update-extensions "cursor")
+update-extensions-from-vscode: (_update-extensions "code")
+
+install-extensions-cursor: (_install-extensions "cursor")
+install-extensions-vscode: (_install-extensions "code")
+
+format-keybindings:
     #!/bin/bash
-    echo "Setting up profile symlinks for Cursor..."
+    echo "Formatting keybindings.json..."
     
-    CURSOR_DIR="{{_cursor-user-profile-dir}}"
+    if [ ! -d "venv" ]; then
+        echo "Creating virtual environment..."
+        pyhton -m venv venv
+    fi
+    
+    ./venv/bin/pip install -r scripts/requirements.txt
+    
+    ./venv/bin/python scripts/format_keybindings.py
+    echo "Keybindings formatted successfully!"
+
+_set-up-profile-symlinks vscode_dir:
+    #!/bin/bash
+    VSCODE_DIR="{{vscode_dir}}"
     REPO_DIR="{{justfile_directory()}}"
+
+    echo "Setting up profile symlinks for directory: $VSCODE_DIR"
+
     
-    # Expand the tilde in the cursor directory path
-    CURSOR_DIR="${CURSOR_DIR/#\~/$HOME}"
+    # Expand the tilde in the vscode directory path
+    VSCODE_DIR="${VSCODE_DIR/#\~/$HOME}"
     
     # Function to handle symlink creation
     create_symlink() {
         local filename="$1"
         local source_file="$REPO_DIR/$filename"
-        local target_file="$CURSOR_DIR/$(basename "$filename")"
+        local target_file="$VSCODE_DIR/$(basename "$filename")"
         
         if [ -e "$target_file" ] || [ -L "$target_file" ]; then
             if [ -L "$target_file" ]; then
@@ -36,24 +61,17 @@ set-up-profile-symlinks-cursor:
     
     echo "Profile symlinks setup complete!"
 
-install-extensions-cursor:
+_install-extensions binary:
     #!/bin/bash
-    echo "Installing extensions for Cursor..."
+    echo "Installing extensions for {{binary}}..."
     jq -r '.[]' config/extensions.json | while read -r extension; do
         echo "Installing $extension..."
-        cursor --install-extension "$extension"
+        {{binary}} --install-extension "$extension"
     done
 
-format-keybindings:
+_update-extensions binary:
     #!/bin/bash
-    echo "Formatting keybindings.json..."
-    
-    if [ ! -d "venv" ]; then
-        echo "Creating virtual environment..."
-        python3 -m venv venv
-    fi
-    
-    ./venv/bin/pip install -r scripts/requirements.txt
-    
-    ./venv/bin/python scripts/format_keybindings.py
-    echo "Keybindings formatted successfully!"
+    echo "Updating extensions list from {{binary}}..."
+    {{binary}} --list-extensions | sort | jq -R . | jq -s --indent 4 . > config/extensions.json
+    echo "Extensions list updated successfully!"
+

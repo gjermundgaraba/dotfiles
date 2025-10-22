@@ -22,21 +22,6 @@
         "when": "terminal.active"
     },
     {
-        "key": "cmd+t",
-        "command": "workbench.action.terminal.new",
-        "when": "terminalFocus"
-    },
-    {
-        "key": "ctrl+tab",
-        "command": "workbench.action.terminal.focusNext",
-        "when": "terminalFocus"
-    },
-    {
-        "key": "ctrl+shift+tab",
-        "command": "workbench.action.terminal.focusPrevious",
-        "when": "terminalFocus"
-    },
-    {
         "key": "alt+h",
         "command": "editor.action.outdentLines",
         "when": "editorTextFocus && !editorReadonly"
@@ -47,8 +32,57 @@
         "when": "editorTextFocus && !editorReadonly"
     },
     {
+        "key": "alt+n",
+        "command": "editor.action.inlineDiffs.rejectPartialEdit",
+        "when": "editorTextFocus && @inlineDiffs.rejectPartialEdit.isActiveEditorWithDiffs"
+    },
+    {
+        "key": "cmd+alt+h",
+        "command": "editor.action.inlineDiffs.previousDiffFile",
+        "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
+    },
+    {
+        "key": "cmd+alt+l",
+        "command": "editor.action.inlineDiffs.nextDiffFile",
+        "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
+    },
+    {
+        "key": "cmd+down",
+        "command": "editor.action.inlineDiffs.nextChange",
+        "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
+    },
+    {
+        "key": "cmd+e",
+        "command": "workbench.action.openRecent"
+    },
+    {
         "key": "cmd+k",
         "command": "workbench.action.showCommands"
+    },
+    {
+        "key": "cmd+left",
+        "command": "editor.action.inlineDiffs.previousDiffFile",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "cmd+right",
+        "command": "editor.action.inlineDiffs.nextDiffFile",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "cmd+t",
+        "command": "workbench.action.terminal.new",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "cmd+up",
+        "command": "editor.action.inlineDiffs.previousChange",
+        "when": "editorTextFocus && @inlineDiffs.previousChange.isActiveEditorWithDiffs"
+    },
+    {
+        "key": "cmd+y",
+        "command": "editor.action.inlineDiffs.acceptPartialEdit",
+        "when": "editorTextFocus && @inlineDiffs.acceptPartialEdit.isActiveEditorWithDiffs"
     },
     {
         "key": "ctrl+h",
@@ -59,8 +93,23 @@
         "command": "workbench.action.focusRightGroup"
     },
     {
+        "key": "ctrl+s",
+        "command": "editor.action.triggerParameterHints",
+        "when": "editorHasSignatureHelpProvider && editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.terminal.focusPrevious",
+        "when": "terminalFocus"
+    },
+    {
         "key": "ctrl+shift+tab",
         "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.terminal.focusNext",
+        "when": "terminalFocus"
     },
     {
         "key": "ctrl+tab",
@@ -87,6 +136,16 @@
         "when": "cppSuggestion && !editorReadonly || inlineSuggestionVisible && !editorReadonly"
     },
     {
+        "key": "shift+cmd+n",
+        "command": "chatgpt.newChat",
+        "when": "chatgpt.supportsNewChatKeyShortcut"
+    },
+    {
+        "key": "shift+cmd+n",
+        "command": "composer.createNewWithPrevContext",
+        "when": "composerFocused || cursor.appLayout == 'agent' || focusedView =~ /^workbench.panel.aichat.view/"
+    },
+    {
         "key": "shift+cmd+w",
         "command": "workbench.action.closeOtherEditors"
     },
@@ -94,6 +153,11 @@
         "key": "tab",
         "command": "editor.action.acceptCursorTabSuggestion",
         "when": "cpp.shouldAcceptTab && !editorHoverFocused && !editorTabMovesFocus"
+    },
+    {
+        "key": "tab",
+        "command": "tab",
+        "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus && !cpp.shouldAcceptTab && !inlineSuggestionVisible"
     },
     // Disables
     {
@@ -126,9 +190,38 @@
         "when": "accessibilityHelpIsShown"
     },
     {
+        "key": "alt+j",
+        "command": "-editor.action.inlineDiffs.nextChange",
+        "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
+    },
+    {
+        "key": "alt+k",
+        "command": "-editor.action.inlineDiffs.previousChange",
+        "when": "editorTextFocus && @inlineDiffs.previousChange.isActiveEditorWithDiffs"
+    },
+    {
         "key": "alt+l",
         "command": "-editor.action.inlineDiffs.nextDiffFile",
         "when": "editorTextFocus && @inlineDiffs.nextDiffFile.hasInlineDiffsInAnyEditor"
+    },
+    {
+        "key": "cmd+e",
+        "command": "-cursor.composer.openAgentWindow",
+        "when": "cursor.appLayoutEnabled && cursor.appLayout != 'agent'"
+    },
+    {
+        "key": "cmd+e",
+        "command": "-cursor.composer.openEditorWindow",
+        "when": "cursor.appLayoutEnabled && cursor.appLayout == 'agent'"
+    },
+    {
+        "key": "cmd+e",
+        "command": "-editor.action.toggleScreenReaderAccessibilityMode",
+        "when": "accessibilityHelpIsShown"
+    },
+    {
+        "key": "cmd+e",
+        "command": "-actions.findWithSelection"
     },
     {
         "key": "cmd+k",
@@ -191,6 +284,16 @@
         "when": "!notebookEditorFocused && editorLangId == 'markdown'"
     },
     {
+        "key": "cmd+n",
+        "command": "-chatgpt.newChat",
+        "when": "chatgpt.supportsNewChatKeyShortcut"
+    },
+    {
+        "key": "cmd+n",
+        "command": "-composer.createNewWithPrevContext",
+        "when": "composerFocused || cursor.appLayout == 'agent' || focusedView =~ /^workbench.panel.aichat.view/"
+    },
+    {
         "key": "cmd+right",
         "command": "-editor.action.inlineSuggest.acceptNextWord",
         "when": "cppSuggestion && !editorReadonly || inlineSuggestionVisible && !editorReadonly"
@@ -214,6 +317,15 @@
         "key": "ctrl+l",
         "command": "-notebook.centerActiveCell",
         "when": "notebookEditorFocused"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-workbench.action.openRecent"
+    },
+    {
+        "key": "ctrl+s",
+        "command": "-extension.vim_ctrl+s",
+        "when": "editorTextFocus && vim.active && vim.use<C-s> && !inDebugRepl"
     },
     {
         "key": "ctrl+shift+[Equal]",
@@ -285,6 +397,10 @@
         "command": "-aichat.insertselectionintochat"
     },
     {
+        "key": "shift+cmd+n",
+        "command": "-workbench.action.newWindow"
+    },
+    {
         "key": "shift+cmd+p",
         "command": "-workbench.action.showCommands"
     },
@@ -296,66 +412,6 @@
     {
         "key": "shift+cmd+w",
         "command": "-workbench.action.closeWindow"
-    },
-    {
-        "key": "cmd+right",
-        "command": "editor.action.inlineDiffs.nextDiffFile",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "cmd+left",
-        "command": "editor.action.inlineDiffs.previousDiffFile",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "cmd+alt+l",
-        "command": "editor.action.inlineDiffs.nextDiffFile",
-        "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
-    },
-    {
-        "key": "cmd+alt+h",
-        "command": "editor.action.inlineDiffs.previousDiffFile",
-        "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
-    },
-    {
-        "key": "cmd+y",
-        "command": "editor.action.inlineDiffs.acceptPartialEdit",
-        "when": "editorTextFocus && @inlineDiffs.acceptPartialEdit.isActiveEditorWithDiffs"
-    },
-    {
-        "key": "alt+n",
-        "command": "editor.action.inlineDiffs.rejectPartialEdit",
-        "when": "editorTextFocus && @inlineDiffs.rejectPartialEdit.isActiveEditorWithDiffs"
-    },
-    {
-        "key": "cmd+down",
-        "command": "editor.action.inlineDiffs.nextChange",
-        "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
-    },
-    {
-        "key": "alt+j",
-        "command": "-editor.action.inlineDiffs.nextChange",
-        "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
-    },
-    {
-        "key": "cmd+up",
-        "command": "editor.action.inlineDiffs.previousChange",
-        "when": "editorTextFocus && @inlineDiffs.previousChange.isActiveEditorWithDiffs"
-    },
-    {
-        "key": "alt+k",
-        "command": "-editor.action.inlineDiffs.previousChange",
-        "when": "editorTextFocus && @inlineDiffs.previousChange.isActiveEditorWithDiffs"
-    },
-    {
-        "key": "ctrl+s",
-        "command": "-extension.vim_ctrl+s",
-        "when": "editorTextFocus && vim.active && vim.use<C-s> && !inDebugRepl"
-    },
-    {
-        "key": "ctrl+s",
-        "command": "editor.action.triggerParameterHints",
-        "when": "editorHasSignatureHelpProvider && editorTextFocus"
     },
     {
         "key": "tab",
@@ -374,63 +430,7 @@
     },
     {
         "key": "tab",
-        "command": "tab",
-        "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus && !cpp.shouldAcceptTab && !inlineSuggestionVisible"
-    },
-    {
-        "key": "tab",
         "command": "-tab",
         "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus"
-    },
-    {
-        "key": "cmd+e",
-        "command": "-cursor.composer.openAgentWindow",
-        "when": "cursor.appLayoutEnabled && cursor.appLayout != 'agent'"
-    },
-    {
-        "key": "cmd+e",
-        "command": "-cursor.composer.openEditorWindow",
-        "when": "cursor.appLayoutEnabled && cursor.appLayout == 'agent'"
-    },
-    {
-        "key": "cmd+e",
-        "command": "-editor.action.toggleScreenReaderAccessibilityMode",
-        "when": "accessibilityHelpIsShown"
-    },
-    {
-        "key": "cmd+e",
-        "command": "-actions.findWithSelection"
-    },
-    {
-        "key": "cmd+e",
-        "command": "workbench.action.openRecent"
-    },
-    {
-        "key": "ctrl+r",
-        "command": "-workbench.action.openRecent"
-    },
-    {
-        "key": "shift+cmd+n",
-        "command": "-workbench.action.newWindow"
-    },
-    {
-        "key": "shift+cmd+n",
-        "command": "chatgpt.newChat",
-        "when": "chatgpt.supportsNewChatKeyShortcut"
-    },
-    {
-        "key": "cmd+n",
-        "command": "-chatgpt.newChat",
-        "when": "chatgpt.supportsNewChatKeyShortcut"
-    },
-    {
-        "key": "shift+cmd+n",
-        "command": "composer.createNewWithPrevContext",
-        "when": "composerFocused || cursor.appLayout == 'agent' || focusedView =~ /^workbench.panel.aichat.view/"
-    },
-    {
-        "key": "cmd+n",
-        "command": "-composer.createNewWithPrevContext",
-        "when": "composerFocused || cursor.appLayout == 'agent' || focusedView =~ /^workbench.panel.aichat.view/"
-    },
+    }
 ]
