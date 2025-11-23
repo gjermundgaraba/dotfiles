@@ -31,7 +31,6 @@
       "Read(node_modules/**)"
     ]
   },
-  "model": "opus",
   "hooks": {
     "Notification": [
       {
@@ -55,5 +54,11 @@
         ]
       }
     ]
-  }
+  },
+  "enabledPlugins": {
+    "pr-review-toolkit@claude-code-plugins": true,
+    "compounding-engineering@every-marketplace": true,
+    "feature-dev@claude-code-plugins": true
+  },
+  "alwaysThinkingEnabled": false
 }
