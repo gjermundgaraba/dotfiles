@@ -21,7 +21,7 @@
     "vim.normalModeKeyBindings": [
         {
             "before": ["<S-k>"],
-            "commands": ["editor.action.peekTypeDefinition"]
+            "commands": ["editor.action.showHover"]
         },
         {
             "before": ["<C-o>"],
@@ -72,6 +72,11 @@
             "before": ["g", "r"],
             "commands": ["editor.action.goToReferences"]
         },
+        {
+
+            "before": ["g", "i"],
+            "commands": ["editor.action.goToImplementation"]
+        },
         // {
         //     "before": ["g", "d"],
         //     "commands": ["editor.action.goToDefinition"]
@@ -93,7 +98,6 @@
             "commands": ["workbench.files.action.focusFilesExplorer"]
         }
     ],
-    "workbench.colorTheme": "Catppuccin Macchiato",
     "cursor.cpp.enablePartialAccepts": true,
     "cursor.general.enableShadowWorkspace": true,
     "solidity.telemetry": false,
@@ -112,9 +116,7 @@
     "window.openFoldersInNewWindow": "on",
     "editor.accessibilitySupport": "on",
     "accessibility.signalOptions.volume": 0,
-    "mcpServers": {},
     "explorer.confirmDelete": false,
-    "githubPullRequests.pullBranch": "never",
     "git.blame.editorDecoration.enabled": false,
     "git.blame.statusBarItem.enabled": true,
     "git.openRepositoryInParentFolders": "never",
@@ -139,7 +141,8 @@
     "[github-actions-workflow]": {
         "editor.defaultFormatter": "redhat.vscode-yaml"
     },
-    "amp.guardedFiles.allowlist": [
-        "/Users/gg/.config/vscode-settings/justfile"
-    ]
+    "redhat.telemetry.enabled": false,
+    "vim.smartRelativeLine": true,
+    "extensions.ignoreRecommendations": true,
+    "workbench.colorTheme": "Bearded Theme Aquarelle Hydrangea"
 }

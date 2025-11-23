@@ -85,6 +85,14 @@
         "when": "editorTextFocus && @inlineDiffs.acceptPartialEdit.isActiveEditorWithDiffs"
     },
     {
+        "key": "ctrl+enter",
+        "command": "workbench.action.terminal.sendSequence",
+        "when": "terminalFocus",
+        "args": {
+            "text": "\\\r\n"
+        }
+    },
+    {
         "key": "ctrl+h",
         "command": "workbench.action.focusLeftGroup"
     },
@@ -150,6 +158,14 @@
         "command": "workbench.action.closeOtherEditors"
     },
     {
+        "key": "shift+enter",
+        "command": "workbench.action.terminal.sendSequence",
+        "when": "terminalFocus",
+        "args": {
+            "text": "\\\r\n"
+        }
+    },
+    {
         "key": "tab",
         "command": "editor.action.acceptCursorTabSuggestion",
         "when": "cpp.shouldAcceptTab && !editorHoverFocused && !editorTabMovesFocus"
@@ -203,6 +219,11 @@
         "key": "alt+l",
         "command": "-editor.action.inlineDiffs.nextDiffFile",
         "when": "editorTextFocus && @inlineDiffs.nextDiffFile.hasInlineDiffsInAnyEditor"
+    },
+    {
+        "key": "cmd+[Period]",
+        "command": "-composer.openModeMenu",
+        "when": "chatModeMenuFocused && !editorTextFocus || composerFocused && !editorTextFocus || !editorTextFocus && activeEditor == 'workbench.editor.composer' || !editorTextFocus && focusedView =~ /^workbench.panel.aichat.view/"
     },
     {
         "key": "cmd+e",
