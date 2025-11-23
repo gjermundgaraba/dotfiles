@@ -1,10 +1,24 @@
 # Configuration file for Codex
 
-approval_policy = "on-request"
+approval_policy = "never"
 
-tools.web_search = true
 
-model = "gpt-5-codex"
+model = "gpt-5.1-codex-max"
+model_reasoning_effort = "high"
+
+sandbox_mode = "workspace-write"
+sandbox_workspace_write.network_access = true
+sandbox_workspace_write.writable_roots = ["/tmp"]
+
+[features]
+unified_exec = true
+apply_patch_freeform = true
+web_search_request = true
+
+[notice]
+hide_gpt5_1_migration_prompt = true
+"hide_gpt-5.1-codex-max_migration_prompt" = true
+
 
 # [mcp_servers.server-name]
 # command = "npx"
