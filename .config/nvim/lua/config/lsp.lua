@@ -3,6 +3,7 @@ vim.lsp.enable "gh_actions_ls"
 vim.lsp.enable "lua_ls"
 vim.lsp.enable "solidity_ls"
 vim.lsp.enable "jsonls"
+vim.lsp.enable "copilot"
 
 vim.lsp.config("gopls", {
   settings = {

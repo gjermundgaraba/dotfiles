@@ -106,32 +106,4 @@ function M.refactor.rename()
   vim.lsp.buf.rename()
 end
 
-function M.refactor.extract_func()
-  return require("refactoring").refactor "Extract Function"
-end
-
-function M.refactor.extract_func_to_file()
-  return require("refactoring").refactor "Extract Function To File"
-end
-
-function M.refactor.extract_var()
-  return require("refactoring").refactor "Extract Variable"
-end
-
-function M.refactor.inline_func()
-  return require("refactoring").refactor "Inline Function"
-end
-
-function M.refactor.inline_var()
-  return require("refactoring").refactor "Inline Variable"
-end
-
-function M.refactor.extract_block()
-  return require("refactoring").refactor "Extract Block"
-end
-
-function M.refactor.extract_block_to_file()
-  return require("refactoring").refactor "Extract Block To File"
-end
-
 return M

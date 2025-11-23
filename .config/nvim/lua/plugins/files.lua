@@ -1,15 +1,6 @@
 -- local search = require "functionality.search"
 
 return {
-  { -- Pop-up file browser for quick file manipulation
-    "echasnovski/mini.files",
-    version = "*",
-    opts = {
-      mappings = {
-        go_in_plus = "<CR>",
-      },
-    },
-  },
   { -- File explorer
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",

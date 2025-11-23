@@ -7,8 +7,6 @@ return {
     },
     lazy = false,
     ---@type snacks.Config
-    opts = {
-      gitbrowse = { enabled = true }, -- TODO: Remove this and make this yourself
-    },
+    opts = {},
   },
 }

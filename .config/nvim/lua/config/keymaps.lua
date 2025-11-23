@@ -5,6 +5,7 @@ vim.api.nvim_create_autocmd("User", {
   pattern = "LazyDone",
   callback = function()
     local which = require "which-key"
+    local copilot = require "copilot.suggestion"
 
     local editor = require "functionality.editor"
     local tabs = require "functionality.tabs"
@@ -12,7 +13,6 @@ vim.api.nvim_create_autocmd("User", {
     local lsp_funcs = require("functionality.code").lsp
     local refactor = require("functionality.code").refactor
     local search = require "functionality.search"
-    local tests = require "functionality.tests"
     local textobjs = require "functionality.textobjects"
     local terminal = require "functionality.terminal"
     local ai = require "functionality.ai"
@@ -26,8 +26,6 @@ vim.api.nvim_create_autocmd("User", {
     vim.keymap.set("n", "<leader>q", ":qa<CR>", { desc = "Quit" })
 
     -- File explorer
-    vim.keymap.set("n", "<leader>em", editor.open_file_system_manager, { desc = "Open File Manager" })
-    vim.keymap.set("n", "<leader>ee", editor.open_explorer, { desc = "Open File Explorer" })
     vim.keymap.set("n", "<leader>E", editor.open_explorer, { desc = "Open File Explorer" })
 
     vim.keymap.set("n", "<S-l>", ":bnext<CR>", { desc = "Next buffer" })
@@ -78,13 +76,6 @@ vim.api.nvim_create_autocmd("User", {
     -- Or maybe just use leader r?
     which.add { "<leader>cr", group = "[R]efactor" }
     vim.keymap.set({ "n", "x" }, "<leader>crn", refactor.rename, { desc = "Rename", expr = true })
-    vim.keymap.set({ "n", "x" }, "<leader>cre", refactor.extract_func, { desc = "Extract Function", expr = true })
-    vim.keymap.set({ "n", "x" }, "<leader>crf", refactor.extract_func_to_file, { desc = "Extract Function to File", expr = true })
-    vim.keymap.set({ "n", "x" }, "<leader>crv", refactor.extract_var, { desc = "Extract Variable", expr = true })
-    vim.keymap.set({ "n", "x" }, "<leader>crI", refactor.inline_func, { desc = "Inline Function", expr = true })
-    vim.keymap.set({ "n", "x" }, "<leader>cri", refactor.inline_var, { desc = "Inline Variable", expr = true })
-    vim.keymap.set({ "n", "x" }, "<leader>crbb", refactor.extract_block, { desc = "Extract Block", expr = true })
-    vim.keymap.set({ "n", "x" }, "<leader>crbf", refactor.extract_block_to_file, { desc = "Extract Block to File", expr = true })
 
     -- H1: Search keymaps
     which.add { "<leader>s", group = "[S]earch" }
@@ -125,19 +116,6 @@ vim.api.nvim_create_autocmd("User", {
     vim.keymap.set("n", "<D-S-t>", tabs.undo_close, { desc = "Undo close buffer" })
     vim.keymap.set("n", "<D-S-w>", tabs.close_others, { desc = "Close all other buffers" })
 
-    -- H1: Tests keymaps
-    which.add { "<leader>t", group = "[T]ests" }
-
-    vim.keymap.set("n", "<leader>to", tests.open_test, { desc = "Open test panels" })
-    vim.keymap.set("n", "<leader>tn", tests.test_nearest, { desc = "Run nearest test" })
-
-    -- H1: Git keymaps
-    which.add { "<leader>g", group = "[G]it" }
-
-    vim.keymap.set("n", "<leader>gb", Snacks.git.blame_line, { desc = "[G]it [B]lame" })
-    vim.keymap.set({ "n", "v" }, "<leader>go", Snacks.gitbrowse.open, { desc = "[G]it [O]pen" })
-    vim.keymap.set("n", "<leader>gd", require("diffview").open, { desc = "Git diff view" })
-
     -- H2: Git pickers
     vim.keymap.set("n", "<leader>gsb", search.git_branches, { desc = "Search Git branches" })
     vim.keymap.set("n", "<leader>gsb", search.git_blame, { desc = "Search Git blame" })
@@ -166,6 +144,26 @@ vim.api.nvim_create_autocmd("User", {
     end, { desc = "AI" })
     vim.keymap.set({ "i", "n" }, "<S-TAB>", ai.accept, { desc = "Accept AI suggestion" })
     vim.keymap.set({ "i", "n" }, "<D-S-L>", ai.accept_word, { desc = "Accept AI suggestion next word" })
+    vim.keymap.set({ "i", "n" }, "<TAB>", function()
+      if not require("sidekick").nes_jump_or_apply() then
+        if copilot.has_next() then
+          return copilot.accept()
+        end
+
+        return "<Tab>" -- fallback to normal tab
+      end
+    end, { desc = "Goto/Apply Next Edit Suggestion", expr = true })
+
+    --       "<tab>",
+    --       function()
+    --         -- if there is a next edit, jump to it, otherwise apply it if any
+    --         if not require("sidekick").nes_jump_or_apply() then
+    --           return "<Tab>" -- fallback to normal tab
+    --         end
+    --       end,
+    --       expr = true,
+    --       desc = "Goto/Apply Next Edit Suggestion",
+
 
     -- H1: Other keymaps and setup
     vim.api.nvim_create_autocmd("FileType", {
@@ -176,7 +174,6 @@ vim.api.nvim_create_autocmd("User", {
         end, { buffer = 0, desc = "Refresh quickfix list" })
       end,
     })
-    vim.keymap.set({ "n", "o", "x" }, "<leader>f", require("flash").jump, { desc = "Go Flash!" })
 
     -- H1: Warp hacks (used in conjunction with Karabiner-Elements)
     -- TODO: Create a multi-keymap function to make this cleaner

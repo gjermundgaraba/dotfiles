@@ -71,7 +71,23 @@ return {
         },
         lualine_b = {},
         lualine_c = {},
-        lualine_x = {},
+        lualine_x = {
+          {
+            function()
+              return " "
+            end,
+            color = function()
+              local status = require("sidekick.status").get()
+              if status then
+                return status.kind == "Error" and "DiagnosticError" or status.busy and "DiagnosticWarn" or "Special"
+              end
+            end,
+            cond = function()
+              local status = require("sidekick.status")
+              return status.get() ~= nil
+            end,
+          }
+        },
         lualine_y = { "diagnostics", "searchcount" },
         lualine_z = { "location" },
       },
@@ -109,8 +125,8 @@ return {
       -- you can enable a preset for easier configuration
       presets = {
         long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false, -- add a border to hover docs and signature help
+        inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = false,       -- add a border to hover docs and signature help
       },
     },
   },
@@ -124,7 +140,7 @@ return {
       },
     },
   },
-  { -- Show you pending keybinds.
+  {                     -- Show you pending keybinds.
     "folke/which-key.nvim",
     event = "VimEnter", -- Sets the loading event to 'VimEnter'
     opts = {
