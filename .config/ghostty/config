@@ -1,5 +1,8 @@
 # Startup
-command = bash -l -c nu
+
+# Shell
+#command = bash -l -c nu # Nushell
+
 env=XDG_CONFIG_HOME=/Users/gg/.config
 
 # Visuals
@@ -15,9 +18,19 @@ background-blur-radius = 20
 
 ## Fonts
 font-size = 15
-font-family = BerkelyMono Nerd Font Mono
+font-family = BerkeleyMono Nerd Font Mono
 
 # Keybindings
+
+## Unbinds
+keybind = cmd+w=unbind
+keybind = ctrl+tab=unbind
+keybind = ctrl+shift+tab=unbind
+keybind = cmd+shift+w=unbind
+keybind = ctrl+cmd+up=unbind
+
+## Features
+keybind = cmd+k=toggle_command_palette
 keybind = global:ctrl+opt+cmd+t=toggle_quick_terminal
 
 ## Fixing basic text navigation
@@ -25,6 +38,8 @@ keybind = cmd+right=text:\x05
 keybind = cmd+left=text:\x01
 keybind = alt+left=esc:b
 keybind = alt+right=esc:f
+keybind = shift+enter=text:\n
+
 
 ## Splits
 keybind = cmd+alt+l=goto_split:right
@@ -37,10 +52,3 @@ keybind = cmd+alt+shift+k=resize_split:up,75
 keybind = cmd+alt+shift+j=resize_split:down,75
 keybind = cmd+alt+shift+0=equalize_splits
 
-## Unbinds
-keybind = cmd+w=unbind
-keybind = ctrl+tab=unbind
-keybind = ctrl+shift+tab=unbind
-keybind = cmd+shift+w=unbind
-keybind = ctrl+cmd+up=unbind
-keybind = shift+enter=text:\n
