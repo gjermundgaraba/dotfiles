@@ -17,6 +17,6 @@ When editing code
   - When adding a new dependency, find the latests by searching online
 
 ## Before final message
-- Ensure that the code compiles and that all tests run.
+- Ensure that all unit tests are green.
 
 

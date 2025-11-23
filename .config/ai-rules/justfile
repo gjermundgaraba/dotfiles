@@ -7,6 +7,12 @@ generate-cursor-symlink path:
         (cd "{{justfile_directory()}}" && go run . create-symlinks cursor --repo-dir "$gitdir") || echo "  ❌ Error in $gitdir"; \
     done
 
-build-rules:
-    go run . build
+build-rules: build-cli
+    ./build/ai-rules build
+
+build-cli:
+    #!/bin/bash
+    set -euo pipefail
+    mkdir -p build
+    go build -o build/ai-rules .
 
