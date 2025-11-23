@@ -1,0 +1,95 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+
+format = """
+$directory\
+$character\
+"""
+
+right_format = """
+$aws\
+$git_branch\
+$git_status"""
+
+palette = 'catppuccin_macchiato'
+
+[character]
+format = '[$symbol]($style) '
+
+[directory]
+truncation_length = 3
+truncation_symbol = "…/"
+read_only = " 󰌾"
+style = "directory"
+format = "[ $path ]($style)"
+
+[git_branch]
+symbol = ""
+style = "git"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "git"
+format = '[$ahead_behind ]($style)'
+
+[cmd_duration]
+format = "last cmd took $duration "
+show_milliseconds = true
+show_notifications = true
+min_time_to_notify = 45000
+
+[aws]
+symbol = ' '
+style = "aws"
+format = '[$symbol($profile )(\[$duration\] )]($style)'
+
+# [golang]
+# symbol = ""
+# style = "golang"
+# format = '[$symbol $version]($style)'
+#
+# [rust]
+# symbol = ""
+# style = "rust"
+# format = '[$symbol $version]($style)'
+#
+# [nodejs]
+# symbol = ""
+# style = "nodejs"
+# format = '[$symbol $version]($style)'
+
+[palettes.catppuccin_macchiato]
+directory = "#a6da95"
+git = "#c6a0f6"
+aws = "#eed49f"
+golang = "#8aadf4"
+rust = "#ed8796"
+nodejs = "#f4dbd6"
+
+# rosewater = "#f4dbd6"
+# flamingo = "#f0c6c6"
+# pink = "#f5bde6"
+# mauve = "#c6a0f6"
+# red = "#ed8796"
+# maroon = "#ee99a0"
+# peach = "#f5a97f"
+# yellow = "#eed49f"
+# teal = "#8bd5ca"
+# sky = "#91d7e3"
+# sapphire = "#7dc4e4"
+# blue = "#8aadf4"
+# lavender = "#b7bdf8"
+# text = "#cad3f5"
+# subtext1 = "#b8c0e0"
+# subtext0 = "#a5adcb"
+# overlay2 = "#939ab7"
+# overlay1 = "#8087a2"
+# overlay0 = "#6e738d"
+# surface2 = "#5b6078"
+# surface1 = "#494d64"
+# surface0 = "#363a4f"
+# base = "#24273a"
+# mantle = "#1e2030"
+# crust = "#181926"
