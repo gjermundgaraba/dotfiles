@@ -4,6 +4,7 @@ setopt SHARE_HISTORY
 export HISTSIZE=25000
 export SAVEHIST=25000
 HISTFILE=~/.zsh_history
+ulimit -n 4096
 
 ## Applications
 ### Homebrew
@@ -13,13 +14,31 @@ fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
 ### fzf
 source <(fzf --zsh)
 
+### Carapace
+autoload -Uz compinit
+compinit
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
+source <(carapace _carapace zsh)
+
 ### Load Rust environment
 . "$HOME/.cargo/env"
 
 ### Zoxide
 eval "$(zoxide init zsh)"
 
+## Functions
+qwarp() {
+  local prompt
+  if [ "$#" -eq 0 ]; then
+    read -r prompt\?"Enter prompt: "
+  else
+    prompt="$*"
+  fi
+  warp agent run --prompt "$prompt"
+}
+
 ## Aliases
+
 ### Git aliases
 # NOTE: One-time setups (like git config aliases and similar) are done in .config/dotfile_setup.sh
 alias ga="git add"
@@ -33,7 +52,6 @@ alias ds="dotfiles status"
 alias gd="git diff"
 alias dd="dotfiles diff"
 alias gsw="git switch"
-alias gsws="git switch-select"
 alias gmain="git switch main && git pull"
 
 ### Dotfiles (https://www.atlassian.com/git/tutorials/dotfiles)
@@ -44,21 +62,10 @@ alias ls="lsd"
 #alias cat="bat"
 
 ### Other aliases
-#### Config aliases
-alias configzsh="nvim ~/.zshrc"
-alias configdotfilessetup="nvim ~/.config/dotfiles_setup.sh"
-alias confighammerspoon="nvim ~/.hammerspoon/init.lua"
-alias confignvim="cd ~/.config/nvim && nvim"
-alias configghostty="nvim ~/.config/ghostty/config"
-alias configclaude="nvim ~/.claude/settings.json"
-alias configglobalgit="nvim ~/.config/.gitignore_global"
-alias configsketchybar="cd ~/.config/sketchybar && nvim"
-alias configaerospace="nvim ~/.config/aerospace/aerospace.toml"
-alias configcodex="nvim ~/.config/codex/config.toml"
 
 #### Misc aliases
-alias setup_rules="$HOME/.config/ai-rules/scripts/create-symlinks.sh"
-alias workspace_labels="$HOME/.config/sketchybar/helpers/workspace-label-script/workspace-labels"
+alias q="qwarp"
+alias setup_rules="ai-rules create-symlinks cursor"
 alias timeout="gtimeout"
 
 # NOTE: Git aliases are set up as a one-time setup in the script .config/dotfiles_setup.sh
@@ -87,6 +94,12 @@ export CODEX_HOME="$HOME/.config/codex"
 export PATH="${PATH}:/Users/gg/bin"
 export PATH="/Users/gg/.local/bin:$PATH"
 
+### Claude
+export PATH="$HOME/.claude/local:$PATH"
+
+## Starship
+eval "$(starship init zsh)"
+
 ## Startup stuff
 if [[ "$PWD" == "$HOME" ]]; then
     neofetch
@@ -97,5 +110,7 @@ if [ -f "$HOME/.zshrc-work" ]; then
   source "$HOME/.zshrc-work"
 fi
 
-# Auto-Warpify
-[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh", "uname": "Darwin" }}œ' 
+
+
+# Added by Antigravity
+export PATH="/Users/gg/.antigravity/antigravity/bin:$PATH"
