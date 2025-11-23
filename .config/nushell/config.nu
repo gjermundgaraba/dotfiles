@@ -26,22 +26,11 @@ alias ds = dotfiles status
 alias gd = git diff
 alias dd = dotfiles diff
 alias gsw = git switch
-alias gsws = git switch-select
 def gmain [] {
     git switch main; git pull
 }
 
 # NOTE: Git aliases proper are set up as a one-time setup in the script .config/dotfiles_setup.nu
-
-alias configzsh = nvim ~/.zshrc
-alias confighammerspoon = nvim ~/.hammerspoon/init.lua
-alias confignvim = nvim ~/.config/nvim
-alias configghostty = nvim ~/.config/ghostty/config
-alias configclaude = nvim ~/.claude/settings.json
-alias configglobalgit = nvim ~/.config/.gitignore_global
-alias configsketchybar = nvim ~/.config/sketchybar
-alias configaerospace = nvim ~/.config/aerospace/aerospace.toml
-alias configcodex = nvim ~/.config/codex/config.toml
 
 ## Binary aliases
 alias tailscale = /Applications/Tailscale.app/Contents/MacOS/Tailscale
@@ -59,6 +48,7 @@ def qwarp [...args] {
     }
     warp agent run --prompt $prompt
 }
+alias q = qwarp
 
 # General bin paths
 path add "~/bin"
@@ -101,3 +91,5 @@ if ($env.PWD == $env.HOME) {
     neofetch
 }
 
+mkdir ($nu.data-dir | path join "vendor/autoload")
+starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")

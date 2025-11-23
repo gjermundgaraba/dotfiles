@@ -1,4 +1,4 @@
-$env.SHELL = which nu
+# $env.SHELL = which nu
 
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 mkdir ~/.cache/carapace
