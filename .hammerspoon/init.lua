@@ -100,11 +100,11 @@ end
 -- TODO: Add a launch or focus + move to the space where it is
 
 hs.hotkey.bind({}, "F1", function()
-    launchApp("Cursor", false)
+    hs.application.launchOrFocus("Cursor")
 end)
 
 hs.hotkey.bind({}, "F2", function()
-    launchApp("ChatGPT Atlas", false)
+    hs.application.launchOrFocus("/Applications/ChatGPT Atlas.app")
 end)
 
 hs.hotkey.bind({}, "F3", function()
