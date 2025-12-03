@@ -14,6 +14,7 @@ func NewRootCommand() *cobra.Command {
 	root.AddCommand(newBuildCommand())
 	root.AddCommand(newSymlinksCommand())
 	root.AddCommand(newGenerateCursorSymlinksCommand())
+	root.AddCommand(newMirrorClaudeCommand())
 
 	return root
 }

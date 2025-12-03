@@ -92,9 +92,9 @@ func Build(ctx context.Context, opts BuildOptions) error {
 			return fmt.Errorf("loading template for %s: %w", platform, err)
 		}
 
-		platformDir := filepath.Join(buildDir, platform)
-		if err := os.MkdirAll(platformDir, 0o755); err != nil {
-			return fmt.Errorf("creating build directory %s: %w", platformDir, err)
+		platformRulesDir := filepath.Join(buildDir, platform, "rules")
+		if err := os.MkdirAll(platformRulesDir, 0o755); err != nil {
+			return fmt.Errorf("creating build directory %s: %w", platformRulesDir, err)
 		}
 
 		for _, rule := range rules {
@@ -105,16 +105,56 @@ func Build(ctx context.Context, opts BuildOptions) error {
 				Platform: platform,
 				Rule:     rule,
 				Template: tmpl,
-				BuildDir: platformDir,
+				BuildDir: platformRulesDir,
 				Stdout:   opts.Stdout,
 				Stderr:   opts.Stderr,
 			}); err != nil {
 				return err
 			}
 		}
+
+		if err := buildCommands(ctx, opts.ProjectDir, buildDir, platform, opts.Stdout); err != nil {
+			return err
+		}
 	}
 
 	fmt.Fprintln(opts.Stdout, "Build complete!")
+	return nil
+}
+
+func buildCommands(ctx context.Context, projectDir, buildDir, platform string, stdout io.Writer) error {
+	commandsDir := filepath.Join(projectDir, "commands")
+	commandFiles, err := filepath.Glob(filepath.Join(commandsDir, "*.md"))
+	if err != nil {
+		return fmt.Errorf("locating command files: %w", err)
+	}
+	if len(commandFiles) == 0 {
+		return nil
+	}
+
+	fmt.Fprintf(stdout, "Copying %s commands...\n", platform)
+
+	platformCommandsDir := filepath.Join(buildDir, platform, "commands")
+	if err := os.MkdirAll(platformCommandsDir, 0o755); err != nil {
+		return fmt.Errorf("creating commands directory %s: %w", platformCommandsDir, err)
+	}
+
+	for _, src := range commandFiles {
+		if err := ctx.Err(); err != nil {
+			return err
+		}
+
+		data, err := os.ReadFile(src)
+		if err != nil {
+			return fmt.Errorf("reading command file %s: %w", src, err)
+		}
+
+		dest := filepath.Join(platformCommandsDir, filepath.Base(src))
+		if err := os.WriteFile(dest, data, 0o644); err != nil {
+			return fmt.Errorf("writing command file %s: %w", dest, err)
+		}
+	}
+
 	return nil
 }
 

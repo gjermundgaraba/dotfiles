@@ -16,3 +16,6 @@ build-cli:
     mkdir -p build
     go build -o build/ai-rules .
 
+install:
+    #!/bin/bash
+    go install .

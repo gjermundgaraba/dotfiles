@@ -51,7 +51,7 @@ func TestBuildAndSymlinkIntegration(t *testing.T) {
 		t.Fatalf("build command failed: %v\nstdout: %s\nstderr: %s", err, buildStdout, buildStderr)
 	}
 
-	outputFile := filepath.Join(buildDir, "cursor", "integration.mdc")
+	outputFile := filepath.Join(buildDir, "cursor", "rules", "integration.mdc")
 	data, err := os.ReadFile(outputFile)
 	if err != nil {
 		t.Fatalf("expected build output at %s: %v", outputFile, err)
@@ -70,7 +70,7 @@ func TestBuildAndSymlinkIntegration(t *testing.T) {
 		t.Fatalf("create-symlinks failed: %v\nstdout: %s\nstderr: %s", err, symlinkStdout, symlinkStderr)
 	}
 
-	symlinkPath := filepath.Join(repoDir, ".cursor", "rules", "global_rule_integration.mdc")
+	symlinkPath := filepath.Join(repoDir, ".cursor", "rules", "integration.mdc")
 	target, err := os.Readlink(symlinkPath)
 	if err != nil {
 		t.Fatalf("reading symlink: %v", err)

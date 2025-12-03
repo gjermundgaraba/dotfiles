@@ -101,7 +101,7 @@ func TestBuildHonorsOutputDir(t *testing.T) {
 		t.Fatalf("Build returned error: %v", err)
 	}
 
-	outputFile := filepath.Join(outputRoot, "build", "cursor", "sample.mdc")
+	outputFile := filepath.Join(outputRoot, "build", "cursor", "rules", "sample.mdc")
 	data, err := os.ReadFile(outputFile)
 	if err != nil {
 		t.Fatalf("expected build output at %s: %v", outputFile, err)
@@ -112,6 +112,55 @@ func TestBuildHonorsOutputDir(t *testing.T) {
 
 	if _, err := os.Stat(filepath.Join(projectDir, "build")); !errors.Is(err, os.ErrNotExist) {
 		t.Fatalf("expected default build directory to be absent, got err=%v", err)
+	}
+}
+
+func TestBuildCopiesCommands(t *testing.T) {
+	projectDir := filepath.Join(t.TempDir(), "project")
+	rulesDir := filepath.Join(projectDir, "rules")
+	commandsDir := filepath.Join(projectDir, "commands")
+	if err := os.MkdirAll(rulesDir, 0o755); err != nil {
+		t.Fatalf("creating rules directory: %v", err)
+	}
+	if err := os.MkdirAll(commandsDir, 0o755); err != nil {
+		t.Fatalf("creating commands directory: %v", err)
+	}
+
+	rulePath := filepath.Join(rulesDir, "sample.md")
+	ruleContent := strings.Join([]string{
+		"---",
+		"description: Sample",
+		"type: always-on",
+		"---",
+		"Body",
+		"",
+	}, "\n")
+	if err := os.WriteFile(rulePath, []byte(ruleContent), 0o644); err != nil {
+		t.Fatalf("writing rule: %v", err)
+	}
+
+	commandPath := filepath.Join(commandsDir, "init.md")
+	commandContent := "# Init\n\nThis is a command."
+	if err := os.WriteFile(commandPath, []byte(commandContent), 0o644); err != nil {
+		t.Fatalf("writing command: %v", err)
+	}
+
+	outputRoot := filepath.Join(projectDir, "artifacts")
+	if err := Build(context.Background(), BuildOptions{
+		ProjectDir: projectDir,
+		BuildDir:   filepath.Join(outputRoot, "build"),
+		Platforms:  []string{"cursor"},
+	}); err != nil {
+		t.Fatalf("Build returned error: %v", err)
+	}
+
+	outputFile := filepath.Join(outputRoot, "build", "cursor", "commands", "init.md")
+	data, err := os.ReadFile(outputFile)
+	if err != nil {
+		t.Fatalf("expected command output at %s: %v", outputFile, err)
+	}
+	if string(data) != commandContent {
+		t.Fatalf("expected command content %q, got %q", commandContent, string(data))
 	}
 }
 

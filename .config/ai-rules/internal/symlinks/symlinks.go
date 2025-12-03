@@ -10,31 +10,35 @@ import (
 )
 
 type platformConfig struct {
-	BuildSubdir  string
-	DestRelative string
-	SourceGlob   string
-	SymlinkExt   string
-	SkipMessage  string
+	BuildSubdir      string
+	RulesDestRelative string
+	RulesSourceGlob   string
+	RulesSymlinkExt   string
+	CommandsDestRelative string
+	CommandsSourceGlob   string
+	SkipMessage          string
 }
 
 var platforms = map[string]platformConfig{
 	"cursor": {
-		BuildSubdir:  "cursor",
-		DestRelative: ".cursor/rules",
-		SourceGlob:   "*.mdc",
-		SymlinkExt:   "mdc",
+		BuildSubdir:          "cursor",
+		RulesDestRelative:    ".cursor/rules",
+		RulesSourceGlob:      "*.mdc",
+		RulesSymlinkExt:      "mdc",
+		CommandsDestRelative: ".cursor/commands",
+		CommandsSourceGlob:   "*.md",
 	},
 	"windsurf": {
-		BuildSubdir:  "windsurf",
-		DestRelative: ".windsurf/rules",
-		SourceGlob:   "*.mdc",
-		SymlinkExt:   "md",
+		BuildSubdir:       "windsurf",
+		RulesDestRelative: ".windsurf/rules",
+		RulesSourceGlob:   "*.mdc",
+		RulesSymlinkExt:   "md",
 	},
 	"qoder": {
-		BuildSubdir:  "qoder",
-		DestRelative: ".qoder/rules",
-		SourceGlob:   "*.mdc",
-		SymlinkExt:   "mdc",
+		BuildSubdir:       "qoder",
+		RulesDestRelative: ".qoder/rules",
+		RulesSourceGlob:   "*.mdc",
+		RulesSymlinkExt:   "mdc",
 	},
 	"claude": {
 		BuildSubdir: "claude",
@@ -82,43 +86,94 @@ func Create(opts Options) error {
 		aiRulesDir = filepath.Join(home, ".config", "ai-rules")
 	}
 
-	globalsDir := filepath.Join(aiRulesDir, "build", config.BuildSubdir)
-	sourcePattern := filepath.Join(globalsDir, config.SourceGlob)
+	if err := createRulesSymlinks(config, aiRulesDir, opts.RepoDir, platformKey, opts.Stdout); err != nil {
+		return err
+	}
+
+	if config.CommandsDestRelative != "" {
+		if err := createCommandsSymlinks(config, aiRulesDir, opts.RepoDir, platformKey, opts.Stdout); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func createRulesSymlinks(config platformConfig, aiRulesDir, repoDir, platformKey string, stdout io.Writer) error {
+	rulesDir := filepath.Join(aiRulesDir, "build", config.BuildSubdir, "rules")
+	sourcePattern := filepath.Join(rulesDir, config.RulesSourceGlob)
 
 	matches, err := filepath.Glob(sourcePattern)
 	if err != nil {
 		return fmt.Errorf("finding built %s rules: %w", platformKey, err)
 	}
 	if len(matches) == 0 {
-		return fmt.Errorf("no built %s rule files found in %s. Run 'builder build --platform %s' first", platformKey, globalsDir, platformKey)
+		return fmt.Errorf("no built %s rule files found in %s. Run 'ai-rules build --platform %s' first", platformKey, rulesDir, platformKey)
 	}
 
-	destDir := filepath.Join(opts.RepoDir, config.DestRelative)
+	destDir := filepath.Join(repoDir, config.RulesDestRelative)
 	if err := os.MkdirAll(destDir, 0o755); err != nil {
 		return fmt.Errorf("creating destination directory %s: %w", destDir, err)
 	}
 
-	fmt.Fprintf(opts.Stdout, "Cleaning up existing global rule symlinks in %s...\n", destDir)
-	if err := cleanupExisting(destDir, opts.Stdout); err != nil {
+	fmt.Fprintf(stdout, "Cleaning up existing ai-rules symlinks in %s...\n", destDir)
+	if err := cleanupExisting(destDir, rulesDir, stdout); err != nil {
 		return err
 	}
 
-	fmt.Fprintf(opts.Stdout, "Creating symlinks to global rules in %s...\n", destDir)
+	fmt.Fprintf(stdout, "Creating symlinks to global rules in %s...\n", destDir)
 	for _, source := range matches {
 		base := strings.TrimSuffix(filepath.Base(source), filepath.Ext(source))
-		symlinkName := fmt.Sprintf("global_rule_%s.%s", base, config.SymlinkExt)
+		symlinkName := fmt.Sprintf("%s.%s", base, config.RulesSymlinkExt)
 		symlinkPath := filepath.Join(destDir, symlinkName)
-		fmt.Fprintf(opts.Stdout, "Creating symlink: %s -> %s\n", symlinkPath, source)
+		fmt.Fprintf(stdout, "Creating symlink: %s -> %s\n", symlinkPath, source)
 		if err := os.Symlink(source, symlinkPath); err != nil {
 			return fmt.Errorf("creating symlink %s: %w", symlinkPath, err)
 		}
 	}
 
-	fmt.Fprintf(opts.Stdout, "Done! Global rule symlinks created in %s\n", destDir)
+	fmt.Fprintf(stdout, "Done! Global rule symlinks created in %s\n", destDir)
 	return nil
 }
 
-func cleanupExisting(destDir string, out io.Writer) error {
+func createCommandsSymlinks(config platformConfig, aiRulesDir, repoDir, platformKey string, stdout io.Writer) error {
+	commandsDir := filepath.Join(aiRulesDir, "build", config.BuildSubdir, "commands")
+	sourcePattern := filepath.Join(commandsDir, config.CommandsSourceGlob)
+
+	matches, err := filepath.Glob(sourcePattern)
+	if err != nil {
+		return fmt.Errorf("finding built %s commands: %w", platformKey, err)
+	}
+	if len(matches) == 0 {
+		fmt.Fprintf(stdout, "No command files found in %s, skipping commands symlinks\n", commandsDir)
+		return nil
+	}
+
+	destDir := filepath.Join(repoDir, config.CommandsDestRelative)
+	if err := os.MkdirAll(destDir, 0o755); err != nil {
+		return fmt.Errorf("creating commands destination directory %s: %w", destDir, err)
+	}
+
+	fmt.Fprintf(stdout, "Cleaning up existing ai-rules command symlinks in %s...\n", destDir)
+	if err := cleanupExisting(destDir, commandsDir, stdout); err != nil {
+		return err
+	}
+
+	fmt.Fprintf(stdout, "Creating symlinks to global commands in %s...\n", destDir)
+	for _, source := range matches {
+		symlinkName := filepath.Base(source)
+		symlinkPath := filepath.Join(destDir, symlinkName)
+		fmt.Fprintf(stdout, "Creating symlink: %s -> %s\n", symlinkPath, source)
+		if err := os.Symlink(source, symlinkPath); err != nil {
+			return fmt.Errorf("creating symlink %s: %w", symlinkPath, err)
+		}
+	}
+
+	fmt.Fprintf(stdout, "Done! Global command symlinks created in %s\n", destDir)
+	return nil
+}
+
+func cleanupExisting(destDir, sourceDir string, out io.Writer) error {
 	entries, err := os.ReadDir(destDir)
 	if err != nil {
 		return fmt.Errorf("reading destination directory %s: %w", destDir, err)
@@ -126,15 +181,19 @@ func cleanupExisting(destDir string, out io.Writer) error {
 
 	for _, entry := range entries {
 		name := entry.Name()
-		if !strings.HasPrefix(name, "global_rule_") {
-			continue
-		}
 		fullPath := filepath.Join(destDir, name)
 		info, err := os.Lstat(fullPath)
 		if err != nil {
 			return fmt.Errorf("stat %s: %w", fullPath, err)
 		}
 		if info.Mode()&fs.ModeSymlink == 0 {
+			continue
+		}
+		target, err := os.Readlink(fullPath)
+		if err != nil {
+			return fmt.Errorf("readlink %s: %w", fullPath, err)
+		}
+		if !strings.HasPrefix(target, sourceDir+string(filepath.Separator)) && filepath.Dir(target) != sourceDir {
 			continue
 		}
 		fmt.Fprintf(out, "Removing existing symlink: %s\n", name)
