@@ -4,7 +4,7 @@
     "disable_paste_summary": true
   },
   "plugin": [
-    "oh-my-opencode@2.6.2",
+    "oh-my-opencode@2.7.0",
     "opencode-antigravity-auth@1.2.6",
     "opencode-openai-codex-auth@4.2.0"
   ],
