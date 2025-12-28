@@ -1,0 +1,17 @@
+{
+  "projects": [
+    {
+      "path": "/Users/gg/code/gg-ai",
+      "skills": [
+        "skill-creator",
+        "opentui"
+      ]
+    },
+    {
+      "path": "/Users/gg/.config/ai-sync",
+      "skills": [
+        "skill-creator"
+      ]
+    }
+  ]
+}
