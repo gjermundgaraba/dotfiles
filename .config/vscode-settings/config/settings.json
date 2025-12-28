@@ -144,5 +144,16 @@
     "redhat.telemetry.enabled": false,
     "vim.smartRelativeLine": true,
     "extensions.ignoreRecommendations": true,
-    "workbench.colorTheme": "Bearded Theme Aquarelle Hydrangea"
+    "workbench.colorTheme": "Bearded Theme Aquarelle Hydrangea",
+    "cursor.composer.usageSummaryDisplay": "always",
+    "claudeCode.preferredLocation": "sidebar",
+    "remote.SSH.remotePlatform": {
+        "019b2741-7780-76fc-9d3a-101a40319963.gitpod.remote": "linux",
+        "*.gitpod.local": "linux",
+        "*.gitpod.remote": "linux"
+    },
+    "amp.url": "https://ampcode.com/",
+    "editor.wordBasedSuggestions": "off",
+    "amp.tab.enabled": true,
+    "diffEditor.renderSideBySide": false
 }
