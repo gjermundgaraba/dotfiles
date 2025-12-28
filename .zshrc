@@ -84,7 +84,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "/Users/gg/.bun/_bun" ] && source "/Users/gg/.bun/_bun"
 
 ### Rust stuff
-export PATH="$PATH:/Users/gg/.foundry/bin"
+export PATH="$PATH:/Users/gg/.config/.foundry/bin"
 export PATH="$PATH:/Users/gg/.sp1/bin"
 
 ### Codex
@@ -96,6 +96,7 @@ export PATH="/Users/gg/.local/bin:$PATH"
 
 ### Claude
 export PATH="$HOME/.claude/local:$PATH"
+alias claude="~/.claude/local/claude"
 
 ## Starship
 eval "$(starship init zsh)"
@@ -110,7 +111,18 @@ if [ -f "$HOME/.zshrc-work" ]; then
   source "$HOME/.zshrc-work"
 fi
 
+# Use Depot for docker caching
+export GOCACHEPROG="depot gocache"
 
 
 # Added by Antigravity
 export PATH="/Users/gg/.antigravity/antigravity/bin:$PATH"
+
+# Amp CLI
+export PATH="/Users/gg/.amp/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/gg/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/gg/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/gg/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/gg/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
