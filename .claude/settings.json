@@ -13,7 +13,6 @@
       "Bash(mkdir:*)",
       "Bash(cp:*)",
       "Bash(grep:*)",
-      "Bash(find:*)",
       "Bash(ls:*)",
       "Bash(sed:*)",
       "Bash(xargs:*)",
@@ -31,6 +30,7 @@
       "Read(node_modules/**)"
     ]
   },
+  "model": "opus",
   "hooks": {
     "Notification": [
       {
@@ -55,10 +55,13 @@
       }
     ]
   },
-  "enabledPlugins": {
-    "pr-review-toolkit@claude-code-plugins": true,
-    "compounding-engineering@every-marketplace": true,
-    "feature-dev@claude-code-plugins": true
+  "statusLine": {
+    "type": "command",
+    "command": "bunx ccusage statusline",
+    "padding": 0
   },
-  "alwaysThinkingEnabled": false
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true
+  },
+  "alwaysThinkingEnabled": true
 }

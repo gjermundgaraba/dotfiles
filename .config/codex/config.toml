@@ -3,12 +3,18 @@
 approval_policy = "never"
 
 
-model = "gpt-5.1-codex-max"
+model = "gpt-5.2-codex-max"
 model_reasoning_effort = "high"
 
-sandbox_mode = "workspace-write"
+sandbox_mode = "danger-full-access"
 sandbox_workspace_write.network_access = true
 sandbox_workspace_write.writable_roots = ["/tmp"]
+tui = { theme = { name = "dark-shinobi-dusk" } , notifications = true }
+auto_drive_use_chat_model = false
+auto_drive = { review_enabled = true, agents_enabled = true, qa_automation_enabled = true, cross_check_enabled = true, observer_enabled = true, coordinator_routing = true, model = "gpt-5.1-codex-max", model_reasoning_effort = "high", auto_resolve_review_attempts = 10, continue_mode = "ten-seconds" }
+review_use_chat_model = false
+review_model = "gpt-5.1-codex-max"
+review_model_reasoning_effort = "high"
 
 [features]
 unified_exec = true
@@ -18,6 +24,85 @@ web_search_request = true
 [notice]
 hide_gpt5_1_migration_prompt = true
 "hide_gpt-5.1-codex-max_migration_prompt" = true
+hide_full_access_warning = true
+
+[notice.model_migrations]
+"gpt-5.1-codex-max" = "gpt-5.2-codex"
+
+[[agents]]
+name = "code-gpt-5.1-codex-mini"
+enabled = false
+args-read-only = ["-s", "read-only", "-a", "never", "exec", "--skip-git-repo-check"]
+args-write = ["-s", "workspace-write", "--dangerously-bypass-approvals-and-sandbox", "exec", "--skip-git-repo-check"]
+description = "Your primary coding agent (along with claude-sonnet-4.5). Cheap (1/4 cost), fast and very capable. Excels at implementation, refactors, multi-file edits and code review."
+command = "coder"
+
+[[agents]]
+name = "code-gpt-5.1"
+enabled = false
+args-read-only = ["-s", "read-only", "-a", "never", "exec", "--skip-git-repo-check"]
+args-write = ["-s", "workspace-write", "--dangerously-bypass-approvals-and-sandbox", "exec", "--skip-git-repo-check"]
+description = "Use for UI/UX or mixed tasks where explanation, design judgment, or multi-domain reasoning is equally important as code."
+command = "coder"
+
+[[agents]]
+name = "claude-sonnet-4.5"
+enabled = false
+args-read-only = ["--allowedTools", "Bash(ls:*),", "Bash(cat:*),", "Bash(grep:*),", "Bash(git", "status:*),", "Bash(git", "log:*),", "Bash(find:*),", "Read,", "Grep,", "Glob,", "LS,", "WebFetch,", "TodoRead,", "TodoWrite,", "WebSearch"]
+args-write = ["--dangerously-skip-permissions"]
+description = "Front line for coding tasks (along with code-gpt-5.1-codex-mini). Excels at implementation, tool use, debugging, and testing."
+command = "claude"
+
+[[agents]]
+name = "claude-opus-4.1"
+enabled = false
+args-read-only = ["--allowedTools", "Bash(ls:*),", "Bash(cat:*),", "Bash(grep:*),", "Bash(git", "status:*),", "Bash(git", "log:*),", "Bash(find:*),", "Read,", "Grep,", "Glob,", "LS,", "WebFetch,", "TodoRead,", "TodoWrite,", "WebSearch"]
+args-write = ["--dangerously-skip-permissions"]
+description = "Backup for complex coding tasks (along with code-gpt-5.1-codex-max). Slower and more expensive, but slightly more capable if claude-sonnet-4.5 did not succeed."
+command = "claude"
+
+[[agents]]
+name = "claude-haiku-4.5"
+enabled = false
+args-read-only = ["--allowedTools", "Bash(ls:*),", "Bash(cat:*),", "Bash(grep:*),", "Bash(git", "status:*),", "Bash(git", "log:*),", "Bash(find:*),", "Read,", "Grep,", "Glob,", "LS,", "WebFetch,", "TodoRead,", "TodoWrite,", "WebSearch"]
+args-write = ["--dangerously-skip-permissions"]
+description = "Very fast model for simple tasks. Similar to gemini-2.5-flash in capability."
+command = "claude"
+
+[[agents]]
+name = "gemini-3-pro"
+enabled = true
+args-write = ["-y"]
+description = "Gemini 3 Pro via the Gemini app CLI. Use for newest Gemini capabilities; mapped from the preview model name under the hood."
+command = "gemini"
+
+[[agents]]
+name = "gemini-2.5-flash"
+enabled = false
+args-write = ["-y"]
+description = "Use for fast, high-volume scaffolding, creating minimal repros/tests, or budget-sensitive operations."
+command = "gemini"
+
+[[agents]]
+name = "gemini-2.5-pro"
+enabled = false
+args-write = ["-y"]
+description = "Use when you require huge context or multimodal grounding (repo-scale inputs, or search grounding); good for alternative architecture opinions."
+command = "gemini"
+
+[subagents]
+
+[[subagents.commands]]
+name = "understand"
+read-only = true
+agents = ["code-gpt-5.1-codex-max", "gemini-3-pro"]
+orchestrator-instructions = "Carefully review and understand the part of the repo you are asked for."
+
+[projects]
+
+[projects."/Users/gg/code/ibc-go"]
+approval_policy = "on-request"
+sandbox_mode = "read-only"
 
 
 # [mcp_servers.server-name]
