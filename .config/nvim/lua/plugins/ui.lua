@@ -71,23 +71,23 @@ return {
         },
         lualine_b = {},
         lualine_c = {},
-        lualine_x = {
-          {
-            function()
-              return " "
-            end,
-            color = function()
-              local status = require("sidekick.status").get()
-              if status then
-                return status.kind == "Error" and "DiagnosticError" or status.busy and "DiagnosticWarn" or "Special"
-              end
-            end,
-            cond = function()
-              local status = require("sidekick.status")
-              return status.get() ~= nil
-            end,
-          }
-        },
+        -- lualine_x = {
+        --   {
+        --     function()
+        --       return " "
+        --     end,
+        --     color = function()
+        --       local status = require("sidekick.status").get()
+        --       if status then
+        --         return status.kind == "Error" and "DiagnosticError" or status.busy and "DiagnosticWarn" or "Special"
+        --       end
+        --     end,
+        --     cond = function()
+        --       local status = require("sidekick.status")
+        --       return status.get() ~= nil
+        --     end,
+        --   }
+        -- },
         lualine_y = { "diagnostics", "searchcount" },
         lualine_z = { "location" },
       },

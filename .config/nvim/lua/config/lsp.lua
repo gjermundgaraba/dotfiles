@@ -4,6 +4,7 @@ vim.lsp.enable "lua_ls"
 vim.lsp.enable "solidity_ls"
 vim.lsp.enable "jsonls"
 vim.lsp.enable "copilot"
+vim.lsp.enable "ts_ls"
 
 vim.lsp.config("gopls", {
   settings = {
