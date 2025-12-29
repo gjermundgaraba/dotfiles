@@ -1,9 +1,13 @@
 import { existsSync, readdirSync } from "fs";
 import { resolve, join, dirname } from "path";
 
+const SUPPORTED_AGENTS = ["claude", "opencode"] as const;
+type Agent = (typeof SUPPORTED_AGENTS)[number];
+
 interface ProjectConfig {
   path: string;
   skills?: string[];
+  agents: Agent[];
 }
 
 interface Config {
@@ -46,6 +50,7 @@ export async function addProject(): Promise<void> {
   if (existingProject) {
     console.log(`Project already exists: ${cwd}`);
     console.log(`Skills: ${existingProject.skills?.join(", ") || "none"}`);
+    console.log(`Agents: ${existingProject.agents?.join(", ") || "none"}`);
     return;
   }
 
@@ -57,6 +62,7 @@ export async function addProject(): Promise<void> {
   const newProject: ProjectConfig = {
     path: cwd,
     skills: availableSkills,
+    agents: [...SUPPORTED_AGENTS],
   };
 
   config.projects.push(newProject);
@@ -65,4 +71,5 @@ export async function addProject(): Promise<void> {
 
   console.log(`Added project: ${cwd}`);
   console.log(`Skills: ${availableSkills.join(", ") || "none"}`);
+  console.log(`Agents: ${SUPPORTED_AGENTS.join(", ")}`);
 }

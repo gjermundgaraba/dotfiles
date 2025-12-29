@@ -1,12 +1,21 @@
 import { existsSync, mkdirSync, symlinkSync, lstatSync, readlinkSync, unlinkSync } from "fs";
 import { resolve, join, dirname } from "path";
 
-interface ProjectConfig {
+export const SUPPORTED_AGENTS = ["claude", "opencode"] as const;
+export type Agent = (typeof SUPPORTED_AGENTS)[number];
+
+export const AGENT_SKILL_PATHS: Record<Agent, string> = {
+  claude: ".claude/skills",
+  opencode: ".opencode/skill",
+};
+
+export interface ProjectConfig {
   path: string;
   skills?: string[];
+  agents: Agent[];
 }
 
-interface Config {
+export interface Config {
   projects: ProjectConfig[];
 }
 
@@ -18,8 +27,25 @@ function getSyncDir(): string {
   return import.meta.dir;
 }
 
-function syncSkillsForProject(skills: string[], targetDir: string, skillsSourceDir: string): void {
-  const skillsTargetDir = join(targetDir, ".claude", "skills");
+function validateAgents(agents: string[], projectPath: string): Agent[] {
+  if (!agents || agents.length === 0) {
+    console.error(`Error: Project "${projectPath}" has no agents configured.`);
+    console.error(`Supported agents: ${SUPPORTED_AGENTS.join(", ")}`);
+    process.exit(1);
+  }
+
+  const unsupported = agents.filter((a) => !SUPPORTED_AGENTS.includes(a as Agent));
+  if (unsupported.length > 0) {
+    console.error(`Error: Project "${projectPath}" has unsupported agents: ${unsupported.join(", ")}`);
+    console.error(`Supported agents: ${SUPPORTED_AGENTS.join(", ")}`);
+    process.exit(1);
+  }
+
+  return agents as Agent[];
+}
+
+function syncSkillsForAgent(skills: string[], targetDir: string, skillsSourceDir: string, agent: Agent): void {
+  const skillsTargetDir = join(targetDir, AGENT_SKILL_PATHS[agent]);
   mkdirSync(skillsTargetDir, { recursive: true });
 
   for (const skill of skills) {
@@ -27,7 +53,7 @@ function syncSkillsForProject(skills: string[], targetDir: string, skillsSourceD
     const target = join(skillsTargetDir, skill);
 
     if (!existsSync(source)) {
-      console.warn(`  [warn] Skill source not found: ${source}`);
+      console.warn(`    [warn] Skill source not found: ${source}`);
       continue;
     }
 
@@ -36,26 +62,31 @@ function syncSkillsForProject(skills: string[], targetDir: string, skillsSourceD
       if (stat.isSymbolicLink()) {
         const currentLinkTarget = readlinkSync(target);
         if (currentLinkTarget === source) {
-          console.log(`  [skip] ${skill} (already linked)`);
+          console.log(`    [skip] ${skill} (already linked)`);
           continue;
         }
         unlinkSync(target);
       } else {
-        console.warn(`  [warn] ${skill} exists but is not a symlink, skipping`);
+        console.warn(`    [warn] ${skill} exists but is not a symlink, skipping`);
         continue;
       }
     }
 
     symlinkSync(source, target);
-    console.log(`  [link] ${skill}`);
+    console.log(`    [link] ${skill}`);
   }
 }
 
-export async function sync(): Promise<void> {
+export interface SyncOptions {
+  configPath?: string;
+  skillsSourceDir?: string;
+}
+
+export async function sync(options: SyncOptions = {}): Promise<void> {
   const syncDir = getSyncDir();
   const rootDir = resolve(syncDir, "..");
-  const skillsSourceDir = join(rootDir, "skills");
-  const configPath = join(syncDir, "config.json");
+  const skillsSourceDir = options.skillsSourceDir ?? join(rootDir, "skills");
+  const configPath = options.configPath ?? join(syncDir, "config.json");
 
   if (!existsSync(configPath)) {
     console.error(`Config not found: ${configPath}`);
@@ -78,10 +109,16 @@ export async function sync(): Promise<void> {
       continue;
     }
 
-    if (project.skills?.length) {
-      syncSkillsForProject(project.skills, project.path, skillsSourceDir);
-    } else {
+    const agents = validateAgents(project.agents, project.path);
+
+    if (!project.skills?.length) {
       console.log("  No skills configured");
+      continue;
+    }
+
+    for (const agent of agents) {
+      console.log(`  [${agent}]`);
+      syncSkillsForAgent(project.skills, project.path, skillsSourceDir, agent);
     }
   }
 
