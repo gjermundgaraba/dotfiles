@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, symlinkSync, lstatSync, readlinkSync, unlinkSync } from "fs";
+import { existsSync, mkdirSync, symlinkSync, lstatSync, readlinkSync, unlinkSync, readdirSync } from "fs";
 import { resolve, join, dirname } from "path";
 
 export const SUPPORTED_AGENTS = ["claude", "opencode"] as const;
@@ -44,9 +44,43 @@ function validateAgents(agents: string[], projectPath: string): Agent[] {
   return agents as Agent[];
 }
 
+function cleanupOrphanedSymlinks(skills: string[], targetDir: string, skillsSourceDir: string, agent: Agent): void {
+  const skillsTargetDir = join(targetDir, AGENT_SKILL_PATHS[agent]);
+
+  if (!existsSync(skillsTargetDir)) {
+    return;
+  }
+
+  const entries = readdirSync(skillsTargetDir);
+
+  for (const entry of entries) {
+    const entryPath = join(skillsTargetDir, entry);
+
+    // Only process symlinks
+    if (!lstatSync(entryPath).isSymbolicLink()) {
+      continue;
+    }
+
+    // Check if this symlink points to our skills source directory
+    const linkTarget = readlinkSync(entryPath);
+    if (!linkTarget.startsWith(skillsSourceDir)) {
+      continue;
+    }
+
+    // Remove if skill is no longer in the config
+    if (!skills.includes(entry)) {
+      unlinkSync(entryPath);
+      console.log(`    [cleanup] ${entry} (removed from config)`);
+    }
+  }
+}
+
 function syncSkillsForAgent(skills: string[], targetDir: string, skillsSourceDir: string, agent: Agent): void {
   const skillsTargetDir = join(targetDir, AGENT_SKILL_PATHS[agent]);
   mkdirSync(skillsTargetDir, { recursive: true });
+
+  // Clean up symlinks for skills no longer in config
+  cleanupOrphanedSymlinks(skills, targetDir, skillsSourceDir, agent);
 
   for (const skill of skills) {
     const source = join(skillsSourceDir, skill);
@@ -90,6 +124,7 @@ export async function sync(options: SyncOptions = {}): Promise<void> {
 
   if (!existsSync(configPath)) {
     console.error(`Config not found: ${configPath}`);
+    console.error(`Run 'ai-sync generate-example' to see an example configuration.`);
     process.exit(1);
   }
 

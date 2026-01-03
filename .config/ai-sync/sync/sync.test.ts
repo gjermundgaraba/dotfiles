@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach } from "bun:test";
-import { mkdirSync, rmSync, writeFileSync, existsSync, lstatSync, readlinkSync } from "fs";
+import { mkdirSync, rmSync, writeFileSync, existsSync, lstatSync, readlinkSync, symlinkSync } from "fs";
 import { join } from "path";
 import { tmpdir } from "os";
 import { sync, AGENT_SKILL_PATHS, type Config } from "./sync";
@@ -217,5 +217,124 @@ describe("sync", () => {
     
     // Verify second project
     expect(existsSync(join(secondProjectDir, AGENT_SKILL_PATHS.opencode, skillName))).toBe(true);
+  });
+
+  test("removes orphaned symlinks for skills no longer in config", async () => {
+    // Create two skills
+    const skillToKeep = "keep-skill";
+    const skillToRemove = "remove-skill";
+    
+    for (const skill of [skillToKeep, skillToRemove]) {
+      const skillDir = join(skillsSourceDir, skill);
+      mkdirSync(skillDir);
+      writeFileSync(join(skillDir, "SKILL.md"), `# ${skill}`);
+    }
+
+    // Initial config with both skills
+    const config: Config = {
+      projects: [
+        {
+          path: projectDir,
+          skills: [skillToKeep, skillToRemove],
+          agents: ["claude"],
+        },
+      ],
+    };
+    writeFileSync(configPath, JSON.stringify(config, null, 2));
+
+    // Run sync to create both symlinks
+    await sync({ configPath, skillsSourceDir });
+
+    // Verify both symlinks exist
+    const keepPath = join(projectDir, AGENT_SKILL_PATHS.claude, skillToKeep);
+    const removePath = join(projectDir, AGENT_SKILL_PATHS.claude, skillToRemove);
+    expect(existsSync(keepPath)).toBe(true);
+    expect(existsSync(removePath)).toBe(true);
+
+    // Update config to only include one skill
+    config.projects[0].skills = [skillToKeep];
+    writeFileSync(configPath, JSON.stringify(config, null, 2));
+
+    // Run sync again
+    await sync({ configPath, skillsSourceDir });
+
+    // Verify keepPath still exists
+    expect(existsSync(keepPath)).toBe(true);
+    expect(lstatSync(keepPath).isSymbolicLink()).toBe(true);
+
+    // Verify removePath was cleaned up
+    expect(existsSync(removePath)).toBe(false);
+  });
+
+  test("does not remove symlinks pointing to other directories", async () => {
+    const skillName = "my-skill";
+    const skillDir = join(skillsSourceDir, skillName);
+    mkdirSync(skillDir);
+    writeFileSync(join(skillDir, "SKILL.md"), "# My Skill");
+
+    // Create a symlink pointing to a different directory (not our skills source)
+    const skillsTargetDir = join(projectDir, AGENT_SKILL_PATHS.claude);
+    mkdirSync(skillsTargetDir, { recursive: true });
+    
+    const externalDir = join(tempDir, "external");
+    mkdirSync(externalDir);
+    const externalSymlink = join(skillsTargetDir, "external-skill");
+    symlinkSync(externalDir, externalSymlink);
+
+    const config: Config = {
+      projects: [
+        {
+          path: projectDir,
+          skills: [skillName],
+          agents: ["claude"],
+        },
+      ],
+    };
+    writeFileSync(configPath, JSON.stringify(config, null, 2));
+
+    await sync({ configPath, skillsSourceDir });
+
+    // The external symlink should still exist (not cleaned up)
+    expect(existsSync(externalSymlink)).toBe(true);
+    expect(lstatSync(externalSymlink).isSymbolicLink()).toBe(true);
+
+    // Our skill should be linked
+    expect(existsSync(join(skillsTargetDir, skillName))).toBe(true);
+  });
+
+  test("does not remove regular files or directories during cleanup", async () => {
+    const skillName = "my-skill";
+    const skillDir = join(skillsSourceDir, skillName);
+    mkdirSync(skillDir);
+    writeFileSync(join(skillDir, "SKILL.md"), "# My Skill");
+
+    // Create regular file and directory in the skills target
+    const skillsTargetDir = join(projectDir, AGENT_SKILL_PATHS.claude);
+    mkdirSync(skillsTargetDir, { recursive: true });
+    
+    const regularFile = join(skillsTargetDir, "regular-file.txt");
+    writeFileSync(regularFile, "content");
+    
+    const regularDir = join(skillsTargetDir, "regular-dir");
+    mkdirSync(regularDir);
+
+    const config: Config = {
+      projects: [
+        {
+          path: projectDir,
+          skills: [skillName],
+          agents: ["claude"],
+        },
+      ],
+    };
+    writeFileSync(configPath, JSON.stringify(config, null, 2));
+
+    await sync({ configPath, skillsSourceDir });
+
+    // Regular file and directory should still exist
+    expect(existsSync(regularFile)).toBe(true);
+    expect(existsSync(regularDir)).toBe(true);
+    expect(lstatSync(regularFile).isFile()).toBe(true);
+    expect(lstatSync(regularDir).isDirectory()).toBe(true);
   });
 });

@@ -262,8 +262,10 @@ When creating a new skill from scratch, always run the `init_skill.py` script. T
 Usage:
 
 ```bash
-scripts/init_skill.py <skill-name> --path <output-directory>
+scripts/init_skill.py <skill-name> [--path <output-directory>]
 ```
+
+By default, skills are created in `/Users/gg/.config/ai-sync/skills/`. Use `--path` to specify a different location.
 
 The script:
 

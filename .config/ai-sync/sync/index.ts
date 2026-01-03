@@ -1,10 +1,12 @@
 #!/usr/bin/env bun
 
 import { addProject } from "./add-project";
+import { generateExample } from "./generate-example";
 import { sync } from "./sync";
 
 const COMMANDS = {
   "add-project": addProject,
+  "generate-example": generateExample,
   sync: sync,
 } as const;
 
@@ -12,8 +14,9 @@ function printUsage(): void {
   console.log("Usage: ai-sync <command>");
   console.log("");
   console.log("Commands:");
-  console.log("  add-project  Add current directory as a project with all available skills");
-  console.log("  sync         Sync skills to all configured projects");
+  console.log("  add-project       Add current directory as a project with all available skills");
+  console.log("  generate-example  Generate an example config.json with all skills and agents");
+  console.log("  sync              Sync skills to all configured projects");
 }
 
 async function main(): Promise<void> {

@@ -3,13 +3,15 @@
 Skill Initializer - Creates a new skill from template
 
 Usage:
-    init_skill.py <skill-name> --path <path>
+    init_skill.py <skill-name> [--path <path>]
 
 Examples:
-    init_skill.py my-new-skill --path skills/public
-    init_skill.py my-api-helper --path skills/private
-    init_skill.py custom-skill --path /custom/location
+    init_skill.py my-new-skill                          # Uses default path
+    init_skill.py my-api-helper --path /custom/location # Custom path
 """
+
+# Default path for creating new skills
+DEFAULT_SKILLS_PATH = "/Users/gg/.config/ai-sync/skills"
 
 import sys
 from pathlib import Path
@@ -272,21 +274,27 @@ def init_skill(skill_name, path):
 
 
 def main():
-    if len(sys.argv) < 4 or sys.argv[2] != "--path":
-        print("Usage: init_skill.py <skill-name> --path <path>")
+    if len(sys.argv) < 2:
+        print("Usage: init_skill.py <skill-name> [--path <path>]")
         print("\nSkill name requirements:")
         print("  - Hyphen-case identifier (e.g., 'data-analyzer')")
         print("  - Lowercase letters, digits, and hyphens only")
         print("  - Max 40 characters")
         print("  - Must match directory name exactly")
+        print(f"\nDefault path: {DEFAULT_SKILLS_PATH}")
         print("\nExamples:")
-        print("  init_skill.py my-new-skill --path skills/public")
-        print("  init_skill.py my-api-helper --path skills/private")
-        print("  init_skill.py custom-skill --path /custom/location")
+        print(
+            "  init_skill.py my-new-skill                          # Uses default path"
+        )
+        print("  init_skill.py my-api-helper --path /custom/location # Custom path")
         sys.exit(1)
 
     skill_name = sys.argv[1]
-    path = sys.argv[3]
+
+    # Parse optional --path argument
+    path = DEFAULT_SKILLS_PATH
+    if len(sys.argv) >= 4 and sys.argv[2] == "--path":
+        path = sys.argv[3]
 
     print(f"Initializing skill: {skill_name}")
     print(f"   Location: {path}")

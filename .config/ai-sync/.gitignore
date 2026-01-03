@@ -2,3 +2,4 @@
 
 *.bun-build
 sync/ai-sync
+sync/config.json
