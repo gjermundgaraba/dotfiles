@@ -1,5 +1,3 @@
 .claude
-
-*.bun-build
-sync/ai-sync
-sync/config.json
+sync-config.yaml
+build/

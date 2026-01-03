@@ -1,10 +1,22 @@
-.PHONY: build-sync test-sync sync
+.PHONY: build-content build-sync test-sync test-build sync
 
-build-sync:
-	cd sync && bun build index.ts --compile --outfile=ai-sync
+# Build content (resolve @ references)
+build-content:
+	rm -rf build
+	go run ./cmd/build
 
+# Build the sync CLI binary (depends on content)
+build-sync: build-content
+	go build -o ai-sync ./cmd/sync
+
+# Test the sync tool
 test-sync:
-	cd sync && bun test
+	go test ./cmd/sync/...
 
-sync:
-	cd sync && bun run index.ts sync
+# Test the build tool
+test-build:
+	go test ./cmd/build/...
+
+# Sync (depends on content being built)
+sync: build-content
+	go run ./cmd/sync
