@@ -41,8 +41,9 @@ vim.api.nvim_create_autocmd("User", {
     end, { desc = "Move focus to the left window" })
     vim.keymap.set({ "n", "t" }, "<C-l>", function()
       vim.cmd.wincmd("l")
+      -- NOTE: We are not setting this up for terminal mode, because it interferes with C-j for newline
     end, { desc = "Move focus to the right window" })
-    vim.keymap.set({ "n", "t" }, "<C-j>", function()
+    vim.keymap.set({ "n" }, "<C-j>", function()
       vim.cmd.wincmd("j")
     end, { desc = "Move focus to the lower window" })
     vim.keymap.set({ "n", "t" }, "<C-k>", function()
