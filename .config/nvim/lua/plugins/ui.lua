@@ -5,6 +5,7 @@ return {
       "MunifTanjim/nui.nvim",
     },
   },
+
   { -- Theme
     "catppuccin/nvim",
     name = "catppuccin",
