@@ -32,6 +32,7 @@ keybind = ctrl+cmd+up=unbind
 ## Features
 keybind = cmd+k=toggle_command_palette
 keybind = global:ctrl+opt+cmd+t=toggle_quick_terminal
+keybind = cmd+shift+r=text:\x15exec $SHELL\n
 
 ## Fixing basic text navigation
 keybind = cmd+right=text:\x05
