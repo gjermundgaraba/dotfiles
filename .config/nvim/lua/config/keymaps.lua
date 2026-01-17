@@ -27,6 +27,8 @@ vim.api.nvim_create_autocmd("User", {
 
     -- File explorer
     vim.keymap.set("n", "<leader>E", editor.open_explorer, { desc = "Open File Explorer" })
+    vim.keymap.set("n", "<leader>e", editor.open_oil_float, { desc = "Open Oil (parent dir)" })
+    vim.keymap.set("n", "<leader>-", editor.open_oil_float, { desc = "Open parent directory" })
 
     vim.keymap.set("n", "<S-l>", ":bnext<CR>", { desc = "Next buffer" })
     vim.keymap.set("n", "<S-h>", ":bprevious<CR>", { desc = "Previous buffer" })

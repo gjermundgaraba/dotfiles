@@ -6,6 +6,20 @@ return {
     opts = {},
   },
   {
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = { "mason-org/mason.nvim" },
+    opts = {
+      ensure_installed = {
+        "gopls",
+        "lua_ls",
+        "jsonls",
+        "ts_ls",
+        -- "gh_actions_ls",  -- not available in mason-lspconfig
+        -- "solidity_ls",    -- check mason for exact name if needed
+      },
+    },
+  },
+  {
     "folke/lazydev.nvim",
     ft = "lua", -- only load on lua files
     config = function(_, opts)

@@ -25,11 +25,11 @@ require("lazy").setup(plugins, {
     missing = true,
   },
   dev = {
-    path = "~/code/neovim-plugins",
+    path = "~/code/priv/neovim-plugins",
   },
   change_detection = { notify = false }, -- Don't bother me when tweaking plugins.
   rocks = {
-    enabled = false, -- None of my plugins use luarocks so disable this.
+    enabled = false,                     -- None of my plugins use luarocks so disable this.
   },
   performance = {
     rtp = {

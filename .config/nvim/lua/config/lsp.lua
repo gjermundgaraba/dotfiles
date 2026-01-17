@@ -6,6 +6,14 @@ vim.lsp.enable "jsonls"
 vim.lsp.enable "copilot"
 vim.lsp.enable "ts_ls"
 
+vim.lsp.config("jsonls", {
+  settings = {
+    json = {
+      validate = { enable = true },
+    },
+  },
+})
+
 vim.lsp.config("gopls", {
   settings = {
     gopls = {

@@ -1,6 +1,15 @@
 -- local search = require "functionality.search"
 
 return {
+  { -- File explorer that lets you edit filesystem like a buffer
+    "stevearc/oil.nvim",
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {},
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    lazy = false,
+  },
+
   { -- File explorer
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
