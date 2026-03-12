@@ -114,6 +114,8 @@
     "cursor.composer.shouldAllowCustomModes": true,
     "terminal.integrated.fontSize": 14,
     "window.openFoldersInNewWindow": "on",
+    "window.autoDetectColorScheme": true,
+    "window.autoDetectHighContrast": true,
     "editor.accessibilitySupport": "on",
     "accessibility.signalOptions.volume": 0,
     "explorer.confirmDelete": false,
@@ -144,7 +146,7 @@
     "redhat.telemetry.enabled": false,
     "vim.smartRelativeLine": true,
     "extensions.ignoreRecommendations": true,
-    "workbench.colorTheme": "Bearded Theme Aquarelle Hydrangea",
+    "workbench.colorTheme": "Default Dark+",
     "cursor.composer.usageSummaryDisplay": "always",
     "claudeCode.preferredLocation": "sidebar",
     "remote.SSH.remotePlatform": {
@@ -155,5 +157,7 @@
     "amp.url": "https://ampcode.com/",
     "editor.wordBasedSuggestions": "off",
     "amp.tab.enabled": true,
-    "diffEditor.renderSideBySide": false
+    "diffEditor.renderSideBySide": false,
+    "workbench.preferredDarkColorTheme": "Dracula Theme",
+    "diffEditor.ignoreTrimWhitespace": false,
 }
