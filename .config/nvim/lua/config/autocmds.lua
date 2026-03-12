@@ -45,6 +45,22 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
+if vim.env.NVIM_OPEN_EXPLORER == "1" then
+  vim.api.nvim_create_autocmd("VimEnter", {
+    group = vim.api.nvim_create_augroup("gg/startup_explorer", { clear = true }),
+    once = true,
+    callback = function()
+      if vim.fn.argc() ~= 0 then
+        return
+      end
+
+      vim.schedule(function()
+        vim.cmd "Neotree"
+      end)
+    end,
+  })
+end
+
 -- NOTE: Currently disabled because of planned (togglable) Harper integration
 -- Create an autocommand to enable spellcheck for specified file types
 -- vim.api.nvim_create_autocmd("FileType", {

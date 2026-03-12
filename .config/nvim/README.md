@@ -22,6 +22,12 @@ Moved over to dotfiles repo on 23 Nov 2024 from [gjermundgaraba/kickstart.nvim](
 - All keymaps in a single `keymaps.lua` file
 - Simple fold visuals in the `statuscolumn`
 
+## Startup modes
+
+- Default launch keeps session restore behavior unchanged.
+- `NVIM_OPEN_EXPLORER=1 nvim` starts with session handling disabled for that launch and opens `neo-tree` when no file arguments are passed.
+- Example alias: `alias nve='NVIM_OPEN_EXPLORER=1 nvim'`
+
 ## Roadmap
 ### Now
 
