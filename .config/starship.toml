@@ -11,6 +11,7 @@ $character\
 right_format = """
 $aws\
 $git_branch\
+${custom.pr}\
 $git_status"""
 
 palette = 'catppuccin_macchiato'
@@ -59,6 +60,14 @@ format = '[$symbol($profile )(\[$duration\] )]($style)'
 # symbol = ""
 # style = "nodejs"
 # format = '[$symbol $version]($style)'
+
+[custom.pr]
+command = "/Users/gg/.config/starship/github-pr.sh"
+require_repo = true
+use_stdin = false
+format = '[\[$output\] ]($style)'
+style = "git"
+shell = ["sh"]
 
 [palettes.catppuccin_macchiato]
 directory = "#a6da95"
