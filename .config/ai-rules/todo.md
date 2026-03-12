@@ -1,1 +1,0 @@
-- Generate symlinks for claude, codex and others

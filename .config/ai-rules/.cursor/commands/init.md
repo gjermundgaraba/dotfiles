@@ -1,1 +1,0 @@
-/Users/gg/.config/ai-rules/build/cursor/commands/init.md
