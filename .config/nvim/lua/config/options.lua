@@ -17,7 +17,7 @@ vim.opt.relativenumber = true
 vim.opt.mouse = "a"
 
 -- Show the mode, since we currently have no status bar plugin
-vim.opt.showmode = true
+-- vim.opt.showmode = true
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
@@ -82,12 +82,13 @@ vim.diagnostic.config {
 }
 
 -- Folding.
-vim.o.foldcolumn = "1"
+-- vim.o.foldcolumn = "1"
 vim.o.foldlevelstart = 99
-vim.wo.foldmethod = "expr"
-vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.wo.foldmethod = "expr"
+-- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- Default is something like: vim.o.statuscolumn = "%C%s%l "
-vim.o.statuscolumn = '%=%s%{foldlevel(v:lnum) > 0 ? (foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "↓" : "→") : " ") : " " } %l '
+-- vim.o.statuscolumn =
+-- '%=%s%{foldlevel(v:lnum) > 0 ? (foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "↓" : "→") : " ") : " " } %l '
 
 -- NOTE: The folding characters are not used in the status column when defined like above.
 -- Folding characters.
