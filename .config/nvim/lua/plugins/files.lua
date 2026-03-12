@@ -1,5 +1,3 @@
--- local search = require "functionality.search"
-
 return {
   { -- File explorer that lets you edit filesystem like a buffer
     "stevearc/oil.nvim",
@@ -7,7 +5,15 @@ return {
     ---@type oil.SetupOpts
     opts = {},
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    lazy = false,
+    event = "VeryLazy",
+    config = function(_, opts)
+      local oil = require "oil"
+      oil.setup(opts)
+
+      local map = require "utils.keymapper"
+      map.nmap("<leader>e", oil.open_float, { desc = "Open Oil (float)" })
+      map.nmap("<leader>-", oil.open_float, { desc = "Open parent directory" })
+    end,
   },
 
   { -- File explorer
@@ -16,7 +22,6 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      -- "ibhagwan/fzf-lua", -- used in custom keymaps
       "MunifTanjim/nui.nvim",
       {
         "s1n7ax/nvim-window-picker", -- for open_with_window_picker keymaps
@@ -38,7 +43,12 @@ return {
         end,
       },
     },
-    lazy = false,
+    cmd = "Neotree",
+    init = function()
+      -- Register keymap before plugin loads (init runs at startup)
+      local map = require "utils.keymapper"
+      map.nmap("<leader>E", "<cmd>Neotree toggle<CR>", { desc = "Open File Explorer" })
+    end,
     opts = {
       filesystem = {
         follow_current_file = { enabled = true },
@@ -63,14 +73,10 @@ return {
           ["l"] = "open",
           ["h"] = "close_node",
           ["<D-S-f>"] = function(state)
-            local search = require "functionality.search"
+            local fzf = require "fzf-lua"
             local node = state.tree:get_node()
-
-            if node.type == "directory" then
-              search.live_grep_in_directory(node.path)
-            else
-              search.live_grep_in_directory(node:get_parent_id())
-            end
+            local dir = node.type == "directory" and node.path or node:get_parent_id()
+            fzf.live_grep { search_paths = { dir } }
           end,
         },
       },

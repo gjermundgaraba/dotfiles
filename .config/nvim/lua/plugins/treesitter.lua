@@ -84,5 +84,17 @@ return {
         useDefaults = false,
       },
     },
+    config = function(_, opts)
+      local textobjs = require "various-textobjs"
+      textobjs.setup(opts)
+
+      local map = require "utils.keymapper"
+      map.map({ "o", "x" }, "aq", function()
+        textobjs.anyQuote "outer"
+      end, { desc = "outer quotes" })
+      map.map({ "o", "x" }, "iq", function()
+        textobjs.anyQuote "inner"
+      end, { desc = "inner quotes" })
+    end,
   },
 }
