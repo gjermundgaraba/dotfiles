@@ -6,11 +6,18 @@
 env=XDG_CONFIG_HOME=/Users/gg/.config
 
 # Visuals
-theme = catppuccin-macchiato.conf
-window-height = 36
-window-width = 120
+macos-icon = custom-style
+macos-icon-frame = plastic
+macos-icon-ghost-color = #FFFFFF
+macos-icon-screen-color = #FF69B4,#FF69B4
+#theme = catppuccin-macchiato.conf
+theme = dracula
+window-height = 52
+window-width = 180
 window-padding-y = 0
 mouse-hide-while-typing = true
+# copy-on-select = clipboard
+selection-clear-on-copy = true
 unfocused-split-opacity = 2
 macos-titlebar-style = tabs
 background-opacity = 0.85
@@ -22,6 +29,16 @@ font-family = BerkeleyMono Nerd Font Mono
 
 # Keybindings
 
+## Silence F13-F20 (prevent escape sequences from reaching TUI apps)
+keybind = f13=ignore
+keybind = f14=ignore
+keybind = f15=ignore
+keybind = f16=ignore
+keybind = f17=ignore
+keybind = f18=ignore
+keybind = f19=ignore
+keybind = f20=ignore
+
 ## Unbinds
 keybind = cmd+w=unbind
 keybind = ctrl+tab=unbind
@@ -29,17 +46,26 @@ keybind = ctrl+shift+tab=unbind
 keybind = cmd+shift+w=unbind
 keybind = ctrl+cmd+up=unbind
 
+# For the chained version
+keybind = cmd+d=unbind
+
 ## Features
 keybind = cmd+k=toggle_command_palette
 keybind = global:ctrl+opt+cmd+t=toggle_quick_terminal
 keybind = cmd+shift+r=text:\x15exec $SHELL\n
+# Title prompts
+keybind = ctrl+cmd+r=prompt_tab_title
+keybind = ctrl+cmd+shift+r=prompt_surface_title
+
+keybind = cmd+d=new_split:right
+keybind = chain=equalize_splits
 
 ## Fixing basic text navigation
-keybind = cmd+right=text:\x05
-keybind = cmd+left=text:\x01
-keybind = alt+left=esc:b
-keybind = alt+right=esc:f
-keybind = shift+enter=text:\n
+# keybind = cmd+right=text:\x05
+# keybind = cmd+left=text:\x01
+# keybind = alt+left=esc:b
+# keybind = alt+right=esc:f
+# keybind = shift+enter=text:\n
 
 
 ## Splits
@@ -52,4 +78,61 @@ keybind = cmd+alt+shift+h=resize_split:left,75
 keybind = cmd+alt+shift+k=resize_split:up,75
 keybind = cmd+alt+shift+j=resize_split:down,75
 keybind = cmd+alt+shift+0=equalize_splits
+
+# ============================================================================
+# BEGIN: Vim Mode (Key Tables)
+# ============================================================================
+# Requires tip version. Entry: Ctrl+b v, Exit: Escape/q/i
+
+# Entry point - activate vim mode with Ctrl+b then v
+keybind = ctrl+b>v=activate_key_table:vim
+
+# Line movement
+keybind = vim/j=scroll_page_lines:1
+keybind = vim/k=scroll_page_lines:-1
+
+# Page movement
+keybind = vim/ctrl+d=scroll_page_down
+keybind = vim/ctrl+u=scroll_page_up
+keybind = vim/ctrl+f=scroll_page_down
+keybind = vim/ctrl+b=scroll_page_up
+keybind = vim/shift+j=scroll_page_down
+keybind = vim/shift+k=scroll_page_up
+
+# Jump commands
+keybind = vim/g>g=scroll_to_top
+keybind = vim/shift+g=scroll_to_bottom
+
+# Search
+keybind = vim/slash=text:\x1b/
+keybind = vim/n=text:n
+
+# Copy/selection
+keybind = vim/v=copy_to_clipboard
+keybind = vim/y=copy_to_clipboard
+keybind = vim/a=select_all
+
+# Extend selection (start with mouse, extend with keyboard)
+keybind = vim/shift+h=adjust_selection:left
+keybind = vim/shift+l=adjust_selection:right
+keybind = vim/shift+j=adjust_selection:down
+keybind = vim/shift+k=adjust_selection:up
+
+# Open screen in $EDITOR for full vim selection
+keybind = vim/e=write_screen_file:open
+
+# Command palette
+keybind = vim/shift+semicolon=toggle_command_palette
+
+# Exit vim mode
+keybind = vim/escape=deactivate_key_table
+keybind = vim/q=deactivate_key_table
+keybind = vim/i=deactivate_key_table
+
+# Ignore unbound keys in vim mode
+keybind = vim/catch_all=ignore
+
+# ============================================================================
+# END: Vim Mode
+# ============================================================================
 
