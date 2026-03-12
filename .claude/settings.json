@@ -1,55 +1,99 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "cleanupPeriodDays": 7,
+  "env": {
+    "ENABLE_TOOL_SEARCH": "true"
+  },
   "permissions": {
     "allow": [
-      "WebFetch",
-      "WebSearch",
       "Glob",
       "Grep",
-      "LS",
       "Read",
-      "Bash(make:*)",
-      "Bash(just:*)",
-      "Bash(go:*)",
-      "Bash(mkdir:*)",
-      "Bash(cp:*)",
-      "Bash(grep:*)",
-      "Bash(ls:*)",
-      "Bash(sed:*)",
-      "Bash(xargs:*)",
-      "Bash(head:*)",
-      "Bash(tail:*)",
-      "Bash(diff:*)",
-      "Bash(git fetch:*)",
-      "Bash(git checkout:*)",
-      "Bash(gh repo view:*)",
-      "Bash(gh issue view:*)",
-      "Bash(gh pr view:*)",
-      "Bash(gh pr diff:*)"
+      "WebFetch",
+      "WebSearch",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(find *)",
+      "Bash(make *)",
+      "Bash(just *)",
+      "Bash(go *)",
+      "Bash(mkdir *)",
+      "Bash(tail *)",
+      "Bash(head *)",
+      "Bash(awk *)",
+      "Bash(wc *)",
+      "Bash(time *)",
+      "Bash(lsof *)",
+      "Bash(otool *)",
+      "Bash(grep *)",
+      "Bash(git diff *)",
+      "Bash(git fetch *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(gh repo view *)",
+      "Bash(gh issue view *)",
+      "Bash(gh pr view *)",
+      "Bash(gh pr diff *)",
+      "Bash(gh pr list *)",
+      "Bash(gh run list *)",
+      "Bash(gh run view *)",
+      "Bash(bun *)",
+      "Bash(cargo *)",
+      "Bash(test *)",
+      "Bash(bash /Users/gg/.claude/skills/pr-comments/scripts/pr-comments.sh)",
+      "Bash(md-web *)",
+      "Bash(web-cli *)",
+      "Skill(md-web)",
+      "mcp__linear__list_issues",
+      "mcp__linear__list_teams",
+      "mcp__linear__get_issue",
+      "mcp__linear__get_user",
+      "mcp__linear__list_projects",
+      "mcp__paper__create_artboard",
+      "mcp__paper__delete_nodes",
+      "mcp__paper__duplicate_nodes",
+      "mcp__paper__finish_working_on_nodes",
+      "mcp__paper__get_basic_info",
+      "mcp__paper__get_children",
+      "mcp__paper__get_computed_styles",
+      "mcp__paper__get_fill_image",
+      "mcp__paper__get_font_family_info",
+      "mcp__paper__get_guide",
+      "mcp__paper__get_jsx",
+      "mcp__paper__get_node_info",
+      "mcp__paper__get_screenshot",
+      "mcp__paper__get_selection",
+      "mcp__paper__get_tree_summary",
+      "mcp__paper__rename_nodes",
+      "mcp__paper__set_text_content",
+      "mcp__paper__update_styles",
+      "mcp__paper__write_html"
     ],
     "deny": [
       "Read(node_modules/**)"
     ]
   },
-  "model": "opus",
+  "model": "opus[1m]",
   "hooks": {
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay /System/Library/Sounds/Ping.aiff"
-          }
-        ]
-      }
-    ],
     "Stop": [
       {
         "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Glass.aiff"
+            "command": "true"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "http",
+            "url": "http://127.0.0.1:8787/api/v1/agent/notify",
+            "timeout": 2
           }
         ]
       }
@@ -57,11 +101,14 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "bunx ccusage statusline",
+    "command": "/Users/gg/.claude/statusline-command.sh",
     "padding": 0
   },
   "enabledPlugins": {
-    "gopls-lsp@claude-plugins-official": true
+    "gopls-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "medium",
+  "skipDangerousModePermissionPrompt": true
 }
