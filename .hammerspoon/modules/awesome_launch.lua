@@ -50,8 +50,15 @@ local function getDockItems()
     local dockProcess = hs.axuielement.applicationElement(dock)
     local children = dockProcess:attributeValue("AXChildren")
     if children and #children > 0 then
+        if #children > 1 then
+            print("Dock has multiple children")
+            for i, child in ipairs(children) do
+                print("Child " .. i .. ": " .. hs.inspect(child:allAttributeValues()))
+            end
+        end
         return children[1]
     end
+    print("Dock items not found")
     return nil
 end
 
@@ -62,7 +69,7 @@ local function tryOpenNewWindowFromDock(dockItem)
     print("Found app in dock, opening new window in current space")
     dockItem:performAction("AXShowMenu")
 
-    hs.timer.doAfter(0.1, function()
+    hs.timer.doAfter(0.5, function()
         local menu = dockItem:attributeValue("AXChildren")
         if menu and #menu > 0 then
             local menuItems = menu[1]:attributeValue("AXChildren")
@@ -73,6 +80,12 @@ local function tryOpenNewWindowFromDock(dockItem)
                     return
                 end
             end
+            print("New Window menu item not found")
+            print(hs.inspect(menuItems))
+        else
+            print("Dock menu not found")
+            print("Menu:" .. hs.inspect(menu))
+            print("Dock item:" .. hs.inspect(dockItem))
         end
     end)
     return true
@@ -110,7 +123,7 @@ local function tryActivateAndFocusWindow(app)
     local testWindow = app:mainWindow()
     print("test window: ", testWindow)
     app:activate()
-    
+
     hs.timer.doAfter(0.5, function()
         local appWindows = app:allWindows()
         print("App windows: " .. #appWindows)
@@ -130,7 +143,7 @@ local function tryGoToAppSpace(app, appName)
         print("Window: " .. window:title())
         return window:application():name() == appName and window:isVisible()
     end):getWindows()
-    
+
     print("App windows: " .. #appWindows)
     if #appWindows >= 1 then
         local windowSpaces = hs.spaces.windowSpaces(appWindows[1])
@@ -182,4 +195,3 @@ function M.launch(appName, newInCurrentSpace)
 end
 
 return M
-

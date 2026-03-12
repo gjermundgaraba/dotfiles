@@ -3,7 +3,7 @@ local awesomeLaunch = require "modules.awesome_launch"
 
 -- TODO: See backlog in TODO.md
 
-spaces.initSpacesBar()
+-- spaces.initSpacesBar()
 
 hs.application.enableSpotlightForNameSearches(true) -- once is enough
 
@@ -26,7 +26,7 @@ hs.hotkey.bind({}, "F4", function()
 end)
 
 hs.hotkey.bind({}, "F5", function()
-    awesomeLaunch.launch("Notion")
+    awesomeLaunch.launch("gg")
 end)
 
 hs.hotkey.bind({}, "F6", function()
