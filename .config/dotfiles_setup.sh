@@ -11,6 +11,11 @@ brew install --quiet git-lfs
 git lfs install
 brew install --quiet python
 brew install --quiet coreutils
+brew install --quiet findutils
+brew install --quiet gnu-sed
+brew install --quiet gawk
+brew install --quiet grep
+brew install --quiet make
 ## H2: Applications
 brew install --quiet neovim
 brew install --quiet fzf
@@ -29,20 +34,10 @@ brew install --quiet argocd
 brew tap hashicorp/tap
 brew install --quiet hashicorp/tap/terraform
 brew install --quiet lsd
-brew install --quiet neofetch
-brew install --quiet slither-analyzer
+brew install --quiet fastfetch
 brew install --quiet golangci-lint
 brew install --quiet grpcurl
-brew install --quiet gomplate # If still using in ai-rules
-brew install --quiet yq # If still using in ai-rules
-brew install --quiet json5 # If still using in ai-rules
 brew install --quiet zoxide
-# Sketchybar and Aerospace, with deps
-brew install --cask nikitabobko/tap/aerospace
-brew tap FelixKratz/formulae
-brew install sketchybar
-brew install --cask font-sketchybar-app-font
-brew install switchaudio-osx
 
 # H1: Mac one-time setups
 
