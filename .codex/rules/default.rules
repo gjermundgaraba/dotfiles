@@ -1,0 +1,102 @@
+prefix_rule(pattern=["pwd"], decision="allow")
+prefix_rule(pattern=["ls"], decision="allow")
+prefix_rule(pattern=["cat"], decision="allow")
+prefix_rule(pattern=["sed"], decision="allow")
+prefix_rule(pattern=["head"], decision="allow")
+prefix_rule(pattern=["tail"], decision="allow")
+prefix_rule(pattern=["rg"], decision="allow")
+prefix_rule(pattern=["find"], decision="allow")
+
+prefix_rule(pattern=["git", "status"], decision="allow")
+prefix_rule(pattern=["git", "diff"], decision="allow")
+prefix_rule(pattern=["git", "log"], decision="allow")
+prefix_rule(pattern=["git", "show"], decision="allow")
+prefix_rule(pattern=["git", "branch"], decision="allow")
+
+prefix_rule(pattern=["gh", "pr", "view"], decision="allow")
+prefix_rule(pattern=["gh", "pr", "list"], decision="allow")
+prefix_rule(pattern=["gh", "pr", "checks"], decision="allow")
+prefix_rule(pattern=["gh", "pr", "status"], decision="allow")
+prefix_rule(pattern=["gh", "issue", "list"], decision="allow")
+prefix_rule(pattern=["gh", "repo", "view"], decision="allow")
+
+prefix_rule(pattern=["go", "build"], decision="allow")
+prefix_rule(pattern=["go", "fmt"], decision="allow")
+prefix_rule(pattern=["go", "test"], decision="allow")
+prefix_rule(pattern=["go", "mod", "tidy"], decision="allow")
+
+prefix_rule(pattern=["npm", "test"], decision="allow")
+prefix_rule(pattern=["npm", "run", "test"], decision="allow")
+prefix_rule(pattern=["npm", "run", "build"], decision="allow")
+prefix_rule(pattern=["npm", "run", "lint"], decision="allow")
+
+prefix_rule(pattern=["pnpm", "test"], decision="allow")
+prefix_rule(pattern=["pnpm", "run", "test"], decision="allow")
+prefix_rule(pattern=["pnpm", "run", "build"], decision="allow")
+prefix_rule(pattern=["pnpm", "run", "lint"], decision="allow")
+
+prefix_rule(pattern=["bun", "test"], decision="allow")
+prefix_rule(pattern=["bun", "run", "test"], decision="allow")
+prefix_rule(pattern=["bun", "run", "build"], decision="allow")
+prefix_rule(pattern=["bun", "run", "lint"], decision="allow")
+
+prefix_rule(pattern=["cargo", "test"], decision="allow")
+prefix_rule(pattern=["cargo", "build"], decision="allow")
+prefix_rule(pattern=["cargo", "check"], decision="allow")
+prefix_rule(pattern=["cargo", "fmt"], decision="allow")
+prefix_rule(pattern=["cargo", "clippy"], decision="allow")
+
+prefix_rule(pattern=["make", "test"], decision="allow")
+prefix_rule(pattern=["make", "check"], decision="allow")
+prefix_rule(pattern=["make", "build"], decision="allow")
+
+prefix_rule(pattern=["npx", "agent-reviews"], decision="allow")
+prefix_rule(pattern=["web-cli"], decision="allow")
+
+prefix_rule(pattern=["rm"], decision="prompt")
+prefix_rule(pattern=["mv"], decision="prompt")
+prefix_rule(pattern=["cp"], decision="prompt")
+
+prefix_rule(pattern=["bash"], decision="prompt")
+prefix_rule(pattern=["sh"], decision="prompt")
+prefix_rule(pattern=["zsh"], decision="prompt")
+
+prefix_rule(pattern=["git", "commit"], decision="prompt")
+prefix_rule(pattern=["git", "rebase"], decision="prompt")
+prefix_rule(pattern=["git", "merge"], decision="prompt")
+prefix_rule(pattern=["git", "tag"], decision="prompt")
+prefix_rule(pattern=["git", "fetch"], decision="prompt")
+prefix_rule(pattern=["git", "pull"], decision="prompt")
+prefix_rule(pattern=["git", "push"], decision="prompt")
+
+prefix_rule(pattern=["gh", "pr", "merge"], decision="prompt")
+prefix_rule(pattern=["gh", "api"], decision="prompt")
+
+prefix_rule(pattern=["npm", "install"], decision="prompt")
+prefix_rule(pattern=["npm", "run"], decision="prompt")
+prefix_rule(pattern=["npm", "publish"], decision="prompt")
+
+prefix_rule(pattern=["pnpm", "install"], decision="prompt")
+prefix_rule(pattern=["pnpm", "add"], decision="prompt")
+prefix_rule(pattern=["pnpm", "remove"], decision="prompt")
+prefix_rule(pattern=["pnpm", "run"], decision="prompt")
+prefix_rule(pattern=["pnpm", "publish"], decision="prompt")
+
+prefix_rule(pattern=["bun", "install"], decision="prompt")
+prefix_rule(pattern=["bun", "add"], decision="prompt")
+prefix_rule(pattern=["bun", "remove"], decision="prompt")
+prefix_rule(pattern=["bun", "run"], decision="prompt")
+
+prefix_rule(pattern=["cargo", "add"], decision="prompt")
+prefix_rule(pattern=["cargo", "remove"], decision="prompt")
+prefix_rule(pattern=["cargo", "publish"], decision="prompt")
+
+prefix_rule(pattern=["make"], decision="prompt")
+
+prefix_rule(pattern=["docker", "run"], decision="prompt")
+prefix_rule(pattern=["docker", "compose", "up"], decision="prompt")
+prefix_rule(pattern=["docker", "push"], decision="prompt")
+
+prefix_rule(pattern=["sudo"], decision="forbidden")
+prefix_rule(pattern=["dd"], decision="forbidden")
+prefix_rule(pattern=["mkfs"], decision="forbidden")
