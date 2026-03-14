@@ -1,7 +1,8 @@
 # Startup
 
 # Shell
-#command = bash -l -c nu # Nushell
+command = /opt/homebrew/bin/fish
+macos-option-as-alt = left
 
 env=XDG_CONFIG_HOME=/Users/gg/.config
 
@@ -10,18 +11,16 @@ macos-icon = custom-style
 macos-icon-frame = plastic
 macos-icon-ghost-color = #FFFFFF
 macos-icon-screen-color = #FF69B4,#FF69B4
-#theme = catppuccin-macchiato.conf
 theme = dracula
 window-height = 52
 window-width = 180
 window-padding-y = 0
 mouse-hide-while-typing = true
-# copy-on-select = clipboard
 selection-clear-on-copy = true
-unfocused-split-opacity = 2
+unfocused-split-opacity = 0.85
 macos-titlebar-style = tabs
 background-opacity = 0.85
-background-blur-radius = 20
+background-blur = 20
 
 ## Fonts
 font-size = 15
@@ -60,14 +59,6 @@ keybind = ctrl+cmd+shift+r=prompt_surface_title
 keybind = cmd+d=new_split:right
 keybind = chain=equalize_splits
 
-## Fixing basic text navigation
-# keybind = cmd+right=text:\x05
-# keybind = cmd+left=text:\x01
-# keybind = alt+left=esc:b
-# keybind = alt+right=esc:f
-# keybind = shift+enter=text:\n
-
-
 ## Splits
 keybind = cmd+alt+l=goto_split:right
 keybind = cmd+alt+h=goto_split:left
@@ -82,7 +73,7 @@ keybind = cmd+alt+shift+0=equalize_splits
 # ============================================================================
 # BEGIN: Vim Mode (Key Tables)
 # ============================================================================
-# Requires tip version. Entry: Ctrl+b v, Exit: Escape/q/i
+# Entry: Ctrl+b v, Exit: Escape/q/i
 
 # Entry point - activate vim mode with Ctrl+b then v
 keybind = ctrl+b>v=activate_key_table:vim
