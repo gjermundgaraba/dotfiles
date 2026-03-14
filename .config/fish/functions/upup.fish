@@ -42,6 +42,21 @@ function upup --description 'Update brew, npm, cargo, go, and fisher'
         end
     end
 
+    function __upup_cargo_find_version --no-scope-shadowing
+        set -l crate_name $argv[1]
+
+        for entry in $argv[2..-1]
+            set -l fields (string split \t -- $entry)
+
+            if test "$fields[1]" = "$crate_name"
+                echo $fields[2]
+                return 0
+            end
+        end
+
+        return 1
+    end
+
     echo
     echo "--- brew ---"
     echo
@@ -193,18 +208,26 @@ def deps($doc):
                         set -l after_fields (string split \t -- $after_entry)
                         set -l crate_name $after_fields[1]
                         set -l after_version $after_fields[2]
-                        set -l before_entry (string match -r "^$crate_name\t" -- $cargo_before)
+                        set -l before_version (__upup_cargo_find_version $crate_name $cargo_before)
 
-                        if not set -q before_entry[1]
+                        if not set -q before_version[1]
                             set --append cargo_applied "$crate_name: installed $after_version"
                             continue
                         end
 
-                        set -l before_version (string split \t -- $before_entry[1])[2]
-
                         if test "$before_version" != "$after_version"
                             set --append cargo_applied "$crate_name: $before_version -> $after_version"
                         end
+                    end
+                end
+
+                if test $cargo_status = ok
+                    echo
+
+                    if set -q cargo_applied[1]
+                        echo "Updated "(count $cargo_applied)" cargo tool(s)"
+                    else
+                        echo "All cargo tools are up to date"
                     end
                 end
             end
@@ -223,69 +246,72 @@ def deps($doc):
         set -l go_before
         set -l go_after
 
-        if test $go_status = ok
-            if not test -f $go_tools_dir/go.mod
-                echo "$go_tools_dir/go.mod not found" >&2
+        if not test -f $go_tools_dir/go.mod
+            echo "$go_tools_dir/go.mod not found" >&2
+            set go_status failed
+            set overall_status 1
+        else
+            set go_before (command go -C $go_tools_dir list -f '{{.ImportPath}} {{if .Module}}{{.Module.Version}}{{else}}unknown{{end}}' tool 2>/dev/null)
+
+            if test $status -ne 0
                 set go_status failed
                 set overall_status 1
             else
-                set go_before (command go -C $go_tools_dir list -f '{{.ImportPath}} {{if .Module}}{{.Module.Version}}{{else}}unknown{{end}}' tool 2>/dev/null)
+                echo "\$ go -C $go_tools_dir get -u tool"
+                command go -C $go_tools_dir get -u tool
 
                 if test $status -ne 0
                     set go_status failed
                     set overall_status 1
                 else
-                    echo "\$ go -C $go_tools_dir get -u tool"
-                    command go -C $go_tools_dir get -u tool
+                    echo
+                    echo "\$ go -C $go_tools_dir install tool"
+                    command go -C $go_tools_dir install tool
 
                     if test $status -ne 0
                         set go_status failed
                         set overall_status 1
                     else
-                        echo
-                        echo "\$ go -C $go_tools_dir install tool"
-                        command go -C $go_tools_dir install tool
+                        set go_after (command go -C $go_tools_dir list -f '{{.ImportPath}} {{if .Module}}{{.Module.Version}}{{else}}unknown{{end}}' tool 2>/dev/null)
 
                         if test $status -ne 0
                             set go_status failed
                             set overall_status 1
                         else
-                            set go_after (command go -C $go_tools_dir list -f '{{.ImportPath}} {{if .Module}}{{.Module.Version}}{{else}}unknown{{end}}' tool 2>/dev/null)
+                            for after_entry in $go_after
+                                set -l after_fields (string split ' ' -- $after_entry)
+                                set -l tool_path $after_fields[1]
+                                set -l after_version $after_fields[2]
+                                set -l before_version
 
-                            if test $status -eq 0
-                                for after_entry in $go_after
-                                    set -l after_fields (string split ' ' -- $after_entry)
-                                    set -l tool_path $after_fields[1]
-                                    set -l after_version $after_fields[2]
-                                    set -l before_version
+                                for before_entry in $go_before
+                                    set -l before_fields (string split ' ' -- $before_entry)
 
-                                    for before_entry in $go_before
-                                        set -l before_fields (string split ' ' -- $before_entry)
-
-                                        if test "$before_fields[1]" = "$tool_path"
-                                            set before_version $before_fields[2]
-                                            break
-                                        end
+                                    if test "$before_fields[1]" = "$tool_path"
+                                        set before_version $before_fields[2]
+                                        break
                                     end
+                                end
 
-                                    if not set -q before_version[1]
-                                        set --append go_applied "$tool_path: installed $after_version"
-                                    else if test "$before_version" != "$after_version"
-                                        set --append go_applied "$tool_path: $before_version -> $after_version"
-                                    end
+                                if not set -q before_version[1]
+                                    set --append go_applied "$tool_path: installed $after_version"
+                                else if test "$before_version" != "$after_version"
+                                    set --append go_applied "$tool_path: $before_version -> $after_version"
                                 end
                             end
 
                             echo
-
-                            if set -q go_applied[1]
-                                echo "Updated "(count $go_applied)" Go tool(s)"
-                            else
-                                echo "All Go tools are up to date"
-                            end
                         end
                     end
                 end
+            end
+        end
+
+        if test $go_status = ok
+            if set -q go_applied[1]
+                echo "Updated "(count $go_applied)" Go tool(s)"
+            else
+                echo "All Go tools are up to date"
             end
         end
     else
@@ -368,7 +394,7 @@ def deps($doc):
     end
 
     command rm -rf $temp_dir
-    functions --erase __upup_brew_names __upup_cargo_entries
+    functions --erase __upup_brew_names __upup_cargo_entries __upup_cargo_find_version
 
     return $overall_status
 end
