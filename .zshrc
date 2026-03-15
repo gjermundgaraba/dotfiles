@@ -151,6 +151,9 @@ if [ -f '/Users/gg/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Us
 # Source script aliases
 source "$HOME/.config/scripts/alias.sh"
 
+# Completion system (must be before any compdef calls)
+autoload -Uz compinit && compinit
+
 #compdef opencode
 ###-begin-opencode-completions-###
 #
@@ -195,7 +198,7 @@ fi
 eval "$(atuin init zsh --disable-up-arrow)"
 
 # Entire CLI shell completion
-autoload -Uz compinit && compinit && source <(entire completion zsh)
+source <(entire completion zsh)
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/gg/.lmstudio/bin"
