@@ -6,14 +6,19 @@ function $_hydro_git --on-variable $_hydro_git
     commandline --function repaint
 end
 
+function _hydro_vcs_root
+    command jj root --ignore-working-copy 2>/dev/null
+    or command git --no-optional-locks rev-parse --show-toplevel 2>/dev/null
+end
+
 function _hydro_pwd --on-variable PWD --on-variable hydro_ignored_git_paths --on-variable fish_prompt_pwd_dir_length
-    set --local git_root (command git --no-optional-locks rev-parse --show-toplevel 2>/dev/null)
-    set --local git_base (string replace --all --regex -- "^.*/" "" "$git_root")
+    set --local vcs_root (_hydro_vcs_root)
+    set --local vcs_base (string replace --all --regex -- "^.*/" "" "$vcs_root")
     set --local path_sep /
 
     test "$fish_prompt_pwd_dir_length" = 0 && set path_sep
 
-    if set --query git_root[1] && ! contains -- $git_root $hydro_ignored_git_paths
+    if set --query vcs_root[1] && ! contains -- $vcs_root $hydro_ignored_git_paths
         set --erase _hydro_skip_git_prompt
     else
         set --global _hydro_skip_git_prompt
@@ -21,11 +26,11 @@ function _hydro_pwd --on-variable PWD --on-variable hydro_ignored_git_paths --on
 
     set --global _hydro_pwd (
         string replace --ignore-case -- ~ \~ $PWD |
-        string replace -- "/$git_base/" /:/ |
+        string replace -- "/$vcs_base/" /:/ |
         string replace --regex --all -- "(\.?[^/]{"(
             string replace --regex --all -- '^$' 1 "$fish_prompt_pwd_dir_length"
         )"})[^/]*/" "\$1$path_sep" |
-        string replace -- : "$git_base" |
+        string replace -- : "$vcs_base" |
         string replace --regex -- '([^/]+)$' "\x1b[1m\$1\x1b[22m" |
         string replace --regex --all -- '(?!^/$)/|^$' "\x1b[2m/\x1b[22m"
     )
@@ -54,36 +59,99 @@ function _hydro_prompt --on-event fish_prompt
     set --query _hydro_skip_git_prompt && set $_hydro_git && return
 
     fish --private --command "
-        set branch (
-            command git branch --show-current 2>/dev/null ||
-            command git describe --tags --exact-match HEAD 2>/dev/null ||
-            command git rev-parse --short HEAD 2>/dev/null |
-                string replace --regex -- '(.+)' '@\$1'
-        )
+        if command jj root --ignore-working-copy >/dev/null 2>/dev/null
+            set branch (
+                command jj log --ignore-working-copy --no-graph -r 'heads(::@ & bookmarks())' -T '
+                    local_bookmarks.map(|b| b.name()).join(\"\n\") ++ \"\n\"
+                ' 2>/dev/null |
+                    string trim
+            )
 
-        test -z \"\$$_hydro_git\" && set --universal $_hydro_git \"\$branch \"
+            test -n \"\$branch\" || set branch (
+                command jj log --ignore-working-copy --no-graph -r @ -T '
+                    \"@\" ++ change_id.shortest()
+                ' 2>/dev/null |
+                    string trim
+            )
 
-        command git diff-index --quiet HEAD 2>/dev/null
-        test \$status -eq 1 ||
-            count (command git ls-files --others --exclude-standard (command git rev-parse --show-toplevel)) >/dev/null && set info \"$hydro_symbol_git_dirty\"
+            test -z \"\$$_hydro_git\" && set --universal $_hydro_git \"\$branch \"
 
-        for fetch in $hydro_fetch false
-            command git rev-list --count --left-right @{upstream}...@ 2>/dev/null |
-                read behind ahead
+            set info (
+                command jj log --ignore-working-copy --no-graph -r @ -T '
+                    if(empty && !conflict, \"\", \"'$hydro_symbol_git_dirty'\")
+                ' 2>/dev/null |
+                    string trim
+            )
 
-            switch \"\$behind \$ahead\"
-                case \" \" \"0 0\"
-                case \"0 *\"
-                    set upstream \" $hydro_symbol_git_ahead\$ahead\"
-                case \"* 0\"
-                    set upstream \" $hydro_symbol_git_behind\$behind\"
-                case \*
-                    set upstream \" $hydro_symbol_git_ahead\$ahead $hydro_symbol_git_behind\$behind\"
+            for fetch in $hydro_fetch false
+                set upstream (
+                    command jj log --ignore-working-copy --no-graph -r 'heads(::@ & bookmarks())' -T '
+                        local_bookmarks
+                            .filter(|b| !b.synced())
+                            .map(|b|
+                                separate(
+                                    \" \",
+                                    if(
+                                        !b.tracking_ahead_count().zero(),
+                                        \"'$hydro_symbol_git_ahead'\" ++ if(
+                                            b.tracking_ahead_count().exact(),
+                                            stringify(b.tracking_ahead_count().exact()),
+                                            stringify(b.tracking_ahead_count().lower()) ++ \"+\"
+                                        )
+                                    ),
+                                    if(
+                                        !b.tracking_behind_count().zero(),
+                                        \"'$hydro_symbol_git_behind'\" ++ if(
+                                            b.tracking_behind_count().exact(),
+                                            stringify(b.tracking_behind_count().exact()),
+                                            stringify(b.tracking_behind_count().lower()) ++ \"+\"
+                                        )
+                                    )
+                                )
+                            )
+                            .join(\" \")
+                    ' 2>/dev/null |
+                        string trim
+                )
+
+                set prompt \"\$branch\$info\"
+                test -n \"\$upstream\" && set prompt \"\$prompt \$upstream\"
+                set --universal $_hydro_git \"\$prompt \"
+
+                test \$fetch = true && command jj --quiet git fetch 2>/dev/null
             end
+        else
+            set branch (
+                command git branch --show-current 2>/dev/null ||
+                command git describe --tags --exact-match HEAD 2>/dev/null ||
+                command git rev-parse --short HEAD 2>/dev/null |
+                    string replace --regex -- '(.+)' '@\$1'
+            )
 
-            set --universal $_hydro_git \"\$branch\$info\$upstream \"
+            test -z \"\$$_hydro_git\" && set --universal $_hydro_git \"\$branch \"
 
-            test \$fetch = true && command git fetch --no-tags 2>/dev/null
+            command git diff-index --quiet HEAD 2>/dev/null
+            test \$status -eq 1 ||
+                count (command git ls-files --others --exclude-standard (command git rev-parse --show-toplevel)) >/dev/null && set info \"$hydro_symbol_git_dirty\"
+
+            for fetch in $hydro_fetch false
+                command git rev-list --count --left-right @{upstream}...@ 2>/dev/null |
+                    read behind ahead
+
+                switch \"\$behind \$ahead\"
+                    case \" \" \"0 0\"
+                    case \"0 *\"
+                        set upstream \" $hydro_symbol_git_ahead\$ahead\"
+                    case \"* 0\"
+                        set upstream \" $hydro_symbol_git_behind\$behind\"
+                    case \*
+                        set upstream \" $hydro_symbol_git_ahead\$ahead $hydro_symbol_git_behind\$behind\"
+                end
+
+                set --universal $_hydro_git \"\$branch\$info\$upstream \"
+
+                test \$fetch = true && command git fetch --no-tags 2>/dev/null
+            end
         end
     " &
 
