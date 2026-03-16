@@ -9,6 +9,7 @@ keybind = alt+7=text:|
 keybind = alt+8=text:[
 keybind = alt+9=text:]
 keybind = alt+´=text:`
+keybind = alt+¨=text:~
 keybind = alt+@=text:'
 keybind = alt+shift+8=text:\{
 keybind = alt+shift+9=text:\}
