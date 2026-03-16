@@ -2,7 +2,17 @@
 
 # Shell
 command = /opt/homebrew/bin/fish
-macos-option-as-alt = left
+macos-option-as-alt = true
+
+## Norwegian keyboard: restore Option+key special characters
+keybind = alt+7=text:|
+keybind = alt+8=text:[
+keybind = alt+9=text:]
+keybind = alt+´=text:`
+keybind = alt+@=text:'
+keybind = alt+shift+8=text:\{
+keybind = alt+shift+9=text:\}
+keybind = alt+shift+7=text:\\
 
 env=XDG_CONFIG_HOME=/Users/gg/.config
 
