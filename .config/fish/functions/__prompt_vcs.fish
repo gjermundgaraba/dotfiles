@@ -36,31 +36,29 @@ function __prompt_vcs_jj
     )
 
     set -l upstream (
-        command jj log --ignore-working-copy --no-graph -r 'heads(::@ & bookmarks())' -T '
-            local_bookmarks
-                .filter(|b| !b.synced())
-                .map(|b|
-                    separate(
-                        " ",
-                        if(
-                            !b.tracking_ahead_count().zero(),
-                            "↑" ++ if(
-                                b.tracking_ahead_count().exact(),
-                                stringify(b.tracking_ahead_count().exact()),
-                                stringify(b.tracking_ahead_count().lower()) ++ "+"
-                            )
-                        ),
-                        if(
-                            !b.tracking_behind_count().zero(),
-                            "↓" ++ if(
-                                b.tracking_behind_count().exact(),
-                                stringify(b.tracking_behind_count().exact()),
-                                stringify(b.tracking_behind_count().lower()) ++ "+"
-                            )
+        command jj bookmark list --ignore-working-copy --tracked -r 'heads(::@ & bookmarks())' -T '
+            if(
+                tracked && !synced,
+                separate(
+                    " ",
+                    if(
+                        !tracking_behind_count.zero(),
+                        "↑" ++ if(
+                            tracking_behind_count.exact(),
+                            stringify(tracking_behind_count.exact()),
+                            stringify(tracking_behind_count.lower()) ++ "+"
+                        )
+                    ),
+                    if(
+                        !tracking_ahead_count.zero(),
+                        "↓" ++ if(
+                            tracking_ahead_count.exact(),
+                            stringify(tracking_ahead_count.exact()),
+                            stringify(tracking_ahead_count.lower()) ++ "+"
                         )
                     )
                 )
-                .join(" ")
+            )
         ' 2>/dev/null |
             string trim |
             string split \n |

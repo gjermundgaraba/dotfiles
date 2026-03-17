@@ -326,8 +326,8 @@ def deps($doc):
         set fisher_status ok
         set fisher_refreshed (fisher list 2>/dev/null)
 
-        echo "\$ fisher update"
-        fisher update
+        echo "\$ fish -c 'fisher update'"
+        command fish -c 'fisher update'
 
         if test $status -ne 0
             set fisher_status failed
