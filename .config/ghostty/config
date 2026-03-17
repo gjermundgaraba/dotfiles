@@ -11,8 +11,8 @@ keybind = alt+9=text:]
 keybind = alt+´=text:`
 keybind = alt+¨=text:~
 keybind = alt+@=text:'
-keybind = alt+shift+8=text:\{
-keybind = alt+shift+9=text:\}
+keybind = alt+shift+8=text:{
+keybind = alt+shift+9=text:}
 keybind = alt+shift+7=text:\\
 
 env=XDG_CONFIG_HOME=/Users/gg/.config
